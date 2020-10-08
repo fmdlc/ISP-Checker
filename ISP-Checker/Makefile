@@ -15,6 +15,7 @@ default:
 
 install:
 	$(info Make: Creating persistent Docker volumes)
+	@bash ./bin/inject_credentials.sh
 	@docker volume create --name=influxdb-storage
 	@docker volume create --name=grafana-storage
 
