@@ -1,0 +1,11 @@
+{
+  "access": "proxy",
+  "basicAuth": false,
+  "database": "telegraf",
+  "isDefault": true,
+  "name": "InfluxDB",
+  "password": "VerySecurePassword",
+  "type": "influxdb",
+  "url": "http://influxdb:8086",
+  "user": "grafana"
+}

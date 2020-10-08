@@ -5,25 +5,20 @@ services:
     image: influxdb:latest
     expose:
       - 8086
-    user: root
     restart: on-failure
     volumes:
       - "influxdb-storage:/var/influxdb/data"
-    environment:
-      - INFLUXDB_DB="db1"
-      - INFLUXDB_ADMIN_USER="root"
-      - INFLUXDB_ADMIN_PASSWORD="VerySecurePassword"
-      - INFLUXDB_READ_USER="grafana"
-      - INFLUXDB_READ_USER_PASSWORD="VerySecurePassword"
+    env_file:
+      - ../credentials.env
     ports:
       - 8086:8086
   telegraf:
     container_name: telegraf
     image: tty0/isp_telegraf:latest
-    user: root
-    restart: on-failure
     volumes:
-      - "./telegraf/conf/telegraf.conf:/etc/telegraf/telegraf.conf:ro"
+      - "../telegraf/conf/telegraf.conf:/etc/telegraf/telegraf.conf"
+    env_file:
+      - ../credentials.env
     links:
       - "influxdb"
     depends_on:
