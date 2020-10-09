@@ -3,15 +3,15 @@
 
 > A `docker-compose` stack to run a set of ISP controls and collect metrics on a [Raspberry Pi](https://www.raspberrypi.org/).
 
-[Fibertel](http://www.fibertel.com/), the most popular Argentinian Internet provider always has connectivity issues. It inspired me to use a Raspberry Pi and build some type of monitoring to aggregate metrics. I have been using [Grafana](http://grafana.com) at work for several years, so why not using the same logic?. 
+[Fibertel](http://www.fibertel.com/), the most popular Argentinian Internet provider always has connectivity issues. It inspired me to use a Raspberry Pi and build some type of monitoring to aggregate metrics. I have been using [Grafana](http://grafana.com) at work for several years, so why not using the same logic?.
 
-`ISP-Checker` implements a set of [Telegraf](https://github.com/influxdata/telegraf) checks that sends metrics to [InfluxDB](https://www.influxdata.com/) (a OpenSource, time series based database) and runs several kind of metrics collectors to get average/aggregation/integral of values at first glance and focusing on  service quality. 
+`ISP-Checker` implements a set of [Telegraf](https://github.com/influxdata/telegraf) checks that sends metrics to [InfluxDB](https://www.influxdata.com/) (a OpenSource, time series based database) and runs several kind of metrics collectors to get average/aggregation/integral of values at first glance and focusing on  service quality.
 
-`ISP-Checker` tries to test things like _ICMP packet loss_, the average time for _DNS queries resolution_, _HTTP Response times_, _ICMP latencies_, _ICMP Standard Deviation_, _Upload/Download speed_ (by using [Speedtest-cli](https://github.com/sivel/speedtest-cli)) and a Graphical _MTR/Traceroute_ version. 
+`ISP-Checker` tries to test things like _ICMP packet loss_, the average time for _DNS queries resolution_, _HTTP Response times_, _ICMP latencies_, _ICMP Standard Deviation_, _Upload/Download speed_ (by using [Speedtest-cli](https://github.com/sivel/speedtest-cli)) and a Graphical _MTR/Traceroute_ version.
 
 It's easily extensible and it was built on top of [Docker](http://docker.com) to make it portable and easy to run everywhere, importing automatically all components needed to perform checks.
 
-Feel free to reach me out for any feedback or ideas! :-) 
+Feel free to reach me out for any feedback or ideas! :-)
 
 <center>
 
@@ -85,12 +85,13 @@ Open your browser and point to `http://<RASPBERRY_IP>:3000/`. Login with usernam
 _Change it inmediately after the first login_.
 
 #### Removing
-Be sure you completelly understand what `prune` Makefile action implies (For more details check the `Makefile`). 
+Be sure you completelly understand what `prune` Makefile action implies (For more details check the `Makefile`).
 To remove run `make prune`.
- 
-> It will remove all stopped containers (yes, not only the ISP-Checker ones). 
+
+> It will remove all stopped containers (yes, not only the ISP-Checker ones).
 
 ## ToDo
+- [X] Enable Network-dashboard as default dashboard.
 - [ ] Allows users to select their metrics endpoint.
 - [ ] Allow users to select their Grafana Org.
 - [ ] Helm Chart to run in Kubernetes.

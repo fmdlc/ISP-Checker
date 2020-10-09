@@ -1919,5 +1919,8 @@
     "title": "Network",
     "uid": "Is1f1nRgz",
     "version": 1
+  },
+  "meta": {
+    "isStarred": true
   }
 }
