@@ -90,8 +90,11 @@ To remove run `make prune`.
 
 > It will remove all stopped containers (yes, not only the ISP-Checker ones).
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> e192546... Releasing version v1.1 - Improvements in graphs and precission about stats.
 ### Bandwith
 Bandwidth is the maximum rate of data transfer across a given path. Bandwidth may be characterized as network bandwidth or data bandwidth.
 The difference between internet speed and bandwidth can be summed in one line. Internet bandwidth is about how much data can be download or uploaded from your computer, while internet speed is how fast can the data be uploaded or downloaded on your computer.
@@ -110,8 +113,11 @@ Download and upload are important metrics but don't paint the entire picture of 
 
 But, latency only paints half the picture. Imagine yourself in a conversation where you have some delay before you hear what the other person says. That may be annoying but after a while you get used to it. What would be even worse is if the delay differed constantly: sometimes the audio is almost in sync and sometimes it has a delay of a few seconds. You can imagine how often this would result into two people starting to talk at the same time. This is directly related to how stable your latency is and is represented by the jitter metric. Jitter is the average variation found in consecutive latency measurements. A lower number means that the latencies measured are more consistent, meaning your media streams will have the same delay throughout the session.
 
+<<<<<<< HEAD
 ---
 
+=======
+>>>>>>> e192546... Releasing version v1.1 - Improvements in graphs and precission about stats.
 ## ToDo
 - [X] Enable Network-dashboard as default dashboard.
 - [ ] Allows users to select their metrics endpoint.
