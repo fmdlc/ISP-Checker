@@ -1,6 +1,9 @@
 version: "3.3"
 services:
   influxdb:
+    labels:
+      - "docker.group=ISP-Checker"
+      - "docker.app=influxdb"
     container_name: influxdb
     image: influxdb:latest
     expose:
@@ -13,6 +16,9 @@ services:
     ports:
       - 8086:8086
   telegraf:
+    labels:
+      - "docker.group=ISP-Checker"
+      - "docker.app=telegraf"
     container_name: telegraf
     image: tty0/isp_telegraf:latest
     volumes:
@@ -24,6 +30,9 @@ services:
     depends_on:
       - "influxdb"
   grafana:
+    labels:
+      - "docker.group=ISP-Checker"
+      - "docker.app=grafana"
     container_name: grafana
     image: grafana/grafana:latest
     environment:

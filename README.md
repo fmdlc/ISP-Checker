@@ -3,7 +3,9 @@
 
 > A `docker-compose` stack to run a set of ISP controls and collect metrics on a [Raspberry Pi](https://www.raspberrypi.org/).
 
-[Fibertel](http://www.fibertel.com/), the most popular Argentinian Internet provider always has connectivity issues. It inspired me to use a Raspberry Pi and build some type of monitoring to aggregate metrics. I have been using [Grafana](http://grafana.com) at work for several years, so why not using the same logic?.
+[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/fmdlc) [![GitHub](https://i.stack.imgur.com/tskMh.png) GitHub](https://github.com/fmdlc)
+
+[Fibertel](http://www.fibertel.com/), the most popular Argentinian Internet provider always has connectivity issues. It inspired me to use a Raspberry Pi and build some type of monitoring to aggregate metrics. I have been using [Grafana](http://grafana.com) at work for several years, so why not use the same logic?.
 
 `ISP-Checker` implements a set of [Telegraf](https://github.com/influxdata/telegraf) checks that sends metrics to [InfluxDB](https://www.influxdata.com/) (a OpenSource, time series based database) and runs several kind of metrics collectors to get average/aggregation/integral of values at first glance and focusing on  service quality.
 
@@ -14,12 +16,13 @@ It's easily extensible and it was built on top of [Docker](http://docker.com) to
 Feel free to reach me out for any feedback or ideas! :-)
 
 <center>
-
-![Demo](./img/demo.gif)
-
+<img src="./img/demo.gif" />
 </center>
 
-[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/fmdlc)  [![GitHub](https://i.stack.imgur.com/tskMh.png) GitHub](https://github.com/fmdlc)
+#### Grafana Cloud
+
+You can easily import this dashboard into your current Grafana installation getting it from the Official's [Grafana repository](https://grafana.com/grafana/dashboards/13140).
+
 ### Configuration
 
 Make sure you have the [Docker-CE](https://phoenixnap.com/kb/docker-on-raspberry-pi) and [cURL](https://curl.haxx.se/) installed on your *Raspberry Pi*. If you don't, install it using your prefer method.
@@ -90,11 +93,7 @@ To remove run `make prune`.
 
 > It will remove all stopped containers (yes, not only the ISP-Checker ones).
 
-<<<<<<< HEAD
 ---
-
-=======
->>>>>>> e192546... Releasing version v1.1 - Improvements in graphs and precission about stats.
 ### Bandwith
 Bandwidth is the maximum rate of data transfer across a given path. Bandwidth may be characterized as network bandwidth or data bandwidth.
 The difference between internet speed and bandwidth can be summed in one line. Internet bandwidth is about how much data can be download or uploaded from your computer, while internet speed is how fast can the data be uploaded or downloaded on your computer.
@@ -113,11 +112,11 @@ Download and upload are important metrics but don't paint the entire picture of 
 
 But, latency only paints half the picture. Imagine yourself in a conversation where you have some delay before you hear what the other person says. That may be annoying but after a while you get used to it. What would be even worse is if the delay differed constantly: sometimes the audio is almost in sync and sometimes it has a delay of a few seconds. You can imagine how often this would result into two people starting to talk at the same time. This is directly related to how stable your latency is and is represented by the jitter metric. Jitter is the average variation found in consecutive latency measurements. A lower number means that the latencies measured are more consistent, meaning your media streams will have the same delay throughout the session.
 
-<<<<<<< HEAD
 ---
 
-=======
->>>>>>> e192546... Releasing version v1.1 - Improvements in graphs and precission about stats.
+![https://github.com/fmdlc/ISP-Checker/blob/master/img/img_4.png?raw=true](https://github.com/fmdlc/ISP-Checker/blob/master/img/img_4.png?raw=true)
+![https://github.com/fmdlc/ISP-Checker/blob/master/img/img_1.png?raw=true](https://github.com/fmdlc/ISP-Checker/blob/master/img/img_1.png?raw=true)
+
 ## ToDo
 - [X] Enable Network-dashboard as default dashboard.
 - [ ] Allows users to select their metrics endpoint.
