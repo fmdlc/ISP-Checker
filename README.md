@@ -16,9 +16,7 @@ It's easily extensible and it was built on top of [Docker](http://docker.com) to
 Feel free to reach me out for any feedback or ideas! :-)
 
 <center>
-
-![Demo](./img/demo.gif)
-
+<img src="./img/demo.gif" />
 </center>
 
 #### Grafana Cloud
