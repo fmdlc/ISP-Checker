@@ -90,6 +90,8 @@ To remove run `make prune`.
 
 > It will remove all stopped containers (yes, not only the ISP-Checker ones).
 
+---
+
 ### Bandwith
 Bandwidth is the maximum rate of data transfer across a given path. Bandwidth may be characterized as network bandwidth or data bandwidth.
 The difference between internet speed and bandwidth can be summed in one line. Internet bandwidth is about how much data can be download or uploaded from your computer, while internet speed is how fast can the data be uploaded or downloaded on your computer.
