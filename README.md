@@ -1,9 +1,11 @@
 # ISP-Checker
-![License](https://img.shields.io/github/license/fmdlc/ISP-Checker) ![LastCommit](https://img.shields.io/github/last-commit/fmdlc/ISP-Checker) ![Docker](https://img.shields.io/badge/Docker-19.03.13-blue)
+![License](https://img.shields.io/github/license/fmdlc/ISP-Checker) ![LastCommit](https://img.shields.io/github/last-commit/fmdlc/ISP-Checker) ![Docker](https://img.shields.io/badge/Docker-19.03.13-blue) 
 
 > A `docker-compose` stack to run a set of ISP controls and collect metrics on a [Raspberry Pi](https://www.raspberrypi.org/).
 
-[Fibertel](http://www.fibertel.com/), the most popular Argentinian Internet provider always has connectivity issues. It inspired me to use a Raspberry Pi and build some type of monitoring to aggregate metrics. I have been using [Grafana](http://grafana.com) at work for several years, so why not using the same logic?.
+[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/fmdlc) [![GitHub](https://i.stack.imgur.com/tskMh.png) GitHub](https://github.com/fmdlc)
+
+[Fibertel](http://www.fibertel.com/), the most popular Argentinian Internet provider always has connectivity issues. It inspired me to use a Raspberry Pi and build some type of monitoring to aggregate metrics. I have been using [Grafana](http://grafana.com) at work for several years, so why not use the same logic?.
 
 `ISP-Checker` implements a set of [Telegraf](https://github.com/influxdata/telegraf) checks that sends metrics to [InfluxDB](https://www.influxdata.com/) (a OpenSource, time series based database) and runs several kind of metrics collectors to get average/aggregation/integral of values at first glance and focusing on  service quality.
 
@@ -19,7 +21,10 @@ Feel free to reach me out for any feedback or ideas! :-)
 
 </center>
 
-[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/fmdlc)  [![GitHub](https://i.stack.imgur.com/tskMh.png) GitHub](https://github.com/fmdlc)
+#### Grafana Cloud
+
+You can easily import this dashboard into your current Grafana installation getting it from the Official's [Grafana repository](https://grafana.com/grafana/dashboards/13140).
+
 ### Configuration
 
 Make sure you have the [Docker-CE](https://phoenixnap.com/kb/docker-on-raspberry-pi) and [cURL](https://curl.haxx.se/) installed on your *Raspberry Pi*. If you don't, install it using your prefer method.
@@ -115,6 +120,8 @@ But, latency only paints half the picture. Imagine yourself in a conversation wh
 
 <<<<<<< HEAD
 ---
+![https://github.com/fmdlc/ISP-Checker/blob/master/img/img_4.png?raw=true](https://github.com/fmdlc/ISP-Checker/blob/master/img/img_4.png?raw=true)
+![https://github.com/fmdlc/ISP-Checker/blob/master/img/img_1.png?raw=true](https://github.com/fmdlc/ISP-Checker/blob/master/img/img_1.png?raw=true)
 
 =======
 >>>>>>> e192546... Releasing version v1.1 - Improvements in graphs and precission about stats.
