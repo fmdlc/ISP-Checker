@@ -90,13 +90,31 @@ To remove run `make prune`.
 
 > It will remove all stopped containers (yes, not only the ISP-Checker ones).
 
+### Bandwith
+Bandwidth is the maximum rate of data transfer across a given path. Bandwidth may be characterized as network bandwidth or data bandwidth.
+The difference between internet speed and bandwidth can be summed in one line. Internet bandwidth is about how much data can be download or uploaded from your computer, while internet speed is how fast can the data be uploaded or downloaded on your computer.
+
+### Packet loss
+Packet loss can be caused by a number of issues, but the most common are:
+
+* Network congestion, as its name suggests, occurs when a network becomes congested with traffic and hits maximum capacity. Packets must wait their turn to be delivered, but if the connection falls so far behind that it cannot store any more packets, they will simply be discarded or ignored so that the network can catch up. The good news is that today's applications are able to gracefully handle discarded packets by resending data automatically or slowing down transfer speeds.
+
+* Software bugs are another common cause of packet loss. If rigorous testing has not been carried out or bugs have been introduced following software updates, this could result in unintended or unexpected network behavior. Sometimes rebooting can resolve this issues, but more often than not the software will need to be updated or patched.
+
+* Faulty or outdated network hardware such as firewalls, network switches and routers can slow down network traffic considerably. As a company grows and starts to experience lag, packet loss and total connectivity drops, this hardware needs to be revised and updated so that it can manage the growing throughput.
+
+### Difference between latency and jitter
+Download and upload are important metrics but don't paint the entire picture of the quality of your Internet connection. Many of us find ourselves interacting with work and friends over videoconferencing software more than ever. Although speeds matter, video is also very sensitive to the latency of your Internet connection. Latency represents the time an IP packet needs to travel from your device to the service you're using on the Internet and back. High latency means that when you're talking on a video conference, it will take longer for the other party to hear your voice.
+
+But, latency only paints half the picture. Imagine yourself in a conversation where you have some delay before you hear what the other person says. That may be annoying but after a while you get used to it. What would be even worse is if the delay differed constantly: sometimes the audio is almost in sync and sometimes it has a delay of a few seconds. You can imagine how often this would result into two people starting to talk at the same time. This is directly related to how stable your latency is and is represented by the jitter metric. Jitter is the average variation found in consecutive latency measurements. A lower number means that the latencies measured are more consistent, meaning your media streams will have the same delay throughout the session.
+
 ## ToDo
 - [X] Enable Network-dashboard as default dashboard.
 - [ ] Allows users to select their metrics endpoint.
 - [ ] Allow users to select their Grafana Org.
 - [ ] Helm Chart to run in Kubernetes.
 - [ ] Enable HTTPS support.
-- [ ] Enable Interfaces configuration.
+- [X] Enable Interfaces configuration.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

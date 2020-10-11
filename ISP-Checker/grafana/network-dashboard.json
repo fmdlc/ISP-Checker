@@ -69,7 +69,7 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 9,
+          "h": 10,
           "w": 6,
           "x": 0,
           "y": 0
@@ -177,7 +177,7 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 5,
+          "h": 6,
           "w": 5,
           "x": 6,
           "y": 0
@@ -233,7 +233,7 @@
                 },
                 {
                   "params": [
-                    " / 1000000"
+                    "/1048576"
                   ],
                   "type": "math"
                 }
@@ -264,7 +264,7 @@
         "fill": 1,
         "fillGradient": 2,
         "gridPos": {
-          "h": 9,
+          "h": 11,
           "w": 13,
           "x": 11,
           "y": 0
@@ -480,10 +480,10 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 4,
+          "h": 5,
           "w": 5,
           "x": 6,
-          "y": 5
+          "y": 6
         },
         "id": 22,
         "options": {
@@ -536,7 +536,7 @@
                 },
                 {
                   "params": [
-                    " / 1000000"
+                    "/1048576"
                   ],
                   "type": "math"
                 }
@@ -551,13 +551,269 @@
         "type": "stat"
       },
       {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "ICMP echo requests average latency.",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 11,
+          "w": 18,
+          "x": 0,
+          "y": 11
+        },
+        "hiddenSeries": false,
+        "id": 2,
+        "legend": {
+          "alignAsTable": false,
+          "avg": false,
+          "current": false,
+          "hideEmpty": true,
+          "hideZero": false,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "sideWidth": null,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "7.2.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$tag_url",
+            "groupBy": [
+              {
+                "params": [
+                  "url"
+                ],
+                "type": "tag"
+              }
+            ],
+            "measurement": "ping",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "average_response_ms"
+                  ],
+                  "type": "field"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "url",
+                "operator": "=~",
+                "value": "/^$PingURL$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [
+          {
+            "$$hashKey": "object:150",
+            "colorMode": "background6",
+            "fill": true,
+            "fillColor": "rgba(234, 112, 112, 0.12)",
+            "line": false,
+            "lineColor": "rgba(237, 46, 24, 0.60)",
+            "op": "time"
+          }
+        ],
+        "timeShift": null,
+        "title": "ICMP average response",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "transparent": true,
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:100",
+            "format": "short",
+            "label": "average (ms)",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:101",
+            "format": "short",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": "InfluxDB",
+        "description": "Average response time for External Ping in ms.",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "mappings": [],
+            "max": 1000,
+            "min": 0,
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "super-light-green",
+                  "value": null
+                },
+                {
+                  "color": "light-green",
+                  "value": 10
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 20
+                },
+                {
+                  "color": "dark-green",
+                  "value": 30
+                },
+                {
+                  "color": "super-light-orange",
+                  "value": 40
+                },
+                {
+                  "color": "light-orange",
+                  "value": 50
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 70
+                },
+                {
+                  "color": "dark-orange",
+                  "value": 80
+                },
+                {
+                  "color": "light-red",
+                  "value": 90
+                },
+                {
+                  "color": "dark-red",
+                  "value": 100
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 6,
+          "x": 18,
+          "y": 11
+        },
+        "id": 4,
+        "options": {
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^ping\\.average_response_ms$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "7.2.0",
+        "targets": [
+          {
+            "groupBy": [],
+            "hide": false,
+            "limit": "",
+            "measurement": "ping",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT \"average_response_ms\" FROM \"ping\" ",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "average_response_ms"
+                  ],
+                  "type": "field"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "url",
+                "operator": "=~",
+                "value": "/^$PingURL$/"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Ping AVG response time",
+        "transparent": true,
+        "type": "gauge"
+      },
+      {
         "datasource": "InfluxDB",
         "description": "DNS resolution average query time",
         "fieldConfig": {
           "defaults": {
             "custom": {},
             "mappings": [],
-            "max": 1000,
+            "max": 500,
+            "min": 0,
             "thresholds": {
               "mode": "absolute",
               "steps": [
@@ -566,28 +822,16 @@
                   "value": null
                 },
                 {
-                  "color": "semi-dark-green",
+                  "color": "super-light-yellow",
                   "value": 200
                 },
                 {
-                  "color": "dark-green",
+                  "color": "semi-dark-orange",
                   "value": 300
                 },
                 {
-                  "color": "super-light-orange",
+                  "color": "dark-red",
                   "value": 400
-                },
-                {
-                  "color": "#EAB839",
-                  "value": 500
-                },
-                {
-                  "color": "light-red",
-                  "value": 700
-                },
-                {
-                  "color": "red",
-                  "value": 900
                 }
               ]
             },
@@ -599,15 +843,15 @@
           "h": 9,
           "w": 11,
           "x": 0,
-          "y": 9
+          "y": 22
         },
         "id": 6,
         "options": {
-          "displayMode": "lcd",
+          "displayMode": "gradient",
           "orientation": "horizontal",
           "reduceOptions": {
             "calcs": [
-              "mean"
+              "last"
             ],
             "fields": "",
             "values": false
@@ -638,6 +882,10 @@
                     "query_time_ms"
                   ],
                   "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "last"
                 }
               ]
             ],
@@ -670,7 +918,7 @@
           "h": 9,
           "w": 13,
           "x": 11,
-          "y": 9
+          "y": 23
         },
         "hiddenSeries": false,
         "id": 8,
@@ -822,6 +1070,660 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 9,
+          "w": 24,
+          "x": 0,
+          "y": 32
+        },
+        "hiddenSeries": false,
+        "id": 87,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "7.2.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "HTTP",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "linear"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "http_response",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "response_time"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "stddev"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
+              }
+            ]
+          },
+          {
+            "alias": "ICMP",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "ping",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "B",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "standard_deviation_ms"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "last"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Jitter (ICMP/HTTP)",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:2579",
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:2580",
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 41
+        },
+        "id": 34,
+        "panels": [],
+        "title": "Connectivity metrics",
+        "type": "row"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 2,
+            "mappings": [],
+            "min": 0,
+            "noValue": "N/A",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "super-light-green",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 150
+                },
+                {
+                  "color": "dark-green",
+                  "value": 200
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 250
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 300
+                },
+                {
+                  "color": "dark-red",
+                  "value": 350
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 6,
+          "x": 0,
+          "y": 42
+        },
+        "id": 42,
+        "options": {
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "7.2.0",
+        "repeat": "PingURL",
+        "scopedVars": {
+          "PingURL": {
+            "selected": false,
+            "text": "amazon.com",
+            "value": "amazon.com"
+          }
+        },
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "hide": false,
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT mean(\"average_response_ms\") FROM \"ping\" WHERE (\"url\" =~ /^$PingURL$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+            "rawQuery": true,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "$PingURL Ping",
+        "type": "gauge"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 2,
+            "mappings": [],
+            "min": 0,
+            "noValue": "N/A",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "super-light-green",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 150
+                },
+                {
+                  "color": "dark-green",
+                  "value": 200
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 250
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 300
+                },
+                {
+                  "color": "dark-red",
+                  "value": 350
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 6,
+          "x": 6,
+          "y": 42
+        },
+        "id": 88,
+        "options": {
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "7.2.0",
+        "repeatIteration": 1602382175994,
+        "repeatPanelId": 42,
+        "scopedVars": {
+          "PingURL": {
+            "selected": false,
+            "text": "google.com",
+            "value": "google.com"
+          }
+        },
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "hide": false,
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT mean(\"average_response_ms\") FROM \"ping\" WHERE (\"url\" =~ /^$PingURL$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+            "rawQuery": true,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "$PingURL Ping",
+        "type": "gauge"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 2,
+            "mappings": [],
+            "min": 0,
+            "noValue": "N/A",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "super-light-green",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 150
+                },
+                {
+                  "color": "dark-green",
+                  "value": 200
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 250
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 300
+                },
+                {
+                  "color": "dark-red",
+                  "value": 350
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 6,
+          "x": 12,
+          "y": 42
+        },
+        "id": 89,
+        "options": {
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "7.2.0",
+        "repeatIteration": 1602382175994,
+        "repeatPanelId": 42,
+        "scopedVars": {
+          "PingURL": {
+            "selected": false,
+            "text": "twitter.com",
+            "value": "twitter.com"
+          }
+        },
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "hide": false,
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT mean(\"average_response_ms\") FROM \"ping\" WHERE (\"url\" =~ /^$PingURL$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+            "rawQuery": true,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "$PingURL Ping",
+        "type": "gauge"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 2,
+            "mappings": [],
+            "min": 0,
+            "noValue": "N/A",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "super-light-green",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 150
+                },
+                {
+                  "color": "dark-green",
+                  "value": 200
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 250
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 300
+                },
+                {
+                  "color": "dark-red",
+                  "value": 350
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 6,
+          "x": 18,
+          "y": 42
+        },
+        "id": 90,
+        "options": {
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "7.2.0",
+        "repeatIteration": 1602382175994,
+        "repeatPanelId": 42,
+        "scopedVars": {
+          "PingURL": {
+            "selected": false,
+            "text": "yahoo.com",
+            "value": "yahoo.com"
+          }
+        },
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "hide": false,
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT mean(\"average_response_ms\") FROM \"ping\" WHERE (\"url\" =~ /^$PingURL$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+            "rawQuery": true,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "$PingURL Ping",
+        "type": "gauge"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
         "datasource": "InfluxDB",
         "description": "HTTP GET request response time (ms)",
         "fieldConfig": {
@@ -836,7 +1738,7 @@
           "h": 10,
           "w": 24,
           "x": 0,
-          "y": 18
+          "y": 48
         },
         "hiddenSeries": false,
         "id": 12,
@@ -979,8 +1881,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
-        "description": "ICMP echo requests average latency.",
+        "datasource": null,
         "fieldConfig": {
           "defaults": {
             "custom": {}
@@ -988,32 +1889,29 @@
           "overrides": []
         },
         "fill": 1,
-        "fillGradient": 2,
+        "fillGradient": 1,
         "gridPos": {
-          "h": 10,
-          "w": 24,
+          "h": 17,
+          "w": 12,
           "x": 0,
-          "y": 28
+          "y": 58
         },
         "hiddenSeries": false,
-        "id": 2,
+        "id": 85,
         "legend": {
-          "alignAsTable": false,
-          "avg": false,
-          "current": false,
-          "hideEmpty": true,
-          "hideZero": false,
-          "max": false,
-          "min": false,
-          "rightSide": true,
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": true,
+          "rightSide": false,
           "show": true,
-          "sideWidth": null,
-          "total": false,
-          "values": false
+          "total": true,
+          "values": true
         },
         "lines": true,
         "linewidth": 1,
-        "nullPointMode": "null",
+        "nullPointMode": "connected",
         "options": {
           "alertThreshold": true
         },
@@ -1028,48 +1926,62 @@
         "steppedLine": false,
         "targets": [
           {
-            "alias": "$tag_url",
+            "alias": "$col",
             "groupBy": [
               {
                 "params": [
-                  "url"
+                  "$__interval"
                 ],
-                "type": "tag"
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
               }
             ],
-            "measurement": "ping",
+            "measurement": "netstat",
             "orderByTime": "ASC",
             "policy": "default",
+            "query": "SELECT mean(\"tcp_close\") AS \"tcp_close\", mean(\"tcp_close_wait\") AS \"tcp_close_wait\", mean(\"tcp_closing\") AS \"tcp_colsing\", mean(\"tcp_fin_wait1\") AS \"tcp_fin_wait1\", mean(\"tcp_fin_wait2\") AS \"tcp_fin_wait2\", mean(\"tcp_last_ack\") AS \"tcp_last_ack\", mean(\"tcp_syn_recv\") AS \"tcp_syn_recv\", mean(\"tcp_syn_sent\") AS \"tcp_syn_sent\", mean(\"tcp_listen\") AS \"tcp_listen\", mean(\"tcp_time_wait\") AS \"tcp_time_wait\", mean(\"udp_socket\") AS \"udp_socket\", mean(\"tcp_established\") AS \"tcp_established\" FROM \"netstat\" WHERE (\"host\" =~ /^$NetHost$/) AND $timeFilter GROUP BY time($interval) fill(null)",
+            "rawQuery": true,
             "refId": "A",
             "resultFormat": "time_series",
             "select": [
               [
                 {
                   "params": [
-                    "average_response_ms"
+                    "tcp_close"
                   ],
                   "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                },
+                {
+                  "params": [
+                    "tcp_close"
+                  ],
+                  "type": "alias"
                 }
               ]
             ],
-            "tags": []
+            "tags": [
+              {
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
+              }
+            ]
           }
         ],
         "thresholds": [],
         "timeFrom": null,
-        "timeRegions": [
-          {
-            "$$hashKey": "object:150",
-            "colorMode": "background6",
-            "fill": true,
-            "fillColor": "rgba(234, 112, 112, 0.12)",
-            "line": false,
-            "lineColor": "rgba(237, 46, 24, 0.60)",
-            "op": "time"
-          }
-        ],
+        "timeRegions": [],
         "timeShift": null,
-        "title": "ICMP average response",
+        "title": "Netstat",
         "tooltip": {
           "shared": true,
           "sort": 0,
@@ -1086,160 +1998,28 @@
         },
         "yaxes": [
           {
-            "$$hashKey": "object:100",
+            "$$hashKey": "object:2208",
             "format": "short",
-            "label": "average (ms)",
+            "label": null,
             "logBase": 1,
             "max": null,
             "min": null,
             "show": true
           },
           {
-            "$$hashKey": "object:101",
+            "$$hashKey": "object:2209",
             "format": "short",
-            "label": "",
+            "label": null,
             "logBase": 1,
             "max": null,
             "min": null,
-            "show": true
+            "show": false
           }
         ],
         "yaxis": {
           "align": false,
           "alignLevel": null
         }
-      },
-      {
-        "datasource": "InfluxDB",
-        "description": "Average response time for External Ping in ms.",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {},
-            "mappings": [],
-            "max": 1000,
-            "min": 0,
-            "thresholds": {
-              "mode": "percentage",
-              "steps": [
-                {
-                  "color": "super-light-green",
-                  "value": null
-                },
-                {
-                  "color": "light-green",
-                  "value": 10
-                },
-                {
-                  "color": "semi-dark-green",
-                  "value": 20
-                },
-                {
-                  "color": "dark-green",
-                  "value": 30
-                },
-                {
-                  "color": "super-light-orange",
-                  "value": 40
-                },
-                {
-                  "color": "light-orange",
-                  "value": 50
-                },
-                {
-                  "color": "semi-dark-orange",
-                  "value": 70
-                },
-                {
-                  "color": "dark-orange",
-                  "value": 80
-                },
-                {
-                  "color": "light-red",
-                  "value": 90
-                },
-                {
-                  "color": "dark-red",
-                  "value": 100
-                }
-              ]
-            },
-            "unit": "ms"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 10,
-          "w": 6,
-          "x": 2,
-          "y": 38
-        },
-        "id": 4,
-        "options": {
-          "reduceOptions": {
-            "calcs": [
-              "mean"
-            ],
-            "fields": "/^ping\\.average_response_ms$/",
-            "values": false
-          },
-          "showThresholdLabels": false,
-          "showThresholdMarkers": true
-        },
-        "pluginVersion": "7.2.0",
-        "targets": [
-          {
-            "groupBy": [],
-            "hide": false,
-            "limit": "",
-            "measurement": "ping",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT \"average_response_ms\" FROM \"ping\" ",
-            "rawQuery": false,
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "average_response_ms"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "url",
-                "operator": "=",
-                "value": "4.2.2.1"
-              },
-              {
-                "condition": "OR",
-                "key": "url",
-                "operator": "=",
-                "value": "8.8.8.8"
-              },
-              {
-                "condition": "OR",
-                "key": "url",
-                "operator": "=",
-                "value": "4.2.2.1"
-              },
-              {
-                "condition": "AND",
-                "key": "url",
-                "operator": "=",
-                "value": "kernel.org"
-              }
-            ]
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Ping AVG response time (external)",
-        "transparent": true,
-        "type": "gauge"
       },
       {
         "aliasColors": {},
@@ -1270,10 +2050,10 @@
         "fill": 0,
         "fillGradient": 0,
         "gridPos": {
-          "h": 10,
-          "w": 15,
-          "x": 9,
-          "y": 38
+          "h": 18,
+          "w": 12,
+          "x": 12,
+          "y": 58
         },
         "hiddenSeries": false,
         "id": 16,
@@ -1281,6 +2061,8 @@
           "alignAsTable": true,
           "avg": false,
           "current": true,
+          "hideEmpty": true,
+          "hideZero": true,
           "max": false,
           "min": false,
           "rightSide": true,
@@ -1333,7 +2115,7 @@
                 },
                 {
                   "params": [
-                    " / 10000"
+                    "/1048576"
                   ],
                   "type": "math"
                 }
@@ -1342,8 +2124,8 @@
             "tags": [
               {
                 "key": "interface",
-                "operator": "=",
-                "value": "eth0"
+                "operator": "=~",
+                "value": "/^$NetInterface$/"
               }
             ]
           },
@@ -1376,7 +2158,7 @@
                 },
                 {
                   "params": [
-                    " / 10000"
+                    "/1048576"
                   ],
                   "type": "math"
                 }
@@ -1385,8 +2167,8 @@
             "tags": [
               {
                 "key": "interface",
-                "operator": "=",
-                "value": "eth0"
+                "operator": "=~",
+                "value": "/^$NetInterface$/"
               }
             ]
           },
@@ -1419,7 +2201,7 @@
                 },
                 {
                   "params": [
-                    " / 10000"
+                    "/1048576"
                   ],
                   "type": "math"
                 }
@@ -1428,8 +2210,8 @@
             "tags": [
               {
                 "key": "interface",
-                "operator": "=",
-                "value": "eth0"
+                "operator": "=~",
+                "value": "/^$NetInterface$/"
               }
             ]
           },
@@ -1462,7 +2244,7 @@
                 },
                 {
                   "params": [
-                    " / 10000"
+                    "/1048576"
                   ],
                   "type": "math"
                 }
@@ -1471,8 +2253,94 @@
             "tags": [
               {
                 "key": "interface",
-                "operator": "=",
-                "value": "eth0"
+                "operator": "=~",
+                "value": "/^$NetInterface$/"
+              }
+            ]
+          },
+          {
+            "alias": "Error In",
+            "groupBy": [
+              {
+                "params": [
+                  "1m"
+                ],
+                "type": "time"
+              }
+            ],
+            "measurement": "net",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "E",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "err_in"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "integral"
+                },
+                {
+                  "params": [
+                    "/1048576"
+                  ],
+                  "type": "math"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "interface",
+                "operator": "=~",
+                "value": "/^$NetInterface$/"
+              }
+            ]
+          },
+          {
+            "alias": "Error Out",
+            "groupBy": [
+              {
+                "params": [
+                  "1m"
+                ],
+                "type": "time"
+              }
+            ],
+            "measurement": "net",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "F",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "err_out"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "integral"
+                },
+                {
+                  "params": [
+                    "/1048576"
+                  ],
+                  "type": "math"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "interface",
+                "operator": "=~",
+                "value": "/^$NetInterface$/"
               }
             ]
           }
@@ -1491,7 +2359,7 @@
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "Interface: eth0 Tx/Rx",
+        "title": "Interface: $NetInterface (Tx/Rx)",
         "tooltip": {
           "shared": true,
           "sort": 0,
@@ -1529,19 +2397,19 @@
           }
         ],
         "yaxis": {
-          "align": false,
+          "align": true,
           "alignLevel": null
         }
       },
       {
         "cards": {
-          "cardPadding": null,
+          "cardPadding": 1,
           "cardRound": null
         },
         "color": {
           "cardColor": "#b4ff00",
           "colorScale": "sqrt",
-          "colorScheme": "interpolateCool",
+          "colorScheme": "interpolateInferno",
           "exponent": 0.5,
           "max": null,
           "min": null,
@@ -1557,10 +2425,10 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 11,
+          "h": 12,
           "w": 12,
           "x": 0,
-          "y": 48
+          "y": 75
         },
         "heatmap": {},
         "hideZeroBuckets": false,
@@ -1576,16 +2444,16 @@
             "groupBy": [
               {
                 "params": [
-                  "url"
+                  "$interval"
                 ],
-                "type": "tag"
+                "type": "time"
               }
             ],
             "measurement": "ping",
             "orderByTime": "ASC",
             "policy": "default",
             "refId": "A",
-            "resultFormat": "time_series",
+            "resultFormat": "table",
             "select": [
               [
                 {
@@ -1593,10 +2461,20 @@
                     "standard_deviation_ms"
                   ],
                   "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "stddev"
                 }
               ]
             ],
-            "tags": []
+            "tags": [
+              {
+                "key": "url",
+                "operator": "=~",
+                "value": "/^$PingURL$/"
+              }
+            ]
           }
         ],
         "timeFrom": null,
@@ -1606,7 +2484,7 @@
           "show": true,
           "showHistogram": true
         },
-        "tooltipDecimals": 2,
+        "tooltipDecimals": 3,
         "transparent": true,
         "type": "heatmap",
         "xAxis": {
@@ -1615,16 +2493,16 @@
         "xBucketNumber": null,
         "xBucketSize": "10s",
         "yAxis": {
-          "decimals": 2,
-          "format": "none",
+          "decimals": null,
+          "format": "ms",
           "logBase": 1,
-          "max": "3",
-          "min": "-0.2",
+          "max": null,
+          "min": null,
           "show": true,
           "splitFactor": null
         },
         "yBucketBound": "auto",
-        "yBucketNumber": 10,
+        "yBucketNumber": null,
         "yBucketSize": null
       },
       {
@@ -1632,13 +2510,14 @@
         "fieldConfig": {
           "defaults": {
             "custom": {
-              "align": null,
+              "align": "center",
               "displayMode": "color-text",
               "filterable": true
             },
             "mappings": [],
             "max": 500,
             "min": 100,
+            "noValue": "N/A",
             "thresholds": {
               "mode": "absolute",
               "steps": [
@@ -1659,7 +2538,7 @@
               "properties": [
                 {
                   "id": "custom.width",
-                  "value": 230
+                  "value": 100
                 },
                 {
                   "id": "custom.displayMode",
@@ -1679,7 +2558,7 @@
               "properties": [
                 {
                   "id": "custom.width",
-                  "value": 617
+                  "value": 300
                 },
                 {
                   "id": "mappings",
@@ -1743,29 +2622,62 @@
               "properties": [
                 {
                   "id": "custom.width",
-                  "value": 385
+                  "value": 145
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "method"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 100
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Endpoint"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 514
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "HTTP Method"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 158
                 }
               ]
             }
           ]
         },
         "gridPos": {
-          "h": 10,
-          "w": 12,
+          "h": 7,
+          "w": 11,
           "x": 12,
-          "y": 48
+          "y": 76
         },
         "id": 14,
         "options": {
           "showHeader": true,
-          "sortBy": [
-            {
-              "desc": false,
-              "displayName": "Time"
-            }
-          ]
+          "sortBy": []
         },
         "pluginVersion": "7.2.0",
+        "repeat": null,
+        "repeatDirection": "h",
         "targets": [
           {
             "alias": "$tag_server",
@@ -1773,6 +2685,12 @@
               {
                 "params": [
                   "server"
+                ],
+                "type": "tag"
+              },
+              {
+                "params": [
+                  "method"
                 ],
                 "type": "tag"
               }
@@ -1802,6 +2720,28 @@
         "timeFrom": null,
         "timeShift": null,
         "title": "HTTP response codes",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true
+              },
+              "indexByName": {
+                "Time": 0,
+                "last": 3,
+                "method": 2,
+                "server": 1
+              },
+              "renameByName": {
+                "last": "Response code",
+                "method": "HTTP Method",
+                "server": "Endpoint"
+              }
+            }
+          }
+        ],
+        "transparent": true,
         "type": "table"
       },
       {
@@ -1827,10 +2767,10 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 12,
-          "w": 24,
-          "x": 0,
-          "y": 59
+          "h": 11,
+          "w": 12,
+          "x": 12,
+          "y": 83
         },
         "id": 18,
         "options": {
@@ -1899,19 +2839,780 @@
         "title": "TraceRoute",
         "transparent": true,
         "type": "gowee-traceroutemap-panel"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 3,
+            "mappings": [],
+            "min": 0,
+            "noValue": "N/A",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "rgb(238, 238, 238)",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "decmbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 6,
+          "x": 0,
+          "y": 87
+        },
+        "id": 65,
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "7.2.0",
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "5m"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "net",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "B",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "bytes_recv"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "last"
+                },
+                {
+                  "params": [
+                    "/1048576"
+                  ],
+                  "type": "math"
+                },
+                {
+                  "params": [
+                    "MiB Sent"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "interface",
+                "operator": "=~",
+                "value": "/^$NetInterface$/"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "MiB Received ($NetInterface)",
+        "type": "stat"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 3,
+            "mappings": [],
+            "min": 0,
+            "noValue": "N/A",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "light-blue",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "decmbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 6,
+          "x": 6,
+          "y": 87
+        },
+        "id": 56,
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "7.2.0",
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "5m"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "net",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "B",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "bytes_sent"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "last"
+                },
+                {
+                  "params": [
+                    "/1048576"
+                  ],
+                  "type": "math"
+                },
+                {
+                  "params": [
+                    "MiB Sent"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "interface",
+                "operator": "=~",
+                "value": "/^$NetInterface$/"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "MiB Sent ($NetInterface)",
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 94
+        },
+        "id": 32,
+        "panels": [],
+        "title": "Availability metrics",
+        "type": "row"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 4,
+            "mappings": [
+              {
+                "from": "",
+                "id": 0,
+                "text": "N/A",
+                "to": "",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 95
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 100
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 6,
+          "x": 0,
+          "y": 95
+        },
+        "id": 36,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "7.2.0",
+        "repeat": "PingURL",
+        "scopedVars": {
+          "PingURL": {
+            "selected": false,
+            "text": "amazon.com",
+            "value": "amazon.com"
+          }
+        },
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT 100 - mean(\"percent_packet_loss\") FROM \"ping\" WHERE \"url\" =~ /^$PingURL$/ AND $timeFilter GROUP BY time(1m) fill(null)",
+            "rawQuery": true,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "$PingURL Ping",
+        "type": "stat"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 4,
+            "mappings": [
+              {
+                "from": "",
+                "id": 0,
+                "text": "N/A",
+                "to": "",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 95
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 100
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 6,
+          "x": 6,
+          "y": 95
+        },
+        "id": 91,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "7.2.0",
+        "repeatIteration": 1602382175994,
+        "repeatPanelId": 36,
+        "scopedVars": {
+          "PingURL": {
+            "selected": false,
+            "text": "google.com",
+            "value": "google.com"
+          }
+        },
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT 100 - mean(\"percent_packet_loss\") FROM \"ping\" WHERE \"url\" =~ /^$PingURL$/ AND $timeFilter GROUP BY time(1m) fill(null)",
+            "rawQuery": true,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "$PingURL Ping",
+        "type": "stat"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 4,
+            "mappings": [
+              {
+                "from": "",
+                "id": 0,
+                "text": "N/A",
+                "to": "",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 95
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 100
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 6,
+          "x": 12,
+          "y": 95
+        },
+        "id": 92,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "7.2.0",
+        "repeatIteration": 1602382175994,
+        "repeatPanelId": 36,
+        "scopedVars": {
+          "PingURL": {
+            "selected": false,
+            "text": "twitter.com",
+            "value": "twitter.com"
+          }
+        },
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT 100 - mean(\"percent_packet_loss\") FROM \"ping\" WHERE \"url\" =~ /^$PingURL$/ AND $timeFilter GROUP BY time(1m) fill(null)",
+            "rawQuery": true,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "$PingURL Ping",
+        "type": "stat"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 4,
+            "mappings": [
+              {
+                "from": "",
+                "id": 0,
+                "text": "N/A",
+                "to": "",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 95
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 100
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 6,
+          "x": 18,
+          "y": 95
+        },
+        "id": 93,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "7.2.0",
+        "repeatIteration": 1602382175994,
+        "repeatPanelId": 36,
+        "scopedVars": {
+          "PingURL": {
+            "selected": false,
+            "text": "yahoo.com",
+            "value": "yahoo.com"
+          }
+        },
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT 100 - mean(\"percent_packet_loss\") FROM \"ping\" WHERE \"url\" =~ /^$PingURL$/ AND $timeFilter GROUP BY time(1m) fill(null)",
+            "rawQuery": true,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "$PingURL Ping",
+        "type": "stat"
       }
     ],
-    "refresh": true,
+    "refresh": "5s",
     "schemaVersion": 26,
     "style": "dark",
     "tags": [
-      "networking"
+      "networking",
+      "monitoring"
     ],
     "templating": {
-      "list": []
+      "list": [
+        {
+          "allValue": null,
+          "current": {
+            "selected": true,
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "datasource": "InfluxDB",
+          "definition": "",
+          "hide": 0,
+          "includeAll": true,
+          "label": null,
+          "multi": true,
+          "name": "PingURL",
+          "options": [],
+          "query": "SHOW TAG VALUES FROM \"ping\" WITH KEY = \"url\"",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": true,
+            "text": [
+              "eth0"
+            ],
+            "value": [
+              "eth0"
+            ]
+          },
+          "datasource": "InfluxDB",
+          "definition": "",
+          "hide": 0,
+          "includeAll": true,
+          "label": null,
+          "multi": true,
+          "name": "NetInterface",
+          "options": [],
+          "query": "SHOW TAG VALUES FROM \"net\" WITH KEY = \"interface\" WHERE \"host\" =~ /$NetHost/",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "700a54faea30",
+            "value": "700a54faea30"
+          },
+          "datasource": "InfluxDB",
+          "definition": "",
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "NetHost",
+          "options": [],
+          "query": "SHOW TAG VALUES FROM \"net\" WITH KEY = \"host\"",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        }
+      ]
     },
     "time": {
-      "from": "now-1h",
+      "from": "now-15m",
       "to": "now"
     },
     "timepicker": {},
@@ -1919,8 +3620,5 @@
     "title": "Network",
     "uid": "Is1f1nRgz",
     "version": 1
-  },
-  "meta": {
-    "isStarred": true
   }
 }
