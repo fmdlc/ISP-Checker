@@ -5,7 +5,7 @@ services:
       - "docker.group=ISP-Checker"
       - "docker.app=influxdb"
     container_name: influxdb
-    image: influxdb:latest
+    image: influxdb:1.8.3-alpine
     expose:
       - 8086
     restart: on-failure
@@ -20,7 +20,7 @@ services:
       - "docker.group=ISP-Checker"
       - "docker.app=telegraf"
     container_name: telegraf
-    image: tty0/isp_telegraf:latest
+    image: tty0/isp_telegraf:1.15.3
     volumes:
       - "../telegraf/conf/telegraf.conf:/etc/telegraf/telegraf.conf"
     env_file:
@@ -34,7 +34,7 @@ services:
       - "docker.group=ISP-Checker"
       - "docker.app=grafana"
     container_name: grafana
-    image: grafana/grafana:latest
+    image: grafana/grafana:7.2.1-ubuntu
     environment:
       - GF_INSTALL_PLUGINS=https://grafana.com/api/plugins/gowee-traceroutemap-panel/versions/0.2.3/download;gowee-traceroutemap-panel
     expose:

@@ -15,9 +15,32 @@ It's easily extensible and it was built on top of [Docker](http://docker.com) to
 
 Feel free to reach me out for any feedback or ideas! :-)
 
+## Table of contents
+
+1. [ Supported platforms ](#Supported platforms)
+2. [ Grafana Cloud ](#Grafana Cloud)
+3. [ Configuration ](#Configuration)
+4. [ Preflight setup ](#Preflight setup)
+5. [ Installation ](#Installation)
+6. [ Login ](#Login)
+7. [ Removing ](#Removing)
+8. [ Core concepts ](#Core concepts)
+9. [ Bandwith ](#Bandwith)
+10. [ Packet loss ](#Packet loss)
+11. [ Difference between latency and jitter ](#Difference between latency and jitter)
+12. [ ToDo ](#ToDo)
+13. [ Contributing ](#Contributing)
+14. [ License ](#License)
+
 <center>
 <img src="./img/demo.gif" />
 </center>
+
+#### Supported platforms
+The following platforms are supported:
+* `linux/amd64`.
+* `linux/arm/v7`,
+* `linux/arm64`.
 
 #### Grafana Cloud
 
@@ -94,6 +117,8 @@ To remove run `make prune`.
 > It will remove all stopped containers (yes, not only the ISP-Checker ones).
 
 ---
+## Core concepts
+
 ### Bandwith
 Bandwidth is the maximum rate of data transfer across a given path. Bandwidth may be characterized as network bandwidth or data bandwidth.
 The difference between internet speed and bandwidth can be summed in one line. Internet bandwidth is about how much data can be download or uploaded from your computer, while internet speed is how fast can the data be uploaded or downloaded on your computer.

@@ -1,7 +1,7 @@
 .PHONY: default install start stop restart prune
 
 NAME=ISP-Checker
-VERSION=1.1
+VERSION=1.2
 AUTHOR="Facu de la Cruz <fmdlc.unix@gmail.com>"
 
 COMPOSE_FILE="./docker/docker-compose.yaml"
