@@ -5,7 +5,6 @@ on:
     branches:
       - master
       - develop
-  pull_request:
     
 defaults:
   run:
@@ -33,5 +32,6 @@ jobs:
           docker buildx build \
             --push \
             --tag tty0/isp_telegraf:1.15.3 \
+            --tag tty0/isp_telegraf:latest \
             --platform linux/amd64,linux/arm/v7,linux/arm64 ./ISP-Checker/telegraf/
 
