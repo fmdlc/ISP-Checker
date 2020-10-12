@@ -5,7 +5,6 @@ repos:
       - id: trailing-whitespace
       - id: detect-private-key
       - id: check-symlinks
-      - id: check-yaml
       - id: mixed-line-ending
       - id: pretty-format-json
         args: ["--autofix"]

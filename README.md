@@ -15,12 +15,30 @@ It's easily extensible and it was built on top of [Docker](http://docker.com) to
 
 Feel free to reach me out for any feedback or ideas! :-)
 
+## Table of contents
+
+1. [ Platforms ](#Platforms)
+2. [ Download ](#Grafana)
+3. [ Configuration ](#Configuration)
+5. [ Installation ](#Installation)
+6. [ Login ](#Login)
+7. [ Removing ](#Removing)
+8. [ Concepts ](#Cooncepts)
+12. [ ToDo ](#ToDo)
+13. [ Contributing ](#Contributing)
+14. [ License ](#License)
+
 <center>
 <img src="./img/demo.gif" />
 </center>
 
-#### Grafana Cloud
+#### Platforms
+The following platforms are supported:
+* `linux/amd64`.
+* `linux/arm/v7`,
+* `linux/arm64`.
 
+#### Download
 You can easily import this dashboard into your current Grafana installation getting it from the Official's [Grafana repository](https://grafana.com/grafana/dashboards/13140).
 
 ### Configuration
@@ -29,8 +47,6 @@ Make sure you have the [Docker-CE](https://phoenixnap.com/kb/docker-on-raspberry
 ```bash
 $ curl -fsSL https://get.docker.com -o get-docker.sh | bash -
 ```
-
-#### Preflight setup
 Configure the `./ISP-Checker/credentials.env` file.
 There are two users:
 * <ins>Read-Only user:</ins> Used by Grafana to acccess to metrics
@@ -94,6 +110,8 @@ To remove run `make prune`.
 > It will remove all stopped containers (yes, not only the ISP-Checker ones).
 
 ---
+## Concepts
+
 ### Bandwith
 Bandwidth is the maximum rate of data transfer across a given path. Bandwidth may be characterized as network bandwidth or data bandwidth.
 The difference between internet speed and bandwidth can be summed in one line. Internet bandwidth is about how much data can be download or uploaded from your computer, while internet speed is how fast can the data be uploaded or downloaded on your computer.

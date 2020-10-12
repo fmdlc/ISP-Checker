@@ -1,7 +1,11 @@
-FROM telegraf:latest
+FROM telegraf:1.15.3
+
+ARG ARCH
 
 LABEL mantainer="Facu de la Cruz"
-LABEL PROJECT="ISP_monitor"
+LABEL email="fmdlc.unix@gmail.com"
+LABEL project="ISP-Checker"
+LABEL component="telegraf"
 
 COPY ./bin/entrypoint.sh /entrypoint.sh
 
