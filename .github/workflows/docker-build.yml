@@ -1,0 +1,26 @@
+name: build
+on:
+  push:
+    branches: master
+  pull-request:
+    branchs: master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Install Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+      - name: hub.docker.com Login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin:
+      - name: Build the multi-arch image
+        run: |
+          docker buildx build \
+            --push \
+            --tag tty0/isp_telegraf:1.15.3 \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 .
+
