@@ -16,11 +16,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-        
-      - name: Docker Lint
-        uses: luke142367/Docker-Lint-Action@v1.1.1
-        with:
-          target: ./ISP-Checker/telegraf/Dockerfile
       
       - name: Install Docker Buildx
         id: buildx
