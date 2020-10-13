@@ -16,17 +16,22 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-
+        
+      - name: Docker Lint
+        uses: luke142367/Docker-Lint-Action@v1.1.1
+        with:
+          target: ./ISP-Checker/telegraf/Dockerfile
+      
       - name: Install Docker Buildx
         id: buildx
         uses: crazy-max/ghaction-docker-buildx@v1
         with:
-          version: latest
+          buildx-version: latest
 
       - name: hub.docker.com Login
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
+        
       - name: Build the multi-arch image
         run: |
           docker buildx build \
