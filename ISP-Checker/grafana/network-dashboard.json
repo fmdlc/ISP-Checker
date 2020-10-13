@@ -5,6 +5,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": null,
+    "links": [],
     "panels": [
       {
         "datasource": "InfluxDB",
@@ -68,7 +69,7 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 10,
+          "h": 11,
           "w": 6,
           "x": 0,
           "y": 0
@@ -85,7 +86,7 @@
           "showThresholdLabels": true,
           "showThresholdMarkers": true
         },
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "targets": [
           {
             "groupBy": [
@@ -127,7 +128,6 @@
         "timeFrom": null,
         "timeShift": null,
         "title": "Speedtest (Ping)",
-        "transparent": true,
         "type": "gauge"
       },
       {
@@ -196,7 +196,7 @@
           },
           "textMode": "auto"
         },
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "targets": [
           {
             "groupBy": [
@@ -244,7 +244,6 @@
         "timeFrom": null,
         "timeShift": null,
         "title": "Bandwidth (Download)",
-        "transparent": true,
         "type": "stat"
       },
       {
@@ -288,7 +287,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -394,7 +393,6 @@
           "sort": 0,
           "value_type": "individual"
         },
-        "transparent": true,
         "type": "graph",
         "xaxis": {
           "buckets": null,
@@ -499,7 +497,7 @@
           },
           "textMode": "auto"
         },
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "targets": [
           {
             "groupBy": [
@@ -593,7 +591,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -656,7 +654,6 @@
           "sort": 0,
           "value_type": "individual"
         },
-        "transparent": true,
         "type": "graph",
         "xaxis": {
           "buckets": null,
@@ -749,7 +746,7 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 12,
+          "h": 11,
           "w": 6,
           "x": 18,
           "y": 11
@@ -766,7 +763,7 @@
           "showThresholdLabels": false,
           "showThresholdMarkers": true
         },
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "targets": [
           {
             "groupBy": [],
@@ -801,7 +798,6 @@
         "timeFrom": null,
         "timeShift": null,
         "title": "Ping AVG response time",
-        "transparent": true,
         "type": "gauge"
       },
       {
@@ -857,7 +853,7 @@
           },
           "showUnfilled": true
         },
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "targets": [
           {
             "alias": "$tag_domain",
@@ -894,7 +890,6 @@
         "timeFrom": null,
         "timeShift": null,
         "title": "DNS AVG Query time",
-        "transparent": true,
         "type": "bargauge"
       },
       {
@@ -917,7 +912,7 @@
           "h": 9,
           "w": 13,
           "x": 11,
-          "y": 23
+          "y": 22
         },
         "hiddenSeries": false,
         "id": 8,
@@ -940,7 +935,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1030,7 +1025,6 @@
           "sort": 0,
           "value_type": "individual"
         },
-        "transparent": true,
         "type": "graph",
         "xaxis": {
           "buckets": null,
@@ -1082,7 +1076,7 @@
           "h": 9,
           "w": 24,
           "x": 0,
-          "y": 32
+          "y": 31
         },
         "hiddenSeries": false,
         "id": 87,
@@ -1102,7 +1096,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1248,7 +1242,7 @@
           "h": 1,
           "w": 24,
           "x": 0,
-          "y": 41
+          "y": 40
         },
         "id": 34,
         "panels": [],
@@ -1301,7 +1295,7 @@
           "h": 6,
           "w": 6,
           "x": 0,
-          "y": 42
+          "y": 41
         },
         "id": 42,
         "options": {
@@ -1316,7 +1310,7 @@
           "showThresholdLabels": false,
           "showThresholdMarkers": true
         },
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "repeat": "PingURL",
         "scopedVars": {
           "PingURL": {
@@ -1416,7 +1410,7 @@
           "h": 6,
           "w": 6,
           "x": 6,
-          "y": 42
+          "y": 41
         },
         "id": 88,
         "options": {
@@ -1431,8 +1425,8 @@
           "showThresholdLabels": false,
           "showThresholdMarkers": true
         },
-        "pluginVersion": "7.2.0",
-        "repeatIteration": 1602382175994,
+        "pluginVersion": "7.2.1",
+        "repeatIteration": 1602546735730,
         "repeatPanelId": 42,
         "scopedVars": {
           "PingURL": {
@@ -1532,7 +1526,7 @@
           "h": 6,
           "w": 6,
           "x": 12,
-          "y": 42
+          "y": 41
         },
         "id": 89,
         "options": {
@@ -1547,8 +1541,8 @@
           "showThresholdLabels": false,
           "showThresholdMarkers": true
         },
-        "pluginVersion": "7.2.0",
-        "repeatIteration": 1602382175994,
+        "pluginVersion": "7.2.1",
+        "repeatIteration": 1602546735730,
         "repeatPanelId": 42,
         "scopedVars": {
           "PingURL": {
@@ -1648,7 +1642,7 @@
           "h": 6,
           "w": 6,
           "x": 18,
-          "y": 42
+          "y": 41
         },
         "id": 90,
         "options": {
@@ -1663,8 +1657,8 @@
           "showThresholdLabels": false,
           "showThresholdMarkers": true
         },
-        "pluginVersion": "7.2.0",
-        "repeatIteration": 1602382175994,
+        "pluginVersion": "7.2.1",
+        "repeatIteration": 1602546735730,
         "repeatPanelId": 42,
         "scopedVars": {
           "PingURL": {
@@ -1737,7 +1731,7 @@
           "h": 10,
           "w": 24,
           "x": 0,
-          "y": 48
+          "y": 47
         },
         "hiddenSeries": false,
         "id": 12,
@@ -1760,7 +1754,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1890,10 +1884,10 @@
         "fill": 1,
         "fillGradient": 1,
         "gridPos": {
-          "h": 17,
+          "h": 18,
           "w": 12,
           "x": 0,
-          "y": 58
+          "y": 57
         },
         "hiddenSeries": false,
         "id": 85,
@@ -1915,7 +1909,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1986,7 +1980,6 @@
           "sort": 0,
           "value_type": "individual"
         },
-        "transparent": true,
         "type": "graph",
         "xaxis": {
           "buckets": null,
@@ -2052,7 +2045,7 @@
           "h": 18,
           "w": 12,
           "x": 12,
-          "y": 58
+          "y": 57
         },
         "hiddenSeries": false,
         "id": 16,
@@ -2076,7 +2069,7 @@
           "alertThreshold": false
         },
         "percentage": false,
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -2364,7 +2357,6 @@
           "sort": 0,
           "value_type": "cumulative"
         },
-        "transparent": true,
         "type": "graph",
         "xaxis": {
           "buckets": null,
@@ -2657,24 +2649,24 @@
               "properties": [
                 {
                   "id": "custom.width",
-                  "value": 158
+                  "value": 333
                 }
               ]
             }
           ]
         },
         "gridPos": {
-          "h": 7,
-          "w": 11,
+          "h": 6,
+          "w": 12,
           "x": 12,
-          "y": 76
+          "y": 75
         },
         "id": 14,
         "options": {
           "showHeader": true,
           "sortBy": []
         },
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "repeat": null,
         "repeatDirection": "h",
         "targets": [
@@ -2766,10 +2758,10 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 11,
+          "h": 12,
           "w": 12,
           "x": 12,
-          "y": 83
+          "y": 81
         },
         "id": 18,
         "options": {
@@ -2836,7 +2828,6 @@
         "timeFrom": null,
         "timeShift": null,
         "title": "TraceRoute",
-        "transparent": true,
         "type": "gowee-traceroutemap-panel"
       },
       {
@@ -2883,7 +2874,7 @@
           },
           "textMode": "value"
         },
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "targets": [
           {
             "groupBy": [
@@ -2989,7 +2980,7 @@
           },
           "textMode": "value"
         },
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "targets": [
           {
             "groupBy": [
@@ -3058,7 +3049,7 @@
           "h": 1,
           "w": 24,
           "x": 0,
-          "y": 94
+          "y": 93
         },
         "id": 32,
         "panels": [],
@@ -3106,7 +3097,7 @@
           "h": 6,
           "w": 6,
           "x": 0,
-          "y": 95
+          "y": 94
         },
         "id": 36,
         "options": {
@@ -3123,7 +3114,7 @@
           },
           "textMode": "auto"
         },
-        "pluginVersion": "7.2.0",
+        "pluginVersion": "7.2.1",
         "repeat": "PingURL",
         "scopedVars": {
           "PingURL": {
@@ -3217,7 +3208,7 @@
           "h": 6,
           "w": 6,
           "x": 6,
-          "y": 95
+          "y": 94
         },
         "id": 91,
         "options": {
@@ -3234,8 +3225,8 @@
           },
           "textMode": "auto"
         },
-        "pluginVersion": "7.2.0",
-        "repeatIteration": 1602382175994,
+        "pluginVersion": "7.2.1",
+        "repeatIteration": 1602546735730,
         "repeatPanelId": 36,
         "scopedVars": {
           "PingURL": {
@@ -3329,7 +3320,7 @@
           "h": 6,
           "w": 6,
           "x": 12,
-          "y": 95
+          "y": 94
         },
         "id": 92,
         "options": {
@@ -3346,8 +3337,8 @@
           },
           "textMode": "auto"
         },
-        "pluginVersion": "7.2.0",
-        "repeatIteration": 1602382175994,
+        "pluginVersion": "7.2.1",
+        "repeatIteration": 1602546735730,
         "repeatPanelId": 36,
         "scopedVars": {
           "PingURL": {
@@ -3441,7 +3432,7 @@
           "h": 6,
           "w": 6,
           "x": 18,
-          "y": 95
+          "y": 94
         },
         "id": 93,
         "options": {
@@ -3458,8 +3449,8 @@
           },
           "textMode": "auto"
         },
-        "pluginVersion": "7.2.0",
-        "repeatIteration": 1602382175994,
+        "pluginVersion": "7.2.1",
+        "repeatIteration": 1602546735730,
         "repeatPanelId": 36,
         "scopedVars": {
           "PingURL": {
@@ -3586,8 +3577,8 @@
           "allValue": null,
           "current": {
             "selected": false,
-            "text": "700a54faea30",
-            "value": "700a54faea30"
+            "text": "eac864b49c68",
+            "value": "eac864b49c68"
           },
           "datasource": "InfluxDB",
           "definition": "",
@@ -3618,6 +3609,6 @@
     "timezone": "browser",
     "title": "Network",
     "uid": "Is1f1nRgz",
-    "version": 1
+    "version": 2
   }
 }
