@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## October 16 2020 - v1.3
+* API configuration is now executed using `cURL` [Docker image](https://hub.docker.com/r/curlimages/curl).
+* `README.md` updated (Solving [https://github.com/fmdlc/ISP-Checker/issues/14](https://github.com/fmdlc/ISP-Checker/issues/14)).
+
 ## October 12 2020 - v1.2
 * Enabling CI build a multi-architecture Docker image (Extending support to `linux/amd64`, `linux/arm/v7`, `linux/arm64`)
 * Fixing Docker images version on Docker Compose.
