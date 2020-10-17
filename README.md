@@ -41,11 +41,23 @@ The following platforms are supported:
 You can easily import this dashboard into your current Grafana installation getting it from the Official's [Grafana repository](https://grafana.com/grafana/dashboards/13140).
 
 ### Configuration
-
 Make sure you have the [Docker-CE](https://phoenixnap.com/kb/docker-on-raspberry-pi) and [cURL](https://curl.haxx.se/) installed on your *Raspberry Pi*. If you don't, install it using your prefer method.
 ```bash
 $ curl -fsSL https://get.docker.com -o get-docker.sh | bash -
 ```
+
+#### docker-compose
+You need to have `docker-compose` installed. To install it execute:
+
+```bash
+$: sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+Alternatively you can install it using `pip`:
+```bash
+$: pip install docker-compose
+```
+
 Configure the `./ISP-Checker/credentials.env` file.
 There are two users:
 * <ins>Read-Only user:</ins> Used by Grafana to acccess to metrics
