@@ -24,17 +24,17 @@ install:
 	@sleep 10
 
 	$(info Make: Initializing datasources and dashboards)
-	@curl -s --location -X POST 'http://admin:admin@localhost:3000/api/datasources' \
-		--header 'Content-Type: application/json' \
-		-d @./grafana/datasource.json > /dev/null
+	@docker run --network host -v "$(PWD)/grafana:/app" --rm curlimages/curl:7.73.0 \
+		-s --location -XPOST 'http://admin:admin@127.0.0.1:3000/api/datasources' \
+		--header 'Content-Type: application/json' -d @/app/datasource.json > /dev/null
 
-	@curl -s --location -X POST 'http://admin:admin@localhost:3000/api/dashboards/db' \
-		--header 'Content-Type: application/json' \
-		-d @./grafana/network-dashboard.json > /dev/null
+	@docker run --network host -v "$(PWD)/grafana:/app" --rm curlimages/curl:7.73.0 \
+		-s --location -XPOST 'http://admin:admin@127.0.0.1:3000/api/dashboards/db' \
+		--header 'Content-Type: application/json' -d @/app/network-dashboard.json > /dev/null
 
-	@curl -s --location -X PUT 'http://admin:admin@localhost:3000/api/user/preferences' \
-		--header 'Content-Type: application/json' \
-		-d @./grafana/default.json > /dev/null
+	@docker run --network host -v "$(PWD)/grafana:/app" --rm curlimages/curl:7.73.0 \
+		-s --location -XPUT 'http://admin:admin@127.0.0.1:3000/api/user/preferences' \
+		--header 'Content-Type: application/json' -d @/app/default.json > /dev/null
 
 	@echo "\nOpen your browser a points to http://127.0.0.1:3000/\n"
 	@echo "Default Username: admin | Default Password: admin"
