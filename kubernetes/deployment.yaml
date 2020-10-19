@@ -32,6 +32,13 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/influxdb
               name: var-lib-influxdb
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m"
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -94,6 +101,13 @@ spec:
             httpGet:
               path: /
               port: 3000
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m"
       volumes:
         - name: grafana-datasource-provisioner
           secret:
@@ -134,6 +148,13 @@ spec:
               mountPath: /etc/telegraf/telegraf.conf
               subPath: telegraf.conf
               readOnly: true
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m"
       volumes:
         - name: telegraf-config-volume
           configMap:
