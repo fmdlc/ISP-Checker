@@ -1,0 +1,140 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: monitoring
+  name: influxdb
+  labels:
+    app: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+        - name: influxdb
+          image: influxdb:1.8.3
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: isp-checker-secrets
+          ports:
+            - containerPort: 8086
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 8086
+          volumeMounts:
+            - mountPath: /var/lib/influxdb
+              name: var-lib-influxdb
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: var-lib-influxdb
+          persistentVolumeClaim:
+            claimName: influxdb-pvc
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: monitoring
+  name: grafana
+  labels:
+    app: grafana
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app: grafana
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: grafana/grafana:7.2.1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: isp-checker-secrets
+          volumeMounts:
+            - name: grafana-datasource-provisioner
+              mountPath: /etc/grafana/provisioning/datasources/datasource.yaml
+              subPath: datasource.yaml
+              readOnly: true
+            - name: grafana-dashboard-provisioner
+              mountPath: /etc/grafana/provisioning/dashboards/networking.yaml
+              subPath: networking.yaml
+              readOnly: true
+            - name: grafana-dashboard-data
+              mountPath: /tmp/dashboard/network-dashboard.json
+              subPath: network-dashboard.json
+          ports:
+            - containerPort: 3000
+          env:
+            - name: GF_INSTALL_PLUGINS
+              value: https://grafana.com/api/plugins/gowee-traceroutemap-panel/versions/0.2.3/download;gowee-traceroutemap-panel
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+      volumes:
+        - name: grafana-datasource-provisioner
+          secret:
+            secretName: grafana-datasource
+        - name: grafana-dashboard-provisioner
+          configMap:
+            name: network-dashboard-provisioner
+        - name: grafana-dashboard-data
+          configMap:
+            name: network-dashboard-data
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: monitoring
+  name: telegraf
+  labels:
+    app: telegraf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: telegraf
+  template:
+    metadata:
+      labels:
+        app: telegraf
+    spec:
+      containers:
+        - name: telegraf
+          image: tty0/isp_telegraf:1.15.3
+          envFrom:
+            - secretRef:
+                name: isp-checker-secrets
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: telegraf-config-volume
+              mountPath: /etc/telegraf/telegraf.conf
+              subPath: telegraf.conf
+              readOnly: true
+      volumes:
+        - name: telegraf-config-volume
+          configMap:
+            name: telegraf-config
