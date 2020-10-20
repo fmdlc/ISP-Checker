@@ -15,7 +15,7 @@ The following configuration files are used to deploy this stack in Kubernetes, t
 
 1) Apply the `ISP-Checker-deploy.yaml`
 ```bash
-$: kubectl apply -f ISP-Checker-deploy.yaml
+$: kubectl apply -f https://raw.githubusercontent.com/fmdlc/ISP-Checker/master/kubernetes/ISP-Checker-deploy.yaml
 ```
 
 ### Configuration
