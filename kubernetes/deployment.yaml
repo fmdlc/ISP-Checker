@@ -22,23 +22,31 @@ spec:
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
-                name: isp-checker-secrets
+                name: isp-checker-secrets-rw
           ports:
             - containerPort: 8086
           readinessProbe:
             httpGet:
               path: /ping
               port: 8086
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 8086
+            initialDelaySeconds: 30
+            periodSeconds: 30
           volumeMounts:
             - mountPath: /var/lib/influxdb
               name: var-lib-influxdb
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "250m"
+              memory: "200Mi"
+              cpu: "0.2"
             limits:
-              memory: "1024Mi"
-              cpu: "500m"
+              memory: "300Mi"
+              cpu: "0.5"
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -73,25 +81,21 @@ spec:
       labels:
         app: grafana
     spec:
+      serviceAccountName: grafana-sidecar
       containers:
         - name: grafana
           image: grafana/grafana:7.2.1
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
-                name: isp-checker-secrets
+                name: isp-checker-secrets-ro
           volumeMounts:
             - name: grafana-datasource-provisioner
-              mountPath: /etc/grafana/provisioning/datasources/datasource.yaml
-              subPath: datasource.yaml
-              readOnly: true
+              mountPath: /etc/grafana/provisioning/datasources/
             - name: grafana-dashboard-provisioner
-              mountPath: /etc/grafana/provisioning/dashboards/networking.yaml
-              subPath: networking.yaml
-              readOnly: true
-            - name: grafana-dashboard-data
-              mountPath: /tmp/dashboard/network-dashboard.json
-              subPath: network-dashboard.json
+              mountPath: /etc/grafana/provisioning/dashboards/
+            - name: grafana-dashboard
+              mountPath: /tmp/config/
           ports:
             - containerPort: 3000
           env:
@@ -101,23 +105,31 @@ spec:
             httpGet:
               path: /
               port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 30
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "250m"
+              memory: "200Mi"
+              cpu: "0.25"
             limits:
-              memory: "1024Mi"
-              cpu: "500m"
+              memory: "500Mi"
+              cpu: "0.4"
       volumes:
-        - name: grafana-datasource-provisioner
-          secret:
-            secretName: grafana-datasource
         - name: grafana-dashboard-provisioner
           configMap:
             name: network-dashboard-provisioner
-        - name: grafana-dashboard-data
+        - name: grafana-dashboard
           configMap:
-            name: network-dashboard-data
+            name: grafana-dashboard
+        - name: grafana-datasource-provisioner
+          secret:
+             secretName: grafana-datasource
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -141,20 +153,23 @@ spec:
           image: tty0/isp_telegraf:1.15.3
           envFrom:
             - secretRef:
-                name: isp-checker-secrets
+                name: isp-checker-secrets-rw
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: telegraf-config-volume
-              mountPath: /etc/telegraf/telegraf.conf
-              subPath: telegraf.conf
+              mountPath: /etc/telegraf/
               readOnly: true
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "250m"
+              memory: "100Mi"
+              cpu: "0.1"
             limits:
-              memory: "1024Mi"
-              cpu: "500m"
+              memory: "200Mi"
+              cpu: "0.3"
+      initContainers:
+        - name: wait-for-influxdb
+          image: curlimages/curl:7.72.0
+          command: ['sh', '-c', "until curl -XGET http://influxdb-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local:8086/; do echo Waiting\ for\ InfluxDB; sleep 2; done"]
       volumes:
         - name: telegraf-config-volume
           configMap:

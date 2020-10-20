@@ -3,11 +3,24 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: monitoring
+  name: grafana-user-config
+data:
+  default.json: |-
+    {
+      "homeDashboardId": 1,
+      "theme": "dark",
+      "timezone": "browser"
+    }
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: monitoring
   name: network-dashboard-provisioner
 data:
   networking.yaml: |-
     apiVersion: 1
-
     providers:
     - name: 'ISP-Checker'
       orgId: 1
@@ -16,7 +29,7 @@ data:
       disableDeletion: true
       editable: false
       options:
-        path: /tmp/dashboard/network-dashboard.json
+        path: /tmp/config/network-dashboard.json
 
 ---
 apiVersion: v1
@@ -41,7 +54,7 @@ data:
       debug = false
 
     [[outputs.influxdb]]
-      urls = ["http://influxdb:8086"]
+      urls = ["http://grafana-svc.monitoring.svc.cluster.local:8086/"]
       database = "$INFLUXDB_DB"
       timeout = "60s"
       username = "$INFLUXDB_ADMIN_USER"
