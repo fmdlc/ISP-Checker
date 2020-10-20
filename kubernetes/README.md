@@ -1,6 +1,9 @@
 # ISP-Checker on Kubernetes
 `ISP-Checker` was ported to run in Kubernetes (`1.18.0`) in a Raspberry Pi cluster (_It's all I have_).
-![RB-Cluster](../img/cluster.jpeg)
+
+<center>
+<img src="../img/cluster.jpeg" width="450">
+</center>
 
 The following configuration files are used to deploy this stack in Kubernetes, they can widely improved but so far let's say it works.
 
