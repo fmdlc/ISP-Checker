@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## October 20 2020 - v1.4 (Beta)
+* Created initial Kubernetes YAML files.
+* Updated documentation.
+
 ## October 16 2020 - v1.3
 * API configuration is now executed using `cURL` [Docker image](https://hub.docker.com/r/curlimages/curl).
 * `README.md` updated (Solving [https://github.com/fmdlc/ISP-Checker/issues/14](https://github.com/fmdlc/ISP-Checker/issues/14)).

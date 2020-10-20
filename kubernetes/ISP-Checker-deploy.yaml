@@ -19,20 +19,6 @@ spec:
 
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: monitoring
-  labels:
-    app: grafana
-  name: grafana-pvc
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
----
-apiVersion: v1
 kind: Secret
 metadata:
   namespace: monitoring
@@ -129,7 +115,7 @@ data:
       debug = false
 
     [[outputs.influxdb]]
-      urls = ["http://grafana-svc.monitoring.svc.cluster.local:8086/"]
+      urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
       database = "$INFLUXDB_DB"
       timeout = "60s"
       username = "$INFLUXDB_ADMIN_USER"
@@ -3206,6 +3192,25 @@ data:
       "version": 2
     }
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: influxdb
+  name: influxdb-svc
+  namespace: monitoring
+spec:
+  clusterIP: 10.43.37.100
+  ports:
+  - port: 8086
+    protocol: TCP
+    targetPort: 8086
+  selector:
+    app: influxdb
+  sessionAffinity: None
+  type: ClusterIP
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -3288,7 +3293,6 @@ spec:
       labels:
         app: grafana
     spec:
-      serviceAccountName: grafana-sidecar
       containers:
         - name: grafana
           image: grafana/grafana:7.2.1
@@ -3302,7 +3306,7 @@ spec:
             - name: grafana-dashboard-provisioner
               mountPath: /etc/grafana/provisioning/dashboards/
             - name: grafana-dashboard
-              mountPath: /tmp/config/
+              mountPath: /tmp/config/network-dashboard.json
           ports:
             - containerPort: 3000
           env:
@@ -3381,23 +3385,3 @@ spec:
         - name: telegraf-config-volume
           configMap:
             name: telegraf-config
----
-apiversion: v1
-kind: service
-metadata:
-  labels:
-    app: influxdb
-  name: influxdb-svc
-  namespace: monitoring
-spec:
-  ports:
-  - port: 8086
-    protocol: tcp
-    targetport: 8086
-  selector:
-    app: influxdb
-  sessionaffinity: none
-  type: clusterip
-status:
-  loadbalancer: {}
-
