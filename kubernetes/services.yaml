@@ -1,0 +1,20 @@
+---
+apiversion: v1
+kind: service
+metadata:
+  labels:
+    app: influxdb
+  name: influxdb-svc
+  namespace: monitoring
+spec:
+  ports:
+  - port: 8086
+    protocol: tcp
+    targetport: 8086
+  selector:
+    app: influxdb
+  sessionaffinity: none
+  type: clusterip
+status:
+  loadbalancer: {}
+
