@@ -2,6 +2,8 @@
 The following configuration files are used to deploy this stack in Kubernetes.
 You need to update them before running in your cluster.
 
+> ***NOTE***: The Kubernetes deployment is in *BETA* version. Don't worry if you see something wrong here.
+
 ## Installing, the quick way:
 
 1) Apply the `ISP-Checker-deploy.yaml`
@@ -24,12 +26,13 @@ $: kubectl expose deployments/grafana --type=LoadBalancer --name=grafana-svc
 ```
 #### port-foward
 If you can't use a LoadBalancer, you can use a `ClusterIP` service and forward to your local port.
-````
+
+```
 $: kubectl expose deployments/grafana --type=ClusterIP --name=grafana-svc
 ```
+
 And finally use your IngressController to access the service or a `port-forward`:
+
 ```
 $: kubectl port-forward svc/grafana-svc 3000:3000 -n monitoring
 ```
-
-> Kubernetes deployment is in *BETA* version. Don't worry if you see something wrong here.
