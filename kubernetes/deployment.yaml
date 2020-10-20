@@ -81,7 +81,6 @@ spec:
       labels:
         app: grafana
     spec:
-      serviceAccountName: grafana-sidecar
       containers:
         - name: grafana
           image: grafana/grafana:7.2.1
@@ -95,7 +94,7 @@ spec:
             - name: grafana-dashboard-provisioner
               mountPath: /etc/grafana/provisioning/dashboards/
             - name: grafana-dashboard
-              mountPath: /tmp/config/
+              mountPath: /tmp/config/network-dashboard.json
           ports:
             - containerPort: 3000
           env:

@@ -54,7 +54,7 @@ data:
       debug = false
 
     [[outputs.influxdb]]
-      urls = ["http://grafana-svc.monitoring.svc.cluster.local:8086/"]
+      urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
       database = "$INFLUXDB_DB"
       timeout = "60s"
       username = "$INFLUXDB_ADMIN_USER"

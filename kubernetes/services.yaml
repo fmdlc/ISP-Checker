@@ -1,20 +1,19 @@
 ---
-apiversion: v1
-kind: service
+apiVersion: v1
+kind: Service
 metadata:
   labels:
     app: influxdb
   name: influxdb-svc
   namespace: monitoring
 spec:
+  clusterIP: 10.43.37.100
   ports:
   - port: 8086
-    protocol: tcp
-    targetport: 8086
+    protocol: TCP
+    targetPort: 8086
   selector:
     app: influxdb
-  sessionaffinity: none
-  type: clusterip
-status:
-  loadbalancer: {}
+  sessionAffinity: None
+  type: ClusterIP
 
