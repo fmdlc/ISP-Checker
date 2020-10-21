@@ -2,10 +2,14 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.2.0  # Use the ref you want to point at
     hooks:
-      - id: trailing-whitespace
-      - id: detect-private-key
       - id: check-symlinks
+      - id: check-yaml
+      - id: detect-aws-credentials
+      - id: detect-private-key
+      - id: double-quote-string-fixer
+      - id: end-of-file-fixer
+      - id: forbid-new-submodules
       - id: mixed-line-ending
+      - id: trailing-whitespace
       - id: pretty-format-json
         args: ["--autofix"]
-      - id: forbid-new-submodules
