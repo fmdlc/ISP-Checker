@@ -27,3 +27,4 @@ jobs:
         with:
           # File(s) or Directory, separate by space if multiple files or folder are specified
           file_or_dir: ./kubernetes/yaml/ 
+          config_file: ./yamllint          
