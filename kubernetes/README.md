@@ -7,7 +7,8 @@
 </kbd>
 </div>
 
-The following `YAML` configuration files are used to deploy this stack in Kubernetes by creating the basic objects to run. They can widely improved but so far let's say it works. :) 
+The following `YAML` configuration files are used to deploy this stack in Kubernetes by creating the basic objects to run.  
+They can widely improved but so far let's say it works. :) 
 
 > ***NOTE***: The Kubernetes deployment is in *BETA* version. Don't worry if you see something wrong here.
 
@@ -16,7 +17,8 @@ The following `YAML` configuration files are used to deploy this stack in Kubern
 1) Apply the `ISP-Checker-deploy.yaml`
 ```bash
 $: kubectl apply -f https://raw.githubusercontent.com/fmdlc/ISP-Checker/master/kubernetes/ISP-Checker-deploy.yaml
-```
+``` 
+---
 
 ### Configuration
 
