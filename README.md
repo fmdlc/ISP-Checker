@@ -45,6 +45,12 @@ Make sure you have the [Docker-CE](https://phoenixnap.com/kb/docker-on-raspberry
 ```bash
 $ curl -fsSL https://get.docker.com -o get-docker.sh | bash -
 ```
+
+As well as [speedtest-cli](https://github.com/sivel/speedtest-cli) which is required to measure bandwidth.
+```bash
+$ pip install speedtest-cli
+```
+
 #### kubernetes
 Kubernetes is in `beta` version. To install just run:
 ```bash
