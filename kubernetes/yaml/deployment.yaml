@@ -133,7 +133,7 @@ spec:
             name: grafana-dashboard
         - name: grafana-datasource-provisioner
           secret:
-             secretName: grafana-datasource
+            secretName: grafana-datasource
 ---
 apiVersion: apps/v1
 kind: Deployment
