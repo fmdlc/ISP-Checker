@@ -1,4 +1,6 @@
 # ISP-Checker on Kubernetes
+![YAML Lint](https://github.com/fmdlc/ISP-Checker/workflows/YAML%20Lint/badge.svg)
+
 `ISP-Checker` was ported to run in Kubernetes (`1.18.0`) in a ***Raspberry Pi 4*** cluster (_It's all I have_). For that I've installed [K3s](https://k3s.io).
 
 <div align="center">
