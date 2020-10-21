@@ -1,5 +1,5 @@
 # ISP-Checker on Kubernetes
-`ISP-Checker` was ported to run in Kubernetes (`1.18.0`) in a ***Raspberry Pi 4*** cluster (_It's all I have_). For that I've installed (K3s)[https://k3s.io].
+`ISP-Checker` was ported to run in Kubernetes (`1.18.0`) in a ***Raspberry Pi 4*** cluster (_It's all I have_). For that I've installed [K3s](https://k3s.io).
 
 <div align="center">
 <kbd>
@@ -115,3 +115,11 @@ And finally use your IngressController to access the service or a `port-forward`
 ```
 $: kubectl port-forward svc/grafana-svc 3000:3000 -n monitoring
 ```
+
+---
+
+## ToDo
+[ ] Create Helm Chart.
+[ ] Improve provisioning.
+[ ] Configure Default dashboard in Grafana.
+[ ] Create CRD to interact with Grafana API.
