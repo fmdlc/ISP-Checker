@@ -4,6 +4,7 @@ repos:
     hooks:
       - id: check-symlinks
       - id: check-yaml
+        exclude: kubernetes/yaml/network-dashboard.yaml|kubernetes/ISP-Checker-deploy.yaml
       - id: detect-aws-credentials
       - id: detect-private-key
       - id: double-quote-string-fixer
