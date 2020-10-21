@@ -52,6 +52,8 @@ $: kubectl apply -f https://raw.githubusercontent.com/fmdlc/ISP-Checker/master/k
 ```
 You need to expose the `grafana` service to get access. You can do it by creating a `LoadBalancer` service type or by using an `IngressController`.
 
+For detailed Kubernetes instructions check [here](https://github.com/fmdlc/ISP-Checker/blob/master/kubernetes/README.md).
+
 #### docker-compose
 You need to have `docker-compose` installed. To install it execute:
 
