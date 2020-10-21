@@ -13,4 +13,4 @@ jobs:
         uses: ibiqlik/action-yamllint@v1.0.0
         with:
           file_or_dir: ./kubernetes/yaml/ 
-          config_file: ./yamllint      
+          config_file: ./.yamllint     
