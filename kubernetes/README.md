@@ -121,7 +121,7 @@ $: kubectl port-forward svc/grafana-svc 3000:3000 -n monitoring
 
 ## ToDo
 
-[ ] Create Helm Chart.
-[ ] Improve provisioning.
-[ ] Configure Default dashboard in Grafana.
-[ ] Create CRD to interact with Grafana API.
+- [ ] Create Helm Chart.
+- [ ] Improve provisioning.
+- [ ] Configure Default dashboard in Grafana.
+- [ ] Create CRD to interact with Grafana API.
