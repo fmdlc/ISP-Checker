@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## October 20 2020 - v1.4 (Beta)
+## Octobre 21 2020 - v1.4 (Beta)
+* Improved Kubernetes documentation.
+* Improved main documentation.
+* Updated Grafana deployment to use a `PersistentVolume`.
+* Updated Dashboard to reflect real ISP latencies.
 * Created initial Kubernetes YAML files.
 * Updated documentation.
 

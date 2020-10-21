@@ -89,6 +89,8 @@ spec:
             - secretRef:
                 name: isp-checker-secrets-ro
           volumeMounts:
+            - name: grafana-volume
+              mountPath: /var/lib/grafana
             - name: grafana-datasource-provisioner
               mountPath: /etc/grafana/provisioning/datasources/
             - name: grafana-dashboard-provisioner
@@ -120,6 +122,9 @@ spec:
               memory: "500Mi"
               cpu: "0.4"
       volumes:
+        - name: grafana-volume
+          persistentVolumeClaim:
+            claimName: grafana-pvc
         - name: grafana-dashboard-provisioner
           configMap:
             name: network-dashboard-provisioner
