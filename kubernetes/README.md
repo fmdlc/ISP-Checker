@@ -7,6 +7,7 @@
 </kbd>
 </div>
 
+
 The following `YAML` configuration files are used to deploy this stack in Kubernetes by creating the basic objects to run.  
 They can widely improved but so far let's say it works. :) 
 
@@ -119,6 +120,7 @@ $: kubectl port-forward svc/grafana-svc 3000:3000 -n monitoring
 ---
 
 ## ToDo
+
 [ ] Create Helm Chart.
 [ ] Improve provisioning.
 [ ] Configure Default dashboard in Grafana.
