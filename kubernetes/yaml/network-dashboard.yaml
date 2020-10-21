@@ -7,72 +7,6 @@ metadata:
 data:
   network-dashboard.json: |-
     {
-      "__inputs": [
-        {
-          "name": "InfluxDB",
-          "label": "InfluxDB",
-          "description": "",
-          "type": "datasource",
-          "pluginId": "influxdb",
-          "pluginName": "InfluxDB"
-        }
-      ],
-      "__requires": [
-        {
-          "type": "panel",
-          "id": "bargauge",
-          "name": "Bar gauge",
-          "version": ""
-        },
-        {
-          "type": "panel",
-          "id": "gauge",
-          "name": "Gauge",
-          "version": ""
-        },
-        {
-          "type": "panel",
-          "id": "gowee-traceroutemap-panel",
-          "name": "Traceroute Map Panel",
-          "version": "0.2.3"
-        },
-        {
-          "type": "grafana",
-          "id": "grafana",
-          "name": "Grafana",
-          "version": "7.2.1"
-        },
-        {
-          "type": "panel",
-          "id": "graph",
-          "name": "Graph",
-          "version": ""
-        },
-        {
-          "type": "panel",
-          "id": "heatmap",
-          "name": "Heatmap",
-          "version": ""
-        },
-        {
-          "type": "datasource",
-          "id": "influxdb",
-          "name": "InfluxDB",
-          "version": "1.0.0"
-        },
-        {
-          "type": "panel",
-          "id": "stat",
-          "name": "Stat",
-          "version": ""
-        },
-        {
-          "type": "panel",
-          "id": "table",
-          "name": "Table",
-          "version": ""
-        }
-      ],
       "annotations": {
         "list": [
           {
@@ -90,8 +24,7 @@ data:
       "editable": true,
       "gnetId": 13140,
       "graphTooltip": 0,
-      "id": null,
-      "iteration": 1602558532070,
+      "iteration": 1603250019777,
       "links": [],
       "panels": [
         {
@@ -100,7 +33,7 @@ data:
             "defaults": {
               "custom": {},
               "mappings": [],
-              "max": 100,
+              "max": 300,
               "min": 0,
               "thresholds": {
                 "mode": "absolute",
@@ -115,39 +48,31 @@ data:
                   },
                   {
                     "color": "light-green",
-                    "value": 10
-                  },
-                  {
-                    "color": "semi-dark-green",
-                    "value": 20
-                  },
-                  {
-                    "color": "semi-dark-green",
-                    "value": 30
-                  },
-                  {
-                    "color": "super-light-orange",
-                    "value": 40
-                  },
-                  {
-                    "color": "light-orange",
                     "value": 50
                   },
                   {
+                    "color": "semi-dark-green",
+                    "value": 100
+                  },
+                  {
+                    "color": "semi-dark-green",
+                    "value": 150
+                  },
+                  {
+                    "color": "light-orange",
+                    "value": 150
+                  },
+                  {
+                    "color": "super-light-orange",
+                    "value": 200
+                  },
+                  {
                     "color": "semi-dark-orange",
-                    "value": 60
-                  },
-                  {
-                    "color": "light-red",
-                    "value": 70
-                  },
-                  {
-                    "color": "semi-dark-red",
-                    "value": 80
+                    "value": 250
                   },
                   {
                     "color": "dark-red",
-                    "value": 90
+                    "value": 300
                   }
                 ]
               },
@@ -1399,6 +1324,361 @@ data:
           },
           "pluginVersion": "7.2.1",
           "repeat": "PingURL",
+          "scopedVars": {
+            "PingURL": {
+              "selected": false,
+              "text": "amazon.com",
+              "value": "amazon.com"
+            }
+          },
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"average_response_ms\") FROM \"ping\" WHERE (\"url\" =~ /^$PingURL$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$PingURL Ping",
+          "type": "gauge"
+        },
+        {
+          "datasource": "InfluxDB",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "decimals": 2,
+              "mappings": [],
+              "min": 0,
+              "noValue": "N/A",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "super-light-green",
+                    "value": null
+                  },
+                  {
+                    "color": "semi-dark-green",
+                    "value": 150
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 200
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 250
+                  },
+                  {
+                    "color": "semi-dark-orange",
+                    "value": 300
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 350
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 6,
+            "y": 41
+          },
+          "id": 88,
+          "options": {
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "7.2.1",
+          "repeatIteration": 1603250019777,
+          "repeatPanelId": 42,
+          "scopedVars": {
+            "PingURL": {
+              "selected": false,
+              "text": "google.com",
+              "value": "google.com"
+            }
+          },
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"average_response_ms\") FROM \"ping\" WHERE (\"url\" =~ /^$PingURL$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$PingURL Ping",
+          "type": "gauge"
+        },
+        {
+          "datasource": "InfluxDB",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "decimals": 2,
+              "mappings": [],
+              "min": 0,
+              "noValue": "N/A",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "super-light-green",
+                    "value": null
+                  },
+                  {
+                    "color": "semi-dark-green",
+                    "value": 150
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 200
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 250
+                  },
+                  {
+                    "color": "semi-dark-orange",
+                    "value": 300
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 350
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 12,
+            "y": 41
+          },
+          "id": 89,
+          "options": {
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "7.2.1",
+          "repeatIteration": 1603250019777,
+          "repeatPanelId": 42,
+          "scopedVars": {
+            "PingURL": {
+              "selected": false,
+              "text": "twitter.com",
+              "value": "twitter.com"
+            }
+          },
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"average_response_ms\") FROM \"ping\" WHERE (\"url\" =~ /^$PingURL$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$PingURL Ping",
+          "type": "gauge"
+        },
+        {
+          "datasource": "InfluxDB",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "decimals": 2,
+              "mappings": [],
+              "min": 0,
+              "noValue": "N/A",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "super-light-green",
+                    "value": null
+                  },
+                  {
+                    "color": "semi-dark-green",
+                    "value": 150
+                  },
+                  {
+                    "color": "dark-green",
+                    "value": 200
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 250
+                  },
+                  {
+                    "color": "semi-dark-orange",
+                    "value": 300
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 350
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 18,
+            "y": 41
+          },
+          "id": 90,
+          "options": {
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "7.2.1",
+          "repeatIteration": 1603250019777,
+          "repeatPanelId": 42,
+          "scopedVars": {
+            "PingURL": {
+              "selected": false,
+              "text": "yahoo.com",
+              "value": "yahoo.com"
+            }
+          },
           "targets": [
             {
               "groupBy": [
@@ -2848,6 +3128,349 @@ data:
           },
           "pluginVersion": "7.2.1",
           "repeat": "PingURL",
+          "scopedVars": {
+            "PingURL": {
+              "selected": false,
+              "text": "amazon.com",
+              "value": "amazon.com"
+            }
+          },
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT 100 - mean(\"percent_packet_loss\") FROM \"ping\" WHERE \"url\" =~ /^$PingURL$/ AND $timeFilter GROUP BY time(1m) fill(null)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$PingURL Ping",
+          "type": "stat"
+        },
+        {
+          "datasource": "InfluxDB",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "decimals": 4,
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "text": "N/A",
+                  "to": "",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-red",
+                    "value": null
+                  },
+                  {
+                    "color": "semi-dark-orange",
+                    "value": 95
+                  },
+                  {
+                    "color": "semi-dark-green",
+                    "value": 100
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 6,
+            "y": 94
+          },
+          "id": 91,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.2.1",
+          "repeatIteration": 1603250019777,
+          "repeatPanelId": 36,
+          "scopedVars": {
+            "PingURL": {
+              "selected": false,
+              "text": "google.com",
+              "value": "google.com"
+            }
+          },
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT 100 - mean(\"percent_packet_loss\") FROM \"ping\" WHERE \"url\" =~ /^$PingURL$/ AND $timeFilter GROUP BY time(1m) fill(null)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$PingURL Ping",
+          "type": "stat"
+        },
+        {
+          "datasource": "InfluxDB",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "decimals": 4,
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "text": "N/A",
+                  "to": "",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-red",
+                    "value": null
+                  },
+                  {
+                    "color": "semi-dark-orange",
+                    "value": 95
+                  },
+                  {
+                    "color": "semi-dark-green",
+                    "value": 100
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 12,
+            "y": 94
+          },
+          "id": 92,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.2.1",
+          "repeatIteration": 1603250019777,
+          "repeatPanelId": 36,
+          "scopedVars": {
+            "PingURL": {
+              "selected": false,
+              "text": "twitter.com",
+              "value": "twitter.com"
+            }
+          },
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT 100 - mean(\"percent_packet_loss\") FROM \"ping\" WHERE \"url\" =~ /^$PingURL$/ AND $timeFilter GROUP BY time(1m) fill(null)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$PingURL Ping",
+          "type": "stat"
+        },
+        {
+          "datasource": "InfluxDB",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "decimals": 4,
+              "mappings": [
+                {
+                  "from": "",
+                  "id": 0,
+                  "text": "N/A",
+                  "to": "",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-red",
+                    "value": null
+                  },
+                  {
+                    "color": "semi-dark-orange",
+                    "value": 95
+                  },
+                  {
+                    "color": "semi-dark-green",
+                    "value": 100
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 18,
+            "y": 94
+          },
+          "id": 93,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.2.1",
+          "repeatIteration": 1603250019777,
+          "repeatPanelId": 36,
+          "scopedVars": {
+            "PingURL": {
+              "selected": false,
+              "text": "yahoo.com",
+              "value": "yahoo.com"
+            }
+          },
           "targets": [
             {
               "groupBy": [
@@ -2908,7 +3531,11 @@ data:
         "list": [
           {
             "allValue": null,
-            "current": {},
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
             "datasource": "InfluxDB",
             "definition": "",
             "hide": 0,
@@ -2930,7 +3557,11 @@ data:
           },
           {
             "allValue": null,
-            "current": {},
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
             "datasource": "InfluxDB",
             "definition": "",
             "hide": 0,
@@ -2952,7 +3583,11 @@ data:
           },
           {
             "allValue": null,
-            "current": {},
+            "current": {
+              "selected": false,
+              "text": "node1",
+              "value": "node1"
+            },
             "datasource": "InfluxDB",
             "definition": "",
             "hide": 0,
@@ -2982,5 +3617,5 @@ data:
       "timezone": "browser",
       "title": "Network",
       "uid": "Is1f1nRgz",
-      "version": 2
+      "version": 1
     }
