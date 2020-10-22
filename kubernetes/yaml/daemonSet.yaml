@@ -1,0 +1,79 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  namespace: monitoring
+  name: telegraf
+  labels:
+    app: telegraf
+spec:
+  selector:
+    matchLabels:
+      app: telegraf
+  template:
+    metadata:
+      labels:
+        name: telegraf
+        app: telegraf
+    spec:
+      containers:
+        - name: telegraf
+          image: tty0/isp_telegraf:1.15.3
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: isp-checker-secrets-rw
+          env:
+            - name: "KUBE_API"
+              value: "https://node2:6443/"
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: "HOST_PROC"
+              value: "/rootfs/proc"
+            - name: "HOST_SYS"
+              value: "/rootfs/sys"
+          volumeMounts:
+            - name: telegraf-config-volume
+              mountPath: /etc/telegraf/
+              readOnly: true
+            - name: sys
+              mountPath: /sys/
+              readOnly: true
+            - name: proc
+              mountPath: /proc/
+              readOnly: true
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+            - name: utmp
+              mountPath: /var/run/utmp
+              readOnly: true
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "0.1"
+            limits:
+              memory: "200Mi"
+              cpu: "0.3"
+      initContainers:
+        - name: wait-for-influxdb
+          image: curlimages/curl:7.72.0
+          command: ['sh', '-c', "until curl -XGET http://influxdb-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local:8086/; do echo Waiting\ for\ InfluxDB; sleep 2; done"]
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: telegraf-config-volume
+          configMap:
+            name: telegraf-config
+        - name: sys
+          hostPath:
+            path: /sys
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+        - name: proc
+          hostPath:
+            path: /proc
+        - name: utmp
+          hostPath:
+            path: /var/run/utmp

@@ -41,7 +41,7 @@ data:
   telegraf.conf: |+
     [global_tags]
     [agent]
-      interval = "10s"
+      interval = "60s"
       round_interval = true
       metric_batch_size = 1000
       metric_buffer_limit = 10000
@@ -49,9 +49,10 @@ data:
       flush_interval = "10s"
       flush_jitter = "0s"
       precision = ""
-      hostname = ""
+      hostname = "$HOSTNAME"
       omit_hostname = false
       debug = false
+      quiet = true
 
     [[outputs.influxdb]]
       urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
@@ -62,6 +63,15 @@ data:
       user_agent = "telegraf"
       skip_database_creation = false
 
+    [[inputs.net]]
+    [[inputs.netstat]]
+    [[inputs.diskio]]
+    [[inputs.linux_sysctl_fs]]
+    [[inputs.mem]]
+    [[inputs.processes]]
+    [[inputs.swap]]
+    [[inputs.system]]
+
     [[inputs.cpu]]
       percpu = true
       totalcpu = true
@@ -69,23 +79,22 @@ data:
       report_active = false
 
     [[inputs.disk]]
-      ignore_fs = ["tmpfs", "devtmpfs", "devfs", "iso9660", "overlay", "aufs", "squashfs"]
-
-    [[inputs.diskio]]
-
-    [[inputs.kernel]]
-
-    [[inputs.mem]]
-
-    [[inputs.processes]]
-
-    [[inputs.swap]]
-
-    [[inputs.system]]
+      ignore_fs = ["tmpfs",
+        "devtmpfs",
+        "devfs",
+        "iso9660",
+        "overlay",
+        "aufs",
+        "squashfs"
+      ]
 
     [[inputs.dns_query]]
        servers = ["4.2.2.1", "8.8.8.8"]
-       domains = ["www.google.com", "www.twitter.com", "www.amazon.com", "www.wikipedia.org"]
+       domains = ["www.google.com",
+         "www.twitter.com",
+         "www.amazon.com",
+         "www.wikipedia.org"
+       ]
        record_type = "A"
        port = 53
        timeout = 3
@@ -103,12 +112,6 @@ data:
 
     [[inputs.internal]]
       collect_memstats = true
-
-    [[inputs.linux_sysctl_fs]]
-
-    [[inputs.net]]
-
-    [[inputs.netstat]]
 
     [[inputs.ping]]
       urls = [
@@ -141,6 +144,19 @@ data:
       timeout = "3m"
       interval = "15m"
       data_format = "csv"
-      csv_column_names = ['Server ID','Sponsor','Server Name','Timestamp','Distance','Ping','Download','Upload','Share','IP Address']
+      csv_column_names = ['Server ID',
+        'Sponsor',
+        'Server Name',
+        'Timestamp',
+        'Distance',
+        'Ping',
+        'Download',
+        'Upload',
+        'Share',
+        'IP Address'
+      ]
       csv_timestamp_column = "Timestamp"
       csv_timestamp_format = "2006-01-02T15:04:05Z07:00"
+
+    [[inputs.docker]]
+      endpoint = "unix:///var/run/docker.sock"
