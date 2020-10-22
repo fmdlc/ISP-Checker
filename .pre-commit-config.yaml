@@ -5,6 +5,7 @@ repos:
       - id: check-symlinks
       - id: check-yaml
         exclude: kubernetes/yaml/network-dashboard.yaml|kubernetes/ISP-Checker-deploy.yaml
+        args: ["--allow-multiple-documents"]
       - id: detect-aws-credentials
       - id: detect-private-key
       - id: double-quote-string-fixer
