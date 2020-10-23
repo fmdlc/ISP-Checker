@@ -1,12 +1,13 @@
 # CHANGELOG
 
-## Octobre 21 2020 - v1.4 (Beta)
+## Octobre 23 2020 - v1.4 (Beta)
 * Improved Kubernetes documentation.
 * Improved main documentation.
 * Updated Grafana deployment to use a `PersistentVolume`.
-* Updated Dashboard to reflect real ISP latencies.
-* Created initial Kubernetes YAML files.
-* Updated documentation.
+* Telegraf now runs in a `DaemonSet`.
+* `Speedtest-cli` and `MTR` now runs as `CronJob` every `10 minutes`
+* New `ConfigMap` mappings.
+* Included script to generate Manifest.
 
 ## October 16 2020 - v1.3
 * API configuration is now executed using `cURL` [Docker image](https://hub.docker.com/r/curlimages/curl).

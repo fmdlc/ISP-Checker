@@ -20,7 +20,7 @@ data:
       options:
         path: /var/lib/grafana/dashboards/
         foldersFromFilesStructure: true
-        homeDashboardId: 1
+        homeDashboardId: Network
 
 ---
 apiVersion: v1

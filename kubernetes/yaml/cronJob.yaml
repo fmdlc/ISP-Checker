@@ -38,11 +38,11 @@ spec:
                       fieldPath: spec.nodeName
               resources:
                 limits:
-                  cpu: "0.25"
-                  memory: "200Mi"
+                  cpu: "0.30"
+                  memory: "250Mi"
                 requests:
-                  cpu: "0.10"
-                  memory: "100Mi"
+                  cpu: "0.20"
+                  memory: "130Mi"
               volumeMounts:
                 - name: telegraf-config-volume
                   mountPath: /etc/telegraf/
@@ -96,11 +96,11 @@ spec:
                       fieldPath: spec.nodeName
               resources:
                 limits:
-                  cpu: "0.25"
-                  memory: "200Mi"
+                  cpu: "0.30"
+                  memory: "250Mi"
                 requests:
-                  cpu: "0.10"
-                  memory: "100Mi"
+                  cpu: "0.15"
+                  memory: "130Mi"
               volumeMounts:
                 - name: telegraf-config-volume
                   mountPath: /etc/telegraf/

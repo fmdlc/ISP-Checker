@@ -27,9 +27,9 @@ It's easily extensible and it was built on top of [Docker](http://docker.com) to
 
 Feel free to reach me out for any feedback or ideas! :-)
 
-<center>
+<div align="center">
 <img src="./img/demo.gif" />
-</center>
+</div>
 
 #### Platforms
 The following platforms are supported:
@@ -51,6 +51,12 @@ Kubernetes is in `beta` version. To install just run:
 $: kubectl apply -f https://raw.githubusercontent.com/fmdlc/ISP-Checker/master/kubernetes/ISP-Checker-deploy.yaml
 ```
 You need to expose the `grafana` service to get access. You can do it by creating a `LoadBalancer` service type or by using an `IngressController`.
+
+Kubernetes deployment includes the [@jorgedlcruz](https://github.com/jorgedlcruz) [Raspberry Pi Monitoring](https://grafana.com/grafana/dashboards/10578) Dashboard.
+
+<div align="center">
+![https://github.com/fmdlc/ISP-Checker/blob/master/img/img_5?raw=true](https://github.com/fmdlc/ISP-Checker/blob/master/img/img_5.png?raw=true)
+</div>
 
 For detailed Kubernetes instructions check [here](https://github.com/fmdlc/ISP-Checker/blob/master/kubernetes/README.md).
 
@@ -151,13 +157,17 @@ But, latency only paints half the picture. Imagine yourself in a conversation wh
 
 ---
 
+<div align="center">
 ![https://github.com/fmdlc/ISP-Checker/blob/master/img/img_4.png?raw=true](https://github.com/fmdlc/ISP-Checker/blob/master/img/img_4.png?raw=true)
+
 ![https://github.com/fmdlc/ISP-Checker/blob/master/img/img_1.png?raw=true](https://github.com/fmdlc/ISP-Checker/blob/master/img/img_1.png?raw=true)
+</div>
 
 ## ToDo
 - [X] Enable Network-dashboard as default dashboard.
 - [ ] Allows users to select their metrics endpoint.
 - [ ] Allow users to select their Grafana Org.
+- [X] Migrate services to Kubernetes.
 - [ ] Helm Chart to run in Kubernetes.
 - [ ] Enable HTTPS support.
 - [X] Enable Interfaces configuration.
