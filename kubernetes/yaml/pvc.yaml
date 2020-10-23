@@ -5,6 +5,8 @@ metadata:
   namespace: monitoring
   labels:
     app: influxdb
+    app.kubernetes.io/app: influxdb
+    app.kubernetes.io/project: isp-checker
   name: influxdb-pvc
 spec:
   accessModes:
@@ -20,6 +22,8 @@ metadata:
   namespace: monitoring
   labels:
     app: grafana
+    app.kubernetes.io/app: grafana
+    app.kubernetes.io/project: isp-checker
   name: grafana-pvc
 spec:
   accessModes:

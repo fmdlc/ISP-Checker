@@ -4,8 +4,6 @@ kind: DaemonSet
 metadata:
   namespace: monitoring
   name: telegraf
-  labels:
-    app: telegraf
 spec:
   selector:
     matchLabels:
@@ -13,9 +11,15 @@ spec:
   template:
     metadata:
       labels:
-        name: telegraf
         app: telegraf
+        app.kubernetes.io/app: telegraf
+        app.kubernetes.io/name: telegraf
+        app.kubernetes.io/project: isp-checker
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 472
+        fsGroup: 472
       containers:
         - name: telegraf
           image: tty0/isp_telegraf:1.15.3
@@ -39,10 +43,10 @@ spec:
               mountPath: /etc/telegraf/
               readOnly: true
             - name: sys
-              mountPath: /sys/
+              mountPath: /rootfs/sys/
               readOnly: true
             - name: proc
-              mountPath: /proc/
+              mountPath: /rootfs/proc/
               readOnly: true
             - name: docker-socket
               mountPath: /var/run/docker.sock
@@ -65,6 +69,9 @@ spec:
         - name: telegraf-config-volume
           configMap:
             name: telegraf-config
+            items:
+              - key: telegraf.conf
+                path: telegraf.conf
         - name: sys
           hostPath:
             path: /sys

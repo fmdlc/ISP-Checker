@@ -1,0 +1,115 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: telefraf-mtr
+  namespace: monitoring
+spec:
+  schedule: "*/10 * * * *"
+  startingDeadlineSeconds: 100
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 2
+  concurrencyPolicy: "Forbid"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/app: telegraf
+            app.kubernetes.io/name: telegraf-mtr
+            app.kubernetes.io/project: isp-checker
+        spec:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 472
+            fsGroup: 472
+          containers:
+            - name: telegraf-mtr
+              image: tty0/isp_telegraf:1.15.3
+              imagePullPolicy: IfNotPresent
+              command: ['sh', '-c', "/usr/bin/telegraf --config /etc/telegraf/telegraf-mtr.conf --once"]
+              envFrom:
+                - secretRef:
+                    name: isp-checker-secrets-rw
+              env:
+                - name: HOSTNAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
+              resources:
+                limits:
+                  cpu: "0.25"
+                  memory: "200Mi"
+                requests:
+                  cpu: "0.10"
+                  memory: "100Mi"
+              volumeMounts:
+                - name: telegraf-config-volume
+                  mountPath: /etc/telegraf/
+                  readOnly: true
+          restartPolicy: Never
+          volumes:
+            - name: telegraf-config-volume
+              configMap:
+                name: telegraf-config
+                items:
+                  - key: telegraf-mtr.conf
+                    path: telegraf-mtr.conf
+
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: telefraf-speedtest
+  namespace: monitoring
+spec:
+  schedule: "*/10 * * * *"
+  startingDeadlineSeconds: 100
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 2
+  concurrencyPolicy: "Forbid"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/app: telegraf
+            app.kubernetes.io/name: telegraf-mtr
+            app.kubernetes.io/project: isp-checker
+        spec:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 472
+            fsGroup: 472
+          containers:
+            - name: telegraf-speedtest
+              image: tty0/isp_telegraf:1.15.3
+              imagePullPolicy: IfNotPresent
+              command: ['sh', '-c', "/usr/bin/telegraf --config /etc/telegraf/telegraf-speedtest.conf --once"]
+              envFrom:
+                - secretRef:
+                    name: isp-checker-secrets-rw
+              env:
+                - name: HOSTNAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: spec.nodeName
+              resources:
+                limits:
+                  cpu: "0.25"
+                  memory: "200Mi"
+                requests:
+                  cpu: "0.10"
+                  memory: "100Mi"
+              volumeMounts:
+                - name: telegraf-config-volume
+                  mountPath: /etc/telegraf/
+                  readOnly: true
+          restartPolicy: Never
+          volumes:
+            - name: telegraf-config-volume
+              configMap:
+                name: telegraf-config
+                items:
+                  - key: telegraf-speedtest.conf
+                    path: telegraf-speedtest.conf

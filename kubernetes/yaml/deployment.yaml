@@ -15,7 +15,14 @@ spec:
     metadata:
       labels:
         app: influxdb
+        app.kubernetes.io/app: influxdb
+        app.kubernetes.io/name: influxdb
+        app.kubernetes.io/project: isp-checker
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        fsGroup: 999
       containers:
         - name: influxdb
           image: influxdb:1.8.3
@@ -50,7 +57,6 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
-      securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
         - name: var-lib-influxdb
@@ -80,7 +86,14 @@ spec:
     metadata:
       labels:
         app: grafana
+        app.kubernetes.io/app: influxdb
+        app.kubernetes.io/name: influxdb
+        app.kubernetes.io/project: isp-checker
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 472
+        fsGroup: 472
       containers:
         - name: grafana
           image: grafana/grafana:7.2.1
@@ -89,14 +102,23 @@ spec:
             - secretRef:
                 name: isp-checker-secrets-ro
           volumeMounts:
+            # Grafana persistent volume
             - name: grafana-volume
               mountPath: /var/lib/grafana
-            - name: grafana-datasource-provisioner
+            # Grafana DS provisioner
+            - name: influxdb-datasource-provisioner
               mountPath: /etc/grafana/provisioning/datasources/
+            # Grafana Dashboards provisioner
             - name: grafana-dashboard-provisioner
               mountPath: /etc/grafana/provisioning/dashboards/
-            - name: grafana-dashboard
-              mountPath: /tmp/config/network-dashboard.json
+            # Network Dashboard
+            - name: network-dashboard
+              mountPath: /var/lib/grafana/dashboards/network-dashboard.json
+              subPath: network-dashboard.json
+            # Raspberry Dashboard
+            - name: raspberry-dashboard
+              mountPath: /var/lib/grafana/dashboards/raspberry-dashboard.json
+              subPath: raspberry-dashboard.json
           ports:
             - containerPort: 3000
           env:
@@ -104,15 +126,15 @@ spec:
               value: https://grafana.com/api/plugins/gowee-traceroutemap-panel/versions/0.2.3/download;gowee-traceroutemap-panel
           readinessProbe:
             httpGet:
-              path: /
+              path: /api/health
               port: 3000
-            initialDelaySeconds: 30
+            initialDelaySeconds: 5
             periodSeconds: 30
           livenessProbe:
             httpGet:
               path: /
               port: 3000
-            initialDelaySeconds: 30
+            initialDelaySeconds: 5
             periodSeconds: 30
           resources:
             requests:
@@ -122,15 +144,23 @@ spec:
               memory: "500Mi"
               cpu: "0.4"
       volumes:
+        # Grafana configuration PVC
         - name: grafana-volume
           persistentVolumeClaim:
             claimName: grafana-pvc
+        # InfluxDB DS provisioner
+        - name: influxdb-datasource-provisioner
+          secret:
+            secretName: influxdb-datasource-provisioner
+        # Grafana dashboard provisioner
         - name: grafana-dashboard-provisioner
           configMap:
-            name: network-dashboard-provisioner
-        - name: grafana-dashboard
+            name: grafana-dashboard-provisioner
+        # Raspberry dashboard
+        - name: raspberry-dashboard
           configMap:
-            name: grafana-dashboard
-        - name: grafana-datasource-provisioner
-          secret:
-            secretName: grafana-datasource
+            name: raspberry-dashboard
+        # Network dashboard
+        - name: network-dashboard
+          configMap:
+            name: network-dashboard

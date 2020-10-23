@@ -4,6 +4,8 @@ kind: Service
 metadata:
   labels:
     app: influxdb
+    app.kubernetes.io/app: influxdb
+    app.kubernetes.io/project: isp-checker
   name: influxdb-svc
   namespace: monitoring
 spec:
