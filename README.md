@@ -8,14 +8,15 @@
 ## Table of contents
 1. [ Platforms ](#Platforms)
 2. [ Download ](#Grafana)
-3. [ Configuration ](#Configuration)
+3. [ Kubernetes ](#Kubernetes)
+4. [ Configuration ](#Configuration)
 5. [ Installation ](#Installation)
 6. [ Login ](#Login)
 7. [ Removing ](#Removing)
 8. [ Concepts ](#Cooncepts)
-12. [ ToDo ](#ToDo)
-13. [ Contributing ](#Contributing)
-14. [ License ](#License)
+9. [ ToDo ](#ToDo)
+10. [ Contributing ](#Contributing)
+11. [ License ](#License)
 
 [Fibertel](http://www.fibertel.com/), the most popular Argentinian Internet provider always has connectivity issues. It inspired me to use a Raspberry Pi and build some type of monitoring to aggregate metrics. I have been using [Grafana](http://grafana.com) at work for several years, so why not use the same logic?.
 
@@ -27,9 +28,9 @@ It's easily extensible and it was built on top of [Docker](http://docker.com) to
 
 Feel free to reach me out for any feedback or ideas! :-)
 
-<center>
+<div align="center">
 <img src="./img/demo.gif" />
-</center>
+</div>
 
 #### Platforms
 The following platforms are supported:
@@ -37,23 +38,32 @@ The following platforms are supported:
 * `linux/arm/v7`,
 * `linux/arm64`.
 
-#### Download
+### Download
 You can easily import this dashboard into your current Grafana installation getting it from the Official's [Grafana repository](https://grafana.com/grafana/dashboards/13140).
 
-### Configuration
-Make sure you have the [Docker-CE](https://phoenixnap.com/kb/docker-on-raspberry-pi) and [cURL](https://curl.haxx.se/) installed on your *Raspberry Pi*. If you don't, install it using your prefer method.
-```bash
-$ curl -fsSL https://get.docker.com -o get-docker.sh | bash -
-```
-#### kubernetes
+### kubernetes
 Kubernetes is in `beta` version. To install just run:
 ```bash
 $: kubectl apply -f https://raw.githubusercontent.com/fmdlc/ISP-Checker/master/kubernetes/ISP-Checker-deploy.yaml
 ```
 You need to expose the `grafana` service to get access. You can do it by creating a `LoadBalancer` service type or by using an `IngressController`.
 
-For detailed Kubernetes instructions check [here](https://github.com/fmdlc/ISP-Checker/blob/master/kubernetes/README.md).
+> Kubernetes deployment includes the [@jorgedlcruz](https://github.com/jorgedlcruz) [Raspberry Pi Monitoring](https://grafana.com/grafana/dashboards/10578) Dashboard.  
 
+It's a super useful dashboard to monitor Hardware and Operating system stadistics and extends `ISP-Checker` features and contains multiples sections with the goal to monitor a full Raspberry Pi board or boards and has some sections to monitor the Linux and machine overall performance, and temperature.
+
+<div align="center">
+<img src="https://github.com/fmdlc/ISP-Checker/blob/master/img/img_5.png?raw=true" />
+</div>
+
+
+<ins>For detailed Kubernetes instructions check:</ins> [here](https://github.com/fmdlc/ISP-Checker/blob/master/kubernetes/README.md).
+
+### Configuration
+Make sure you have the [Docker-CE](https://phoenixnap.com/kb/docker-on-raspberry-pi) and [cURL](https://curl.haxx.se/) installed on your *Raspberry Pi*. If you don't, install it using your prefer method.
+```bash
+$ curl -fsSL https://get.docker.com -o get-docker.sh | bash -
+```
 #### docker-compose
 You need to have `docker-compose` installed. To install it execute:
 
@@ -151,13 +161,17 @@ But, latency only paints half the picture. Imagine yourself in a conversation wh
 
 ---
 
+<div align="center">
 ![https://github.com/fmdlc/ISP-Checker/blob/master/img/img_4.png?raw=true](https://github.com/fmdlc/ISP-Checker/blob/master/img/img_4.png?raw=true)
+
 ![https://github.com/fmdlc/ISP-Checker/blob/master/img/img_1.png?raw=true](https://github.com/fmdlc/ISP-Checker/blob/master/img/img_1.png?raw=true)
+</div>
 
 ## ToDo
 - [X] Enable Network-dashboard as default dashboard.
 - [ ] Allows users to select their metrics endpoint.
 - [ ] Allow users to select their Grafana Org.
+- [X] Migrate services to Kubernetes.
 - [ ] Helm Chart to run in Kubernetes.
 - [ ] Enable HTTPS support.
 - [X] Enable Interfaces configuration.
