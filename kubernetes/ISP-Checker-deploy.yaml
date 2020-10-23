@@ -57,7 +57,6 @@ data:
       options:
         path: /var/lib/grafana/dashboards/
         foldersFromFilesStructure: true
-        homeDashboardId: Network
 
 ---
 apiVersion: v1
@@ -10733,6 +10732,8 @@ spec:
           ports:
             - containerPort: 3000
           env:
+            - name: GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH
+              value: /var/lib/grafana/dashboards/network-dashboard.json
             - name: GF_INSTALL_PLUGINS
               value: https://grafana.com/api/plugins/gowee-traceroutemap-panel/versions/0.2.3/download;gowee-traceroutemap-panel
           readinessProbe:
