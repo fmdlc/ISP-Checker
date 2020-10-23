@@ -52,7 +52,7 @@ $: kubectl apply -f https://raw.githubusercontent.com/fmdlc/ISP-Checker/master/k
 ```
 You need to expose the `grafana` service to get access. You can do it by creating a `LoadBalancer` service type or by using an `IngressController`.
 
-Kubernetes deployment includes the [@jorgedlcruz](https://github.com/jorgedlcruz) [Raspberry Pi Monitoring](https://grafana.com/grafana/dashboards/10578) Dashboard.
+> Kubernetes deployment includes the [@jorgedlcruz](https://github.com/jorgedlcruz) [Raspberry Pi Monitoring](https://grafana.com/grafana/dashboards/10578) Dashboard. It's a super useful dashboard to monitor Hardware and Operating system stadistics and extends `ISP-Checker` features.
 
 <div align="center">
 <img src="https://github.com/fmdlc/ISP-Checker/blob/v0.4/img/img_5.png?raw=true" />
