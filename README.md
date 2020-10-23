@@ -55,7 +55,7 @@ You need to expose the `grafana` service to get access. You can do it by creatin
 Kubernetes deployment includes the [@jorgedlcruz](https://github.com/jorgedlcruz) [Raspberry Pi Monitoring](https://grafana.com/grafana/dashboards/10578) Dashboard.
 
 <div align="center">
-![https://github.com/fmdlc/ISP-Checker/blob/master/img/img_5?raw=true](https://github.com/fmdlc/ISP-Checker/blob/master/img/img_5.png?raw=true)
+![https://grafana.com/grafana/dashboards/10578](https://github.com/fmdlc/ISP-Checker/blob/v0.4/img/img_5.png?raw=true)
 </div>
 
 For detailed Kubernetes instructions check [here](https://github.com/fmdlc/ISP-Checker/blob/master/kubernetes/README.md).
