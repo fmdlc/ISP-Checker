@@ -3,33 +3,24 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: monitoring
-  name: grafana-user-config
+  name: grafana-dashboard-provisioner
+  labels:
+    app.kubernetes.io/app: grafana
+    app.kubernetes.io/project: isp-checker
 data:
-  default.json: |-
-    {
-      "homeDashboardId": 1,
-      "theme": "dark",
-      "timezone": "browser"
-    }
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  namespace: monitoring
-  name: network-dashboard-provisioner
-data:
-  networking.yaml: |-
+  dashboards.yaml: |-
     apiVersion: 1
     providers:
-    - name: 'ISP-Checker'
+    - name: 'Dashboards'
       orgId: 1
       folder: ''
       type: file
       disableDeletion: true
       editable: false
       options:
-        path: /tmp/config/network-dashboard.json
+        path: /var/lib/grafana/dashboards/
+        foldersFromFilesStructure: true
+        homeDashboardId: 1
 
 ---
 apiVersion: v1
@@ -37,35 +28,39 @@ kind: ConfigMap
 metadata:
   namespace: monitoring
   name: telegraf-config
+  labels:
+    app.kubernetes.io/app: grafana
+    app.kubernetes.io/project: isp-checker
 data:
-  telegraf.conf: |+
+  telegraf.conf: |-
     [global_tags]
     [agent]
-      interval = "60s"
-      round_interval = true
-      metric_batch_size = 1000
-      metric_buffer_limit = 10000
-      collection_jitter = "0s"
-      flush_interval = "10s"
-      flush_jitter = "0s"
-      precision = ""
-      hostname = "$HOSTNAME"
-      omit_hostname = false
-      debug = false
-      quiet = true
+    interval = "60s"
+    round_interval = true
+    metric_batch_size = 1000
+    metric_buffer_limit = 10000
+    collection_jitter = "0s"
+    flush_interval = "10s"
+    flush_jitter = "0s"
+    precision = ""
+    hostname = "$HOSTNAME"
+    omit_hostname = false
+    debug = false
+    quiet = true
 
     [[outputs.influxdb]]
-      urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
-      database = "$INFLUXDB_DB"
-      timeout = "60s"
-      username = "$INFLUXDB_ADMIN_USER"
-      password = "$INFLUXDB_ADMIN_PASSWORD"
-      user_agent = "telegraf"
-      skip_database_creation = false
+    urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
+    database = "$INFLUXDB_DB"
+    timeout = "60s"
+    username = "$INFLUXDB_ADMIN_USER"
+    password = "$INFLUXDB_ADMIN_PASSWORD"
+    user_agent = "telegraf"
+    skip_database_creation = false
 
     [[inputs.net]]
     [[inputs.netstat]]
     [[inputs.diskio]]
+    [[inputs.kernel]]
     [[inputs.linux_sysctl_fs]]
     [[inputs.mem]]
     [[inputs.processes]]
@@ -73,53 +68,53 @@ data:
     [[inputs.system]]
 
     [[inputs.cpu]]
-      percpu = true
-      totalcpu = true
-      collect_cpu_time = false
-      report_active = false
+    percpu = true
+    totalcpu = true
+    collect_cpu_time = false
+    report_active = false
 
     [[inputs.disk]]
-      ignore_fs = ["tmpfs",
-        "devtmpfs",
-        "devfs",
-        "iso9660",
-        "overlay",
-        "aufs",
-        "squashfs"
-      ]
+    ignore_fs = ["tmpfs",
+    "devtmpfs",
+    "devfs",
+    "iso9660",
+    "overlay",
+    "aufs",
+    "squashfs"
+    ]
 
     [[inputs.dns_query]]
-       servers = ["4.2.2.1", "8.8.8.8"]
-       domains = ["www.google.com",
-         "www.twitter.com",
-         "www.amazon.com",
-         "www.wikipedia.org"
-       ]
-       record_type = "A"
-       port = 53
-       timeout = 3
+    servers = ["4.2.2.1", "8.8.8.8"]
+    domains = ["www.google.com",
+    "www.twitter.com",
+    "www.amazon.com",
+    "www.wikipedia.org"
+    ]
+    record_type = "A"
+    port = 53
+    timeout = 3
 
-     [[inputs.http_response]]
-        urls = [
-          "http://www.google.com",
-          "http://www.twitter.com",
-          "http://www.amazon.com",
-          "http://www.yahoo.com"
-        ]
-        response_timeout = "5s"
-        method = "GET"
-        follow_redirects = true
+    [[inputs.http_response]]
+    urls = [
+      "http://www.google.com",
+      "http://www.twitter.com",
+      "http://www.amazon.com",
+      "http://www.yahoo.com"
+      ]
+      response_timeout = "5s"
+      method = "GET"
+      follow_redirects = true
 
-    [[inputs.internal]]
+      [[inputs.internal]]
       collect_memstats = true
 
-    [[inputs.ping]]
+      [[inputs.ping]]
       urls = [
-          "google.com",
-          "twitter.com",
-          "amazon.com",
-          "yahoo.com"
-        ]
+        "google.com",
+        "twitter.com",
+        "amazon.com",
+        "yahoo.com"
+      ]
       method = "exec"
       count = 1
       ping_interval = 1.0
@@ -128,35 +123,87 @@ data:
       binary = "ping"
       ipv6 = false
 
-    [[inputs.exec]]
-      commands=["mtr -C google.com s3-website.ap-northeast-2.amazonaws.com s3-website.eu-central-1.amazonaws.com s3-website.af-south-1.amazonaws.com"]
-      timeout = "3m"
-      interval = "7m"
-      data_format = "csv"
-      csv_skip_rows = 1
-      csv_column_names=[ "", "", "status","dest","hop","ip","loss","snt","", "","avg","best","worst","stdev"]
-      name_override = "mtr"
-      csv_tag_columns = ["dest", "hop", "ip"]
-
-    [[inputs.exec]]
-      commands = ["/usr/bin/speedtest-cli --csv --bytes"]
-      name_override = "speedtest"
-      timeout = "3m"
-      interval = "15m"
-      data_format = "csv"
-      csv_column_names = ['Server ID',
-        'Sponsor',
-        'Server Name',
-        'Timestamp',
-        'Distance',
-        'Ping',
-        'Download',
-        'Upload',
-        'Share',
-        'IP Address'
-      ]
-      csv_timestamp_column = "Timestamp"
-      csv_timestamp_format = "2006-01-02T15:04:05Z07:00"
-
-    [[inputs.docker]]
+      [[inputs.docker]]
       endpoint = "unix:///var/run/docker.sock"
+
+      [[inputs.file]]
+      files = ["/sys/class/thermal/thermal_zone0/temp"]
+      name_override = "cpu_temperature"
+      data_format = "value"
+      data_type = "integer"
+
+      [[inputs.exec]]
+      commands = ["cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq"]
+      name_override = "cpu_frequency"
+      data_format = "value"
+      data_type = "integer"
+
+  telegraf-mtr.conf: |-
+    [global_tags]
+    [agent]
+    interval = "60s"
+    round_interval = true
+    metric_batch_size = 1000
+    metric_buffer_limit = 10000
+    collection_jitter = "0s"
+    flush_interval = "10s"
+    flush_jitter = "0s"
+    precision = ""
+    hostname = "$HOSTNAME"
+    omit_hostname = false
+    debug = false
+    quiet = true
+
+    [[outputs.influxdb]]
+    urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
+    database = "$INFLUXDB_DB"
+    timeout = "60s"
+    username = "$INFLUXDB_ADMIN_USER"
+    password = "$INFLUXDB_ADMIN_PASSWORD"
+    user_agent = "telegraf"
+    skip_database_creation = false
+
+    [[inputs.exec]]
+    commands=["mtr -C google.com s3-website.ap-northeast-2.amazonaws.com s3-website.eu-central-1.amazonaws.com s3-website.af-south-1.amazonaws.com"]
+    timeout = "3m"
+    interval = "7m"
+    data_format = "csv"
+    csv_skip_rows = 1
+    csv_column_names=[ "", "", "status","dest","hop","ip","loss","snt","", "","avg","best","worst","stdev"]
+    name_override = "mtr"
+    csv_tag_columns = ["dest", "hop", "ip"]
+
+  telegraf-speedtest.conf: |-
+    [global_tags]
+    [agent]
+    interval = "60s"
+    round_interval = true
+    metric_batch_size = 1000
+    metric_buffer_limit = 10000
+    collection_jitter = "0s"
+    flush_interval = "10s"
+    flush_jitter = "0s"
+    precision = ""
+    hostname = "$HOSTNAME"
+    omit_hostname = false
+    debug = false
+    quiet = true
+
+    [[outputs.influxdb]]
+    urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
+    database = "$INFLUXDB_DB"
+    timeout = "60s"
+    username = "$INFLUXDB_ADMIN_USER"
+    password = "$INFLUXDB_ADMIN_PASSWORD"
+    user_agent = "telegraf"
+    skip_database_creation = false
+
+    [[inputs.exec]]
+    commands = ["/usr/bin/speedtest-cli --csv --bytes"]
+    name_override = "speedtest"
+    timeout = "3m"
+    interval = "15m"
+    data_format = "csv"
+    csv_column_names = ['Server ID', 'Sponsor', 'Server Name', 'Timestamp', 'Distance', 'Ping', 'Download', 'Upload', 'Share', 'IP Address']
+    csv_timestamp_column = "Timestamp"
+    csv_timestamp_format = "2006-01-02T15:04:05Z07:00"
