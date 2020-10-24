@@ -10,8 +10,8 @@
 </div>
 
 
-The following `YAML` configuration files are used to deploy this stack in Kubernetes by creating the basic objects to run.  
-They can widely improved but so far let's say it works. :) 
+The following `YAML` configuration files are used to deploy this stack in Kubernetes by creating the basic objects to run.
+They can widely improved but so far let's say it works. :)
 
 > ***NOTE***: The Kubernetes deployment is in *BETA* version. Don't worry if you see something wrong here.
 
@@ -20,7 +20,7 @@ They can widely improved but so far let's say it works. :)
 1) Apply the `ISP-Checker-deploy.yaml`
 ```bash
 $: kubectl apply -f https://raw.githubusercontent.com/fmdlc/ISP-Checker/master/kubernetes/ISP-Checker-deploy.yaml
-``` 
+```
 ---
 
 ### Configuration
@@ -71,7 +71,7 @@ data:
 
 > Apply all `YAML` files.
 ```
-$: kubectl apply -f namespace.yaml 
+$: kubectl apply -f namespace.yaml
 namespace/monitoring created
 
 $: kubectl apply -f pvc.yaml
@@ -82,7 +82,7 @@ secret/isp-checker-secrets-rw configured
 secret/isp-checker-secrets-ro configured
 secret/grafana-datasource configured
 
-$: kubectl apply -f 
+$: kubectl apply -f configMaps.yaml
 configmap/grafana-user-config configured
 configmap/network-dashboard-provisioner configured
 configmap/telegraf-config configured
@@ -90,8 +90,18 @@ configmap/telegraf-config configured
 $: kubectl apply -f services.yaml
 service/influxdb-svc created
 
-$: kubectl apply -f network-dashboard.yaml
+$: kubectl apply -f networkDashboard.yaml
 configmap/grafana-dashboard configured
+
+$: kubectl apply -f raspberryDashboard.yaml
+configmap/raspberry-dashboard configured
+
+$: kubectl apply -f daemonSet.yaml
+daemonset.apps/telegraf configured
+
+$: kubectl apply -f cronJob.yaml
+cronjob.batch/telefraf-mtr configured
+cronjob.batch/telefraf-speedtest configured
 
 $: kubectl apply -f deployment.yaml
 deployment.apps/influxdb configured
@@ -119,11 +129,19 @@ And finally use your IngressController to access the service or a `port-forward`
 $: kubectl port-forward svc/grafana-svc 3000:3000 -n monitoring
 ```
 
+## Resources graph
+
+<div align="center">
+<kbd>
+<img src="../img/config.svg" width="430">
+</kbd>
+</div>
+
 ---
 
 ## ToDo
 
 - [ ] Create Helm Chart.
-- [ ] Improve provisioning.
-- [ ] Configure Default dashboard in Grafana.
+- [X] Improve provisioning.
+- [X] Configure Default dashboard in Grafana.
 - [ ] Create CRD to interact with Grafana API.

@@ -1,4 +1,4 @@
-# ISP-Checker
+<img src="./img/logo.png" />
 ![License](https://img.shields.io/github/license/fmdlc/ISP-Checker) ![LastCommit](https://img.shields.io/github/last-commit/fmdlc/ISP-Checker) ![Build](https://github.com/fmdlc/ISP-Checker/workflows/Build/badge.svg) ![Docker](https://img.shields.io/badge/Docker-19.03.13-blue)
 
 > A `docker-compose` and `kubernetes` stack to run a set of ISP controls and collect metrics on a [Raspberry Pi](https://www.raspberrypi.org/).
@@ -49,7 +49,7 @@ $: kubectl apply -f https://raw.githubusercontent.com/fmdlc/ISP-Checker/master/k
 ```
 You need to expose the `grafana` service to get access. You can do it by creating a `LoadBalancer` service type or by using an `IngressController`.
 
-> Kubernetes deployment includes the [@jorgedlcruz](https://github.com/jorgedlcruz) [Raspberry Pi Monitoring](https://grafana.com/grafana/dashboards/10578) Dashboard.  
+> Kubernetes deployment includes the [@jorgedlcruz](https://github.com/jorgedlcruz) [Raspberry Pi Monitoring](https://grafana.com/grafana/dashboards/10578) Dashboard.
 
 It's a super useful dashboard to monitor Hardware and Operating system stadistics and extends `ISP-Checker` features and contains multiples sections with the goal to monitor a full Raspberry Pi board or boards and has some sections to monitor the Linux and machine overall performance, and temperature.
 
