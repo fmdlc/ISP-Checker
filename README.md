@@ -15,6 +15,7 @@
 7. [ Removing ](#Removing)
 8. [ Concepts ](#Cooncepts)
 9. [ ToDo ](#ToDo)
+10. [ Stargazers ](#Stargazers)
 10. [ Contributing ](#Contributing)
 11. [ License ](#License)
 
@@ -175,6 +176,10 @@ But, latency only paints half the picture. Imagine yourself in a conversation wh
 - [ ] Helm Chart to run in Kubernetes.
 - [ ] Enable HTTPS support.
 - [X] Enable Interfaces configuration.
+
+## Stargazers
+
+[![Stargazers over time](https://starchart.cc/fmdlc/ISP-Checker.svg)](https://starchart.cc/fmdlc/ISP-Checker)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
