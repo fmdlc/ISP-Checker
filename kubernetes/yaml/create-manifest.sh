@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -x
+
+set -eo pipefail
 
 cat namespace.yaml \
     pvc.yaml \
