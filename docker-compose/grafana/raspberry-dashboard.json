@@ -1,7 +1,22 @@
 {
   "dashboard": {
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
     "description": "Raspberry Pi Monitoring",
     "editable": true,
+    "gnetId": 10578,
+    "graphTooltip": 1,
     "id": null,
     "links": [],
     "panels": [
