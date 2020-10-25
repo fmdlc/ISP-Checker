@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source ./credentials.env
-cat > ./grafana/datasource.json <<EOF
+source ./docker-compose/credentials.env
+cat > ./docker-compose/grafana/datasource.json <<EOF
 {
   "access": "proxy",
   "basicAuth": false,

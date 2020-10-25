@@ -2,18 +2,230 @@
   "dashboard": {
     "description": "Network latencies and availability",
     "editable": true,
-    "gnetId": null,
     "graphTooltip": 0,
     "id": null,
     "links": [],
     "panels": [
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 11,
+          "x": 0,
+          "y": 0
+        },
+        "id": 95,
+        "options": {
+          "content": "<img src=\"https://github.com/fmdlc/ISP-Checker/raw/master/img/logo.png\" />         ",
+          "mode": "html"
+        },
+        "pluginVersion": "7.1.0",
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "",
+        "transparent": true,
+        "type": "text"
+      },
+      {
+        "aliasColors": {},
+        "bars": true,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 13,
+          "x": 11,
+          "y": 0
+        },
+        "hiddenSeries": false,
+        "id": 24,
+        "legend": {
+          "alignAsTable": false,
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": false,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "7.2.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": true,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "Download",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "previous"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "speedtest",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "Download"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "last"
+                },
+                {
+                  "params": [
+                    " / 1000000"
+                  ],
+                  "type": "math"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
+              }
+            ]
+          },
+          {
+            "alias": "Upload",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "previous"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "speedtest",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "B",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "Upload"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "last"
+                },
+                {
+                  "params": [
+                    " / 1000000"
+                  ],
+                  "type": "math"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Speedtest TX/RX",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:401",
+            "format": "Mbits",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:402",
+            "decimals": 2,
+            "format": "MBs",
+            "label": "Download (MB/s)",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
       {
         "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {},
             "mappings": [],
-            "max": 100,
+            "max": 300,
             "min": 0,
             "thresholds": {
               "mode": "absolute",
@@ -28,39 +240,31 @@
                 },
                 {
                   "color": "light-green",
-                  "value": 10
-                },
-                {
-                  "color": "semi-dark-green",
-                  "value": 20
-                },
-                {
-                  "color": "semi-dark-green",
-                  "value": 30
-                },
-                {
-                  "color": "super-light-orange",
-                  "value": 40
-                },
-                {
-                  "color": "light-orange",
                   "value": 50
                 },
                 {
+                  "color": "semi-dark-green",
+                  "value": 100
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 150
+                },
+                {
+                  "color": "light-orange",
+                  "value": 150
+                },
+                {
+                  "color": "super-light-orange",
+                  "value": 200
+                },
+                {
                   "color": "semi-dark-orange",
-                  "value": 60
-                },
-                {
-                  "color": "light-red",
-                  "value": 70
-                },
-                {
-                  "color": "semi-dark-red",
-                  "value": 80
+                  "value": 250
                 },
                 {
                   "color": "dark-red",
-                  "value": 90
+                  "value": 300
                 }
               ]
             },
@@ -72,7 +276,7 @@
           "h": 11,
           "w": 6,
           "x": 0,
-          "y": 0
+          "y": 6
         },
         "id": 26,
         "options": {
@@ -179,7 +383,7 @@
           "h": 6,
           "w": 5,
           "x": 6,
-          "y": 0
+          "y": 6
         },
         "id": 20,
         "options": {
@@ -228,7 +432,7 @@
                 },
                 {
                   "params": [],
-                  "type": "last"
+                  "type": "sum"
                 },
                 {
                   "params": [
@@ -248,652 +452,6 @@
       },
       {
         "aliasColors": {},
-        "bars": true,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "InfluxDB",
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 2,
-        "gridPos": {
-          "h": 11,
-          "w": 13,
-          "x": 11,
-          "y": 0
-        },
-        "hiddenSeries": false,
-        "id": 24,
-        "legend": {
-          "alignAsTable": false,
-          "avg": false,
-          "current": false,
-          "max": false,
-          "min": false,
-          "rightSide": true,
-          "show": false,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "null",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.2.1",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": true,
-        "steppedLine": false,
-        "targets": [
-          {
-            "alias": "Download",
-            "groupBy": [
-              {
-                "params": [
-                  "$__interval"
-                ],
-                "type": "time"
-              },
-              {
-                "params": [
-                  "previous"
-                ],
-                "type": "fill"
-              }
-            ],
-            "measurement": "speedtest",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "Download"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [],
-                  "type": "last"
-                },
-                {
-                  "params": [
-                    " / 1000000"
-                  ],
-                  "type": "math"
-                }
-              ]
-            ],
-            "tags": []
-          },
-          {
-            "alias": "Upload",
-            "groupBy": [
-              {
-                "params": [
-                  "$__interval"
-                ],
-                "type": "time"
-              },
-              {
-                "params": [
-                  "previous"
-                ],
-                "type": "fill"
-              }
-            ],
-            "measurement": "speedtest",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "B",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "Upload"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [],
-                  "type": "last"
-                },
-                {
-                  "params": [
-                    " / 1000000"
-                  ],
-                  "type": "math"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [],
-        "timeShift": null,
-        "title": "Speedtest TX/RX",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "$$hashKey": "object:401",
-            "format": "Mbits",
-            "label": null,
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "$$hashKey": "object:402",
-            "decimals": 2,
-            "format": "MBs",
-            "label": "Download (MB/s)",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "datasource": "InfluxDB",
-        "description": "Uptime bandwidth",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {},
-            "decimals": 2,
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "dark-red",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 0.5
-                },
-                {
-                  "color": "dark-orange",
-                  "value": 1
-                },
-                {
-                  "color": "light-yellow",
-                  "value": 2
-                },
-                {
-                  "color": "super-light-green",
-                  "value": 3
-                },
-                {
-                  "color": "light-green",
-                  "value": 4
-                },
-                {
-                  "color": "semi-dark-green",
-                  "value": 5
-                },
-                {
-                  "color": "dark-green",
-                  "value": 6
-                }
-              ]
-            },
-            "unit": "Mbits"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 5,
-          "w": 5,
-          "x": 6,
-          "y": 6
-        },
-        "id": 22,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "7.2.1",
-        "targets": [
-          {
-            "groupBy": [
-              {
-                "params": [
-                  "5m"
-                ],
-                "type": "time"
-              },
-              {
-                "params": [
-                  "null"
-                ],
-                "type": "fill"
-              }
-            ],
-            "measurement": "speedtest",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "Upload"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [],
-                  "type": "last"
-                },
-                {
-                  "params": [
-                    "/1048576"
-                  ],
-                  "type": "math"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Bandwidth (Upload)",
-        "type": "stat"
-      },
-      {
-        "aliasColors": {},
-        "bars": false,
-        "dashLength": 10,
-        "dashes": false,
-        "datasource": "InfluxDB",
-        "description": "ICMP echo requests average latency.",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
-          "overrides": []
-        },
-        "fill": 1,
-        "fillGradient": 2,
-        "gridPos": {
-          "h": 11,
-          "w": 18,
-          "x": 0,
-          "y": 11
-        },
-        "hiddenSeries": false,
-        "id": 2,
-        "legend": {
-          "alignAsTable": false,
-          "avg": false,
-          "current": false,
-          "hideEmpty": true,
-          "hideZero": false,
-          "max": false,
-          "min": false,
-          "rightSide": true,
-          "show": true,
-          "sideWidth": null,
-          "total": false,
-          "values": false
-        },
-        "lines": true,
-        "linewidth": 1,
-        "nullPointMode": "null",
-        "options": {
-          "alertThreshold": true
-        },
-        "percentage": false,
-        "pluginVersion": "7.2.1",
-        "pointradius": 2,
-        "points": false,
-        "renderer": "flot",
-        "seriesOverrides": [],
-        "spaceLength": 10,
-        "stack": false,
-        "steppedLine": false,
-        "targets": [
-          {
-            "alias": "$tag_url",
-            "groupBy": [
-              {
-                "params": [
-                  "url"
-                ],
-                "type": "tag"
-              }
-            ],
-            "measurement": "ping",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "average_response_ms"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "url",
-                "operator": "=~",
-                "value": "/^$PingURL$/"
-              }
-            ]
-          }
-        ],
-        "thresholds": [],
-        "timeFrom": null,
-        "timeRegions": [
-          {
-            "$$hashKey": "object:150",
-            "colorMode": "background6",
-            "fill": true,
-            "fillColor": "rgba(234, 112, 112, 0.12)",
-            "line": false,
-            "lineColor": "rgba(237, 46, 24, 0.60)",
-            "op": "time"
-          }
-        ],
-        "timeShift": null,
-        "title": "ICMP average response",
-        "tooltip": {
-          "shared": true,
-          "sort": 0,
-          "value_type": "individual"
-        },
-        "type": "graph",
-        "xaxis": {
-          "buckets": null,
-          "mode": "time",
-          "name": null,
-          "show": true,
-          "values": []
-        },
-        "yaxes": [
-          {
-            "$$hashKey": "object:100",
-            "format": "short",
-            "label": "average (ms)",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          },
-          {
-            "$$hashKey": "object:101",
-            "format": "short",
-            "label": "",
-            "logBase": 1,
-            "max": null,
-            "min": null,
-            "show": true
-          }
-        ],
-        "yaxis": {
-          "align": false,
-          "alignLevel": null
-        }
-      },
-      {
-        "datasource": "InfluxDB",
-        "description": "Average response time for External Ping in ms.",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {},
-            "mappings": [],
-            "max": 1000,
-            "min": 0,
-            "thresholds": {
-              "mode": "percentage",
-              "steps": [
-                {
-                  "color": "super-light-green",
-                  "value": null
-                },
-                {
-                  "color": "light-green",
-                  "value": 10
-                },
-                {
-                  "color": "semi-dark-green",
-                  "value": 20
-                },
-                {
-                  "color": "dark-green",
-                  "value": 30
-                },
-                {
-                  "color": "super-light-orange",
-                  "value": 40
-                },
-                {
-                  "color": "light-orange",
-                  "value": 50
-                },
-                {
-                  "color": "semi-dark-orange",
-                  "value": 70
-                },
-                {
-                  "color": "dark-orange",
-                  "value": 80
-                },
-                {
-                  "color": "light-red",
-                  "value": 90
-                },
-                {
-                  "color": "dark-red",
-                  "value": 100
-                }
-              ]
-            },
-            "unit": "ms"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 11,
-          "w": 6,
-          "x": 18,
-          "y": 11
-        },
-        "id": 4,
-        "options": {
-          "reduceOptions": {
-            "calcs": [
-              "mean"
-            ],
-            "fields": "/^ping\\.average_response_ms$/",
-            "values": false
-          },
-          "showThresholdLabels": false,
-          "showThresholdMarkers": true
-        },
-        "pluginVersion": "7.2.1",
-        "targets": [
-          {
-            "groupBy": [],
-            "hide": false,
-            "limit": "",
-            "measurement": "ping",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT \"average_response_ms\" FROM \"ping\" ",
-            "rawQuery": false,
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "average_response_ms"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "url",
-                "operator": "=~",
-                "value": "/^$PingURL$/"
-              }
-            ]
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "Ping AVG response time",
-        "type": "gauge"
-      },
-      {
-        "datasource": "InfluxDB",
-        "description": "DNS resolution average query time",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {},
-            "mappings": [],
-            "max": 500,
-            "min": 0,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "super-light-yellow",
-                  "value": 200
-                },
-                {
-                  "color": "semi-dark-orange",
-                  "value": 300
-                },
-                {
-                  "color": "dark-red",
-                  "value": 400
-                }
-              ]
-            },
-            "unit": "ms"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 9,
-          "w": 11,
-          "x": 0,
-          "y": 22
-        },
-        "id": 6,
-        "options": {
-          "displayMode": "gradient",
-          "orientation": "horizontal",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "showUnfilled": true
-        },
-        "pluginVersion": "7.2.1",
-        "targets": [
-          {
-            "alias": "$tag_domain",
-            "groupBy": [
-              {
-                "params": [
-                  "domain"
-                ],
-                "type": "tag"
-              }
-            ],
-            "measurement": "dns_query",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "query_time_ms"
-                  ],
-                  "type": "field"
-                },
-                {
-                  "params": [],
-                  "type": "last"
-                }
-              ]
-            ],
-            "tags": []
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "DNS AVG Query time",
-        "type": "bargauge"
-      },
-      {
-        "aliasColors": {},
         "bars": false,
         "dashLength": 10,
         "dashes": false,
@@ -909,10 +467,10 @@
         "fill": 3,
         "fillGradient": 2,
         "gridPos": {
-          "h": 9,
+          "h": 8,
           "w": 13,
           "x": 11,
-          "y": 22
+          "y": 9
         },
         "hiddenSeries": false,
         "id": 8,
@@ -1059,11 +617,396 @@
         }
       },
       {
+        "datasource": "InfluxDB",
+        "description": "Uptime bandwidth",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "decimals": 2,
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 0.5
+                },
+                {
+                  "color": "dark-orange",
+                  "value": 1
+                },
+                {
+                  "color": "light-yellow",
+                  "value": 2
+                },
+                {
+                  "color": "super-light-green",
+                  "value": 3
+                },
+                {
+                  "color": "light-green",
+                  "value": 4
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 5
+                },
+                {
+                  "color": "dark-green",
+                  "value": 6
+                }
+              ]
+            },
+            "unit": "Mbits"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 5,
+          "x": 6,
+          "y": 12
+        },
+        "id": 22,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "7.2.1",
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "5m"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "speedtest",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "Upload"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "sum"
+                },
+                {
+                  "params": [
+                    "/1048576"
+                  ],
+                  "type": "math"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Bandwidth (Upload)",
+        "type": "stat"
+      },
+      {
         "aliasColors": {},
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": null,
+        "datasource": "InfluxDB",
+        "description": "ICMP echo requests average latency.",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 10,
+          "w": 18,
+          "x": 0,
+          "y": 17
+        },
+        "hiddenSeries": false,
+        "id": 2,
+        "legend": {
+          "alignAsTable": false,
+          "avg": false,
+          "current": false,
+          "hideEmpty": true,
+          "hideZero": false,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "sideWidth": null,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "7.2.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$tag_url",
+            "groupBy": [
+              {
+                "params": [
+                  "url"
+                ],
+                "type": "tag"
+              }
+            ],
+            "measurement": "ping",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "average_response_ms"
+                  ],
+                  "type": "field"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "url",
+                "operator": "=~",
+                "value": "/^$PingURL$/"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [
+          {
+            "$$hashKey": "object:150",
+            "colorMode": "background6",
+            "fill": true,
+            "fillColor": "rgba(234, 112, 112, 0.12)",
+            "line": false,
+            "lineColor": "rgba(237, 46, 24, 0.60)",
+            "op": "time"
+          }
+        ],
+        "timeShift": null,
+        "title": "ICMP average response",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:100",
+            "format": "short",
+            "label": "average (ms)",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:101",
+            "format": "short",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": "InfluxDB",
+        "description": "Average response time for External Ping in ms.",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "mappings": [],
+            "max": 1000,
+            "min": 0,
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "super-light-green",
+                  "value": null
+                },
+                {
+                  "color": "light-green",
+                  "value": 10
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 20
+                },
+                {
+                  "color": "dark-green",
+                  "value": 30
+                },
+                {
+                  "color": "super-light-orange",
+                  "value": 40
+                },
+                {
+                  "color": "light-orange",
+                  "value": 50
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 70
+                },
+                {
+                  "color": "dark-orange",
+                  "value": 80
+                },
+                {
+                  "color": "light-red",
+                  "value": 90
+                },
+                {
+                  "color": "dark-red",
+                  "value": 100
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 6,
+          "x": 18,
+          "y": 17
+        },
+        "id": 4,
+        "options": {
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^ping\\.average_response_ms$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "7.2.1",
+        "targets": [
+          {
+            "groupBy": [],
+            "hide": false,
+            "limit": "",
+            "measurement": "ping",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "query": "SELECT \"average_response_ms\" FROM \"ping\" ",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "average_response_ms"
+                  ],
+                  "type": "field"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "url",
+                "operator": "=~",
+                "value": "/^$PingURL$/"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Ping AVG response time",
+        "type": "gauge"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {}
@@ -1074,9 +1017,9 @@
         "fillGradient": 0,
         "gridPos": {
           "h": 9,
-          "w": 24,
+          "w": 11,
           "x": 0,
-          "y": 31
+          "y": 27
         },
         "hiddenSeries": false,
         "id": 87,
@@ -1140,13 +1083,7 @@
                 }
               ]
             ],
-            "tags": [
-              {
-                "key": "host",
-                "operator": "=~",
-                "value": "/^$NetHost$/"
-              }
-            ]
+            "tags": []
           },
           {
             "alias": "ICMP",
@@ -1183,13 +1120,7 @@
                 }
               ]
             ],
-            "tags": [
-              {
-                "key": "host",
-                "operator": "=~",
-                "value": "/^$NetHost$/"
-              }
-            ]
+            "tags": []
           }
         ],
         "thresholds": [],
@@ -1236,13 +1167,492 @@
         }
       },
       {
+        "datasource": "InfluxDB",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "left",
+              "displayMode": "color-background",
+              "filterable": true
+            },
+            "displayName": "Execution",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "rgb(96, 96, 96)",
+                  "value": null
+                },
+                {
+                  "color": "rgb(22, 51, 116)",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "dateTimeAsUS"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Time"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 176
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Time"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Execution"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "last"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Speedtest Server"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 13,
+          "x": 11,
+          "y": 27
+        },
+        "id": 97,
+        "options": {
+          "showHeader": true,
+          "sortBy": []
+        },
+        "pluginVersion": "7.2.1",
+        "targets": [
+          {
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "none"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "speedtest",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "A",
+            "resultFormat": "table",
+            "select": [
+              [
+                {
+                  "params": [
+                    "Sponsor"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "last"
+                }
+              ]
+            ],
+            "tags": []
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "",
+        "type": "table"
+      },
+      {
+        "datasource": "InfluxDB",
+        "description": "DNS resolution average query time",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {},
+            "mappings": [],
+            "max": 500,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "super-light-yellow",
+                  "value": 200
+                },
+                {
+                  "color": "semi-dark-orange",
+                  "value": 300
+                },
+                {
+                  "color": "dark-red",
+                  "value": 400
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 11,
+          "x": 0,
+          "y": 36
+        },
+        "id": 6,
+        "options": {
+          "displayMode": "gradient",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true
+        },
+        "pluginVersion": "7.2.1",
+        "targets": [
+          {
+            "alias": "$tag_domain",
+            "groupBy": [
+              {
+                "params": [
+                  "domain"
+                ],
+                "type": "tag"
+              }
+            ],
+            "measurement": "dns_query",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "query_time_ms"
+                  ],
+                  "type": "field"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "DNS AVG Query time",
+        "type": "bargauge"
+      },
+      {
+        "aliasColors": {},
+        "bars": true,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {}
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 9,
+          "w": 13,
+          "x": 11,
+          "y": 36
+        },
+        "hiddenSeries": false,
+        "id": 99,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "7.2.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "ICMP Out redirects",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "none"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "net",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "icmp_outredirects"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
+              }
+            ]
+          },
+          {
+            "alias": "ICMP In Redirects",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "none"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "net",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "B",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "icmp_inredirects"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
+              }
+            ]
+          },
+          {
+            "alias": "ICMP Out Time exceeded",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "net",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "C",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "icmp_outtimeexcds"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
+              }
+            ]
+          },
+          {
+            "alias": "ICMP In Time exceeded",
+            "groupBy": [
+              {
+                "params": [
+                  "$__interval"
+                ],
+                "type": "time"
+              },
+              {
+                "params": [
+                  "null"
+                ],
+                "type": "fill"
+              }
+            ],
+            "measurement": "net",
+            "orderByTime": "ASC",
+            "policy": "default",
+            "refId": "D",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "icmp_intimeexcds"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "mean"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "ICMP Analysis",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:765",
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "$$hashKey": "object:766",
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
         "collapsed": false,
-        "datasource": null,
+        "datasource": "InfluxDB",
         "gridPos": {
           "h": 1,
           "w": 24,
           "x": 0,
-          "y": 40
+          "y": 45
         },
         "id": 34,
         "panels": [],
@@ -1250,7 +1660,7 @@
         "type": "row"
       },
       {
-        "datasource": null,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {},
@@ -1295,7 +1705,7 @@
           "h": 6,
           "w": 6,
           "x": 0,
-          "y": 41
+          "y": 46
         },
         "id": 42,
         "options": {
@@ -1365,7 +1775,7 @@
         "type": "gauge"
       },
       {
-        "datasource": null,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {},
@@ -1410,7 +1820,7 @@
           "h": 6,
           "w": 6,
           "x": 6,
-          "y": 41
+          "y": 46
         },
         "id": 88,
         "options": {
@@ -1426,7 +1836,7 @@
           "showThresholdMarkers": true
         },
         "pluginVersion": "7.2.1",
-        "repeatIteration": 1602546735730,
+        "repeatIteration": 1603557787209,
         "repeatPanelId": 42,
         "scopedVars": {
           "PingURL": {
@@ -1481,7 +1891,7 @@
         "type": "gauge"
       },
       {
-        "datasource": null,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {},
@@ -1526,7 +1936,7 @@
           "h": 6,
           "w": 6,
           "x": 12,
-          "y": 41
+          "y": 46
         },
         "id": 89,
         "options": {
@@ -1542,7 +1952,7 @@
           "showThresholdMarkers": true
         },
         "pluginVersion": "7.2.1",
-        "repeatIteration": 1602546735730,
+        "repeatIteration": 1603557787209,
         "repeatPanelId": 42,
         "scopedVars": {
           "PingURL": {
@@ -1597,7 +2007,7 @@
         "type": "gauge"
       },
       {
-        "datasource": null,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {},
@@ -1642,7 +2052,7 @@
           "h": 6,
           "w": 6,
           "x": 18,
-          "y": 41
+          "y": 46
         },
         "id": 90,
         "options": {
@@ -1658,7 +2068,7 @@
           "showThresholdMarkers": true
         },
         "pluginVersion": "7.2.1",
-        "repeatIteration": 1602546735730,
+        "repeatIteration": 1603557787209,
         "repeatPanelId": 42,
         "scopedVars": {
           "PingURL": {
@@ -1731,7 +2141,7 @@
           "h": 10,
           "w": 24,
           "x": 0,
-          "y": 47
+          "y": 52
         },
         "hiddenSeries": false,
         "id": 12,
@@ -1793,6 +2203,12 @@
                 "key": "method",
                 "operator": "=",
                 "value": "GET"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
               }
             ]
           }
@@ -1874,7 +2290,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": null,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {}
@@ -1887,7 +2303,7 @@
           "h": 18,
           "w": 12,
           "x": 0,
-          "y": 57
+          "y": 62
         },
         "hiddenSeries": false,
         "id": 85,
@@ -2045,7 +2461,7 @@
           "h": 18,
           "w": 12,
           "x": 12,
-          "y": 57
+          "y": 62
         },
         "hiddenSeries": false,
         "id": 16,
@@ -2103,13 +2519,7 @@
                 },
                 {
                   "params": [],
-                  "type": "integral"
-                },
-                {
-                  "params": [
-                    "/1048576"
-                  ],
-                  "type": "math"
+                  "type": "sum"
                 }
               ]
             ],
@@ -2118,6 +2528,12 @@
                 "key": "interface",
                 "operator": "=~",
                 "value": "/^$NetInterface$/"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
               }
             ]
           },
@@ -2146,13 +2562,7 @@
                 },
                 {
                   "params": [],
-                  "type": "integral"
-                },
-                {
-                  "params": [
-                    "/1048576"
-                  ],
-                  "type": "math"
+                  "type": "sum"
                 }
               ]
             ],
@@ -2161,6 +2571,12 @@
                 "key": "interface",
                 "operator": "=~",
                 "value": "/^$NetInterface$/"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
               }
             ]
           },
@@ -2189,13 +2605,7 @@
                 },
                 {
                   "params": [],
-                  "type": "integral"
-                },
-                {
-                  "params": [
-                    "/1048576"
-                  ],
-                  "type": "math"
+                  "type": "sum"
                 }
               ]
             ],
@@ -2204,6 +2614,12 @@
                 "key": "interface",
                 "operator": "=~",
                 "value": "/^$NetInterface$/"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
               }
             ]
           },
@@ -2232,13 +2648,7 @@
                 },
                 {
                   "params": [],
-                  "type": "integral"
-                },
-                {
-                  "params": [
-                    "/1048576"
-                  ],
-                  "type": "math"
+                  "type": "sum"
                 }
               ]
             ],
@@ -2247,6 +2657,12 @@
                 "key": "interface",
                 "operator": "=~",
                 "value": "/^$NetInterface$/"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
               }
             ]
           },
@@ -2275,13 +2691,7 @@
                 },
                 {
                   "params": [],
-                  "type": "integral"
-                },
-                {
-                  "params": [
-                    "/1048576"
-                  ],
-                  "type": "math"
+                  "type": "sum"
                 }
               ]
             ],
@@ -2290,6 +2700,12 @@
                 "key": "interface",
                 "operator": "=~",
                 "value": "/^$NetInterface$/"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
               }
             ]
           },
@@ -2318,13 +2734,7 @@
                 },
                 {
                   "params": [],
-                  "type": "integral"
-                },
-                {
-                  "params": [
-                    "/1048576"
-                  ],
-                  "type": "math"
+                  "type": "sum"
                 }
               ]
             ],
@@ -2333,6 +2743,12 @@
                 "key": "interface",
                 "operator": "=~",
                 "value": "/^$NetInterface$/"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
               }
             ]
           }
@@ -2419,7 +2835,7 @@
           "h": 12,
           "w": 12,
           "x": 0,
-          "y": 75
+          "y": 80
         },
         "heatmap": {},
         "hideZeroBuckets": false,
@@ -2464,6 +2880,12 @@
                 "key": "url",
                 "operator": "=~",
                 "value": "/^$PingURL$/"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
               }
             ]
           }
@@ -2659,7 +3081,7 @@
           "h": 6,
           "w": 12,
           "x": 12,
-          "y": 75
+          "y": 80
         },
         "id": 14,
         "options": {
@@ -2761,7 +3183,7 @@
           "h": 12,
           "w": 12,
           "x": 12,
-          "y": 81
+          "y": 86
         },
         "id": 18,
         "options": {
@@ -2831,7 +3253,7 @@
         "type": "gowee-traceroutemap-panel"
       },
       {
-        "datasource": null,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {},
@@ -2856,7 +3278,7 @@
           "h": 6,
           "w": 6,
           "x": 0,
-          "y": 87
+          "y": 92
         },
         "id": 65,
         "maxDataPoints": 100,
@@ -2906,7 +3328,7 @@
                 },
                 {
                   "params": [],
-                  "type": "last"
+                  "type": "sum"
                 },
                 {
                   "params": [
@@ -2927,6 +3349,12 @@
                 "key": "interface",
                 "operator": "=~",
                 "value": "/^$NetInterface$/"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
               }
             ]
           }
@@ -2937,7 +3365,7 @@
         "type": "stat"
       },
       {
-        "datasource": null,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {},
@@ -2962,7 +3390,7 @@
           "h": 6,
           "w": 6,
           "x": 6,
-          "y": 87
+          "y": 92
         },
         "id": 56,
         "maxDataPoints": 100,
@@ -3012,7 +3440,7 @@
                 },
                 {
                   "params": [],
-                  "type": "last"
+                  "type": "sum"
                 },
                 {
                   "params": [
@@ -3033,6 +3461,12 @@
                 "key": "interface",
                 "operator": "=~",
                 "value": "/^$NetInterface$/"
+              },
+              {
+                "condition": "AND",
+                "key": "host",
+                "operator": "=~",
+                "value": "/^$NetHost$/"
               }
             ]
           }
@@ -3044,12 +3478,12 @@
       },
       {
         "collapsed": false,
-        "datasource": null,
+        "datasource": "InfluxDB",
         "gridPos": {
           "h": 1,
           "w": 24,
           "x": 0,
-          "y": 93
+          "y": 98
         },
         "id": 32,
         "panels": [],
@@ -3057,7 +3491,7 @@
         "type": "row"
       },
       {
-        "datasource": null,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {},
@@ -3097,7 +3531,7 @@
           "h": 6,
           "w": 6,
           "x": 0,
-          "y": 94
+          "y": 99
         },
         "id": 36,
         "options": {
@@ -3168,7 +3602,7 @@
         "type": "stat"
       },
       {
-        "datasource": null,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {},
@@ -3208,7 +3642,7 @@
           "h": 6,
           "w": 6,
           "x": 6,
-          "y": 94
+          "y": 99
         },
         "id": 91,
         "options": {
@@ -3226,7 +3660,7 @@
           "textMode": "auto"
         },
         "pluginVersion": "7.2.1",
-        "repeatIteration": 1602546735730,
+        "repeatIteration": 1603557787209,
         "repeatPanelId": 36,
         "scopedVars": {
           "PingURL": {
@@ -3280,7 +3714,7 @@
         "type": "stat"
       },
       {
-        "datasource": null,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {},
@@ -3320,7 +3754,7 @@
           "h": 6,
           "w": 6,
           "x": 12,
-          "y": 94
+          "y": 99
         },
         "id": 92,
         "options": {
@@ -3338,7 +3772,7 @@
           "textMode": "auto"
         },
         "pluginVersion": "7.2.1",
-        "repeatIteration": 1602546735730,
+        "repeatIteration": 1603557787209,
         "repeatPanelId": 36,
         "scopedVars": {
           "PingURL": {
@@ -3392,7 +3826,7 @@
         "type": "stat"
       },
       {
-        "datasource": null,
+        "datasource": "InfluxDB",
         "fieldConfig": {
           "defaults": {
             "custom": {},
@@ -3432,7 +3866,7 @@
           "h": 6,
           "w": 6,
           "x": 18,
-          "y": 94
+          "y": 99
         },
         "id": 93,
         "options": {
@@ -3450,7 +3884,7 @@
           "textMode": "auto"
         },
         "pluginVersion": "7.2.1",
-        "repeatIteration": 1602546735730,
+        "repeatIteration": 1603557787209,
         "repeatPanelId": 36,
         "scopedVars": {
           "PingURL": {
@@ -3509,20 +3943,20 @@
     "style": "dark",
     "tags": [
       "networking",
-      "monitoring"
+      "monitoring",
+      "telegraf",
+      "influxdb",
+      "isp",
+      "raspberry"
     ],
     "templating": {
       "list": [
         {
           "allValue": null,
           "current": {
-            "selected": true,
-            "text": [
-              "All"
-            ],
-            "value": [
-              "$__all"
-            ]
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
           },
           "datasource": "InfluxDB",
           "definition": "",
@@ -3546,13 +3980,9 @@
         {
           "allValue": null,
           "current": {
-            "selected": true,
-            "text": [
-              "eth0"
-            ],
-            "value": [
-              "eth0"
-            ]
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
           },
           "datasource": "InfluxDB",
           "definition": "",
@@ -3577,8 +4007,8 @@
           "allValue": null,
           "current": {
             "selected": false,
-            "text": "eac864b49c68",
-            "value": "eac864b49c68"
+            "text": "node1",
+            "value": "node1"
           },
           "datasource": "InfluxDB",
           "definition": "",
@@ -3609,6 +4039,6 @@
     "timezone": "browser",
     "title": "Network",
     "uid": "Is1f1nRgz",
-    "version": 2
+    "version": 1
   }
 }

@@ -70,7 +70,12 @@ data:
 ```
 
 > Apply all `YAML` files.
+```shell
+$: kubectl apply -f .
 ```
+
+> Or individaully
+```shell
 $: kubectl apply -f namespace.yaml
 namespace/monitoring created
 

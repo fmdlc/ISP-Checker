@@ -12,7 +12,7 @@ services:
     volumes:
       - "influxdb-storage:/var/influxdb/data"
     env_file:
-      - ../credentials.env
+      - ./credentials.env
     ports:
       - 8086:8086
   telegraf:
@@ -24,7 +24,7 @@ services:
     volumes:
       - "../telegraf/conf/telegraf.conf:/etc/telegraf/telegraf.conf"
     env_file:
-      - ../credentials.env
+      - ./credentials.env
     links:
       - "influxdb"
     depends_on:

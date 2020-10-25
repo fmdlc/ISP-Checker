@@ -79,8 +79,8 @@ spec:
         spec:
           securityContext:
             runAsNonRoot: true
-            runAsUser: 472
-            fsGroup: 472
+            runAsUser: 10000
+            fsGroup: 10000
           containers:
             - name: telegraf-speedtest
               image: tty0/isp_telegraf:1.15.3

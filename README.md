@@ -117,10 +117,11 @@ Go to the `./ISP-Checker` directory, see the Makefile on this directory.
 $: make
 USAGE: make <TARGET>
 
-	- install: Bootstrap components.
-	- start  : Start entire stack.
-	- stop   : Stops entire stack.
-	- restart: Restart stack.
+	- install     : Bootstrap components in `docker-compose`.
+	- kube-install: Bootstrap components in k8s cluster.
+	- start       : Start entire stack.
+	- stop        : Stops entire stack.
+	- restart     : Restart stack.
 ```
 
 Execute `make install` to install.
