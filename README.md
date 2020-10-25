@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/github/license/fmdlc/ISP-Checker) ![LastCommit](https://img.shields.io/github/last-commit/fmdlc/ISP-Checker) ![Build](https://github.com/fmdlc/ISP-Checker/workflows/Build/badge.svg) ![Docker](https://img.shields.io/badge/Docker-19.03.13-blue)
 
-> A `docker-compose` and `kubernetes` stack to run a set of ISP controls and collect metrics on a [Raspberry Pi](https://www.raspberrypi.org/).
+> A `docker-compose` and `kubernetes` stack to run a set of ISP controls and collect metrics on a [Raspberry Pi](https://www.raspberrypi.org/) or `amd64` architecture.
 
 [![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/fmdlc) [![GitHub](https://i.stack.imgur.com/tskMh.png) GitHub](https://github.com/fmdlc)
 
@@ -46,7 +46,7 @@ You can easily import this dashboard into your current Grafana installation gett
 ### kubernetes
 Kubernetes is in `beta` version. To install just run:
 ```bash
-$: kubectl apply -f https://raw.githubusercontent.com/fmdlc/ISP-Checker/master/kubernetes/ISP-Checker-deploy.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/fmdlc/ISP-Checker/master/kubernetes/ISP-Checker-deploy.yaml
 ```
 You need to expose the `grafana` service to get access. You can do it by creating a `LoadBalancer` service type or by using an `IngressController`.
 
@@ -57,7 +57,6 @@ It's a super useful dashboard to monitor Hardware and Operating system stadistic
 <div align="center">
 <img src="https://github.com/fmdlc/ISP-Checker/blob/master/img/img_5.png?raw=true" />
 </div>
-
 
 <ins>For detailed Kubernetes instructions check:</ins> [here](https://github.com/fmdlc/ISP-Checker/blob/master/kubernetes/README.md).
 
@@ -70,7 +69,7 @@ $ curl -fsSL https://get.docker.com -o get-docker.sh | bash -
 You need to have `docker-compose` installed. To install it execute:
 
 ```bash
-$: sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
 Alternatively you can install it using `pip`:
@@ -84,7 +83,7 @@ There are two users:
 * <ins>Read and Write user:</ins> Used by Telegraf to write metrics into the InfluxDB Database.
 
 ```bash
-$: cat ./ISP-Checker/credentials.env
+$: cat ./docker-compose/credentials.env
 
 #--------------------------------------------------
 # Setup here credentials for InfluxDB and Telegraf
@@ -103,11 +102,12 @@ INFLUXDB_READ_USER_PASSWORD=VerySecurePassword
 
 If your primary interface is not named `eth0` please take note of the right name and update it on demand by running the following command:
 ```
-~/ISP_monitor/ISP-Checker$: sed -i 's/eth0/<YOUR-INTERFACE-NAME>/gi' grafana/network-dashboard.json
+$ sed -i 's/eth0/<YOUR-INTERFACE-NAME>/gi' docker-compose/grafana/network-dashboard.json
 ```
+
 For example, if your Interface is called `wlan0`:
 ```bash
-~/ISP_monitor/ISP-Checker$: sed -i 's/eth0/wlan0/gi' grafana/network-dashboard.json
+$ sed -i 's/eth0/wlan0/gi' docker-compose/grafana/network-dashboard.json
 ```
 
 #### Installation
@@ -117,7 +117,7 @@ Go to the `./ISP-Checker` directory, see the Makefile on this directory.
 $: make
 USAGE: make <TARGET>
 
-	- install     : Bootstrap components in `docker-compose`.
+	- install     : Bootstrap components in docker-compose.
 	- kube-install: Bootstrap components in k8s cluster.
 	- start       : Start entire stack.
 	- stop        : Stops entire stack.
