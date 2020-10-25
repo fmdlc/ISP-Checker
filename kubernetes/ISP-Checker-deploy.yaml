@@ -4359,7 +4359,6 @@ data:
       "uid": "Is1f1nRgz",
       "version": 1
     }
-
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -10923,6 +10922,10 @@ metadata:
   namespace: monitoring
   name: telegraf
 spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: telegraf
@@ -11271,8 +11274,8 @@ spec:
         spec:
           securityContext:
             runAsNonRoot: true
-            runAsUser: 472
-            fsGroup: 472
+            runAsUser: 10000
+            fsGroup: 10000
           containers:
             - name: telegraf-speedtest
               image: tty0/isp_telegraf:1.15.3

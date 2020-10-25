@@ -5,6 +5,10 @@ metadata:
   namespace: monitoring
   name: telegraf
 spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: telegraf
