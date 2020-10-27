@@ -14,3 +14,17 @@ jobs:
         with:
           file_or_dir: ./kubernetes/yaml/ 
           config_file: ./.yamllint     
+      - name: kube-score check
+        uses: piraces/kube-score-ga@v0.1.1
+        with:
+          manifests-folders: "./kubernetes/yaml/"
+          ignore-exit-code: true
+      - name: kubeval YAML validation
+        uses: makocchi-git/actions-k8s-manifests-validate-kubeval@v1.0.1
+        with:
+          files: ./kubernetes/yaml/
+          strict: true
+          ignore_missing_schemas: true
+          comment: true
+          token: ${{ secrets.GH_TOKEN }}
+          
