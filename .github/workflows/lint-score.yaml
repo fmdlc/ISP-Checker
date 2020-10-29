@@ -7,7 +7,7 @@ jobs:
       - name: Hadolint Action
         uses: brpaz/hadolint-action@v1.1.0
         with:
-          dockerfile:  ./docker-compose/telegraf/
+          dockerfile:  ./docker-compose/telegraf/Dockerfile
       - uses: actions/checkout@v2
       - name: YAML Lint
         uses: ibiqlik/action-yamllint@v1.0.0
