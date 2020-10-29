@@ -2,7 +2,7 @@
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: telegraf-pdb
+  name: isp-telegraf-pdb
   namespace: monitoring
 spec:
   minAvailable: 2
@@ -14,7 +14,7 @@ spec:
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: telegraf-pdb
+  name: isp-telegraf-pdb
   namespace: monitoring
 spec:
   minAvailable: 1
@@ -26,7 +26,7 @@ spec:
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: influxdb
+  name: isp-influxdb-pdb
   namespace: monitoring
 spec:
   minAvailable: 1
