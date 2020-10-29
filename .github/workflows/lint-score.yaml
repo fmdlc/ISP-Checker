@@ -1,19 +1,19 @@
-name: YAML Lint
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+name: Lint and validate
+on: [ pull_request, push ]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Hadolint Action
+        uses: brpaz/hadolint-action@v1.1.0
+        with:
+          dockerfile:  ./docker-compose/telegraf/
       - uses: actions/checkout@v2
       - name: YAML Lint
         uses: ibiqlik/action-yamllint@v1.0.0
         with:
-          file_or_dir: ./kubernetes/yaml/ 
-          config_file: ./.yamllint     
+          file_or_dir: ./kubernetes/yaml/
+          config_file: ./.yamllint
       - name: kube-score check
         uses: piraces/kube-score-ga@v0.1.1
         with:
@@ -27,4 +27,3 @@ jobs:
           ignore_missing_schemas: true
           comment: true
           token: ${{ secrets.GH_TOKEN }}
-          
