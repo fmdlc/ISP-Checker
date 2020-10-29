@@ -22,12 +22,12 @@ spec:
     spec:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 472
-        fsGroup: 472
+        runAsUser: 65534
+        fsGroup: 65534
       containers:
         - name: telegraf
           image: tty0/isp_telegraf:1.15.3
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           envFrom:
             - secretRef:
                 name: isp-checker-secrets-rw
@@ -68,6 +68,10 @@ spec:
         - name: wait-for-influxdb
           image: curlimages/curl:7.72.0
           command: ['sh', '-c', "until curl -XGET http://influxdb-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local:8086/; do echo Waiting\ for\ InfluxDB; sleep 2; done"]
+          resources:
+            limits:
+              memory: "30Mi"
+              cpu: "0.01"
       terminationGracePeriodSeconds: 30
       volumes:
         - name: telegraf-config-volume

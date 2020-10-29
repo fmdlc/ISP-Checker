@@ -26,24 +26,24 @@ spec:
       containers:
         - name: influxdb
           image: influxdb:1.8.3
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          lifecycle:
+            preStop:
+              exec:
+                # Introduce a delay to the shutdown sequence to wait for the
+                # pod eviction event to propagate.
+                command: ["sh", "-c", "sleep 5"]
           envFrom:
             - secretRef:
                 name: isp-checker-secrets-rw
           ports:
             - containerPort: 8086
           readinessProbe:
+            initialDelaySeconds: 30
+            periodSeconds: 30
             httpGet:
               path: /ping
               port: 8086
-            initialDelaySeconds: 30
-            periodSeconds: 30
-          livenessProbe:
-            httpGet:
-              path: /ping
-              port: 8086
-            initialDelaySeconds: 30
-            periodSeconds: 30
           volumeMounts:
             - mountPath: /var/lib/influxdb
               name: var-lib-influxdb
@@ -97,7 +97,13 @@ spec:
       containers:
         - name: grafana
           image: grafana/grafana:7.2.1
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          lifecycle:
+            preStop:
+              exec:
+                # Introduce a delay to the shutdown sequence to wait for the
+                # pod eviction event to propagate.
+                command: ["sh", "-c", "sleep 5"]
           envFrom:
             - secretRef:
                 name: isp-checker-secrets-ro
@@ -127,17 +133,15 @@ spec:
             - name: GF_INSTALL_PLUGINS
               value: https://grafana.com/api/plugins/gowee-traceroutemap-panel/versions/0.2.3/download;gowee-traceroutemap-panel
           readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 30
             httpGet:
               path: /api/health
               port: 3000
-            initialDelaySeconds: 5
-            periodSeconds: 30
           livenessProbe:
             httpGet:
               path: /
               port: 3000
-            initialDelaySeconds: 5
-            periodSeconds: 30
           resources:
             requests:
               memory: "200Mi"

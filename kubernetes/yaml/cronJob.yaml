@@ -21,12 +21,11 @@ spec:
         spec:
           securityContext:
             runAsNonRoot: true
-            runAsUser: 472
-            fsGroup: 472
+            runAsUser: 65534
           containers:
             - name: telegraf-mtr
               image: tty0/isp_telegraf:1.15.3
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
               command: ['sh', '-c', "/usr/bin/telegraf --config /etc/telegraf/telegraf-mtr.conf --once"]
               envFrom:
                 - secretRef:
@@ -79,12 +78,11 @@ spec:
         spec:
           securityContext:
             runAsNonRoot: true
-            runAsUser: 10000
-            fsGroup: 10000
+            runAsUser: 65534
           containers:
             - name: telegraf-speedtest
               image: tty0/isp_telegraf:1.15.3
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
               command: ['sh', '-c', "/usr/bin/telegraf --config /etc/telegraf/telegraf-speedtest.conf --once"]
               envFrom:
                 - secretRef:
