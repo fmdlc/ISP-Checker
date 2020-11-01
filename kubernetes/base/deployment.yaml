@@ -72,7 +72,7 @@ metadata:
   labels:
     app: grafana
 spec:
-  replicas: 3
+  replicas: 1
   progressDeadlineSeconds: 600
   selector:
     matchLabels:
@@ -144,11 +144,11 @@ spec:
               port: 3000
           resources:
             requests:
-              memory: "300Mi"
-              cpu: "0.35"
+              memory: "100Mi"
+              cpu: "0.10"
             limits:
-              memory: "1000Mi"
-              cpu: "0.5"
+              memory: "400Mi"
+              cpu: "0.25"
       volumes:
         # Grafana configuration PVC
         - name: grafana-volume
