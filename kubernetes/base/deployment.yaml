@@ -72,7 +72,7 @@ metadata:
   labels:
     app: grafana
 spec:
-  replicas: 1
+  replicas: 3
   progressDeadlineSeconds: 600
   selector:
     matchLabels:
