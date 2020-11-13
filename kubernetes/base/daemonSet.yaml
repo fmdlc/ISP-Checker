@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: telegraf
 spec:
   updateStrategy:
@@ -27,7 +27,7 @@ spec:
       containers:
         - name: telegraf
           image: tty0/isp_telegraf:1.15.3
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
                 name: isp-checker-secrets-rw

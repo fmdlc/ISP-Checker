@@ -3,7 +3,7 @@ apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
   name: isp-telegraf-pdb
-  namespace: monitoring
+  namespace: isp-checker
 spec:
   minAvailable: 2
   selector:
@@ -15,7 +15,7 @@ apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
   name: isp-telegraf-pdb
-  namespace: monitoring
+  namespace: isp-checker
 spec:
   minAvailable: 1
   selector:
@@ -27,7 +27,7 @@ apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
   name: isp-influxdb-pdb
-  namespace: monitoring
+  namespace: isp-checker
 spec:
   minAvailable: 1
   selector:

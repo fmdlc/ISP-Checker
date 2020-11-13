@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/app: influxdb
     app.kubernetes.io/project: isp-checker
   name: influxdb-svc
-  namespace: monitoring
+  namespace: isp-checker
 spec:
   clusterIP: 10.43.37.100
   ports:

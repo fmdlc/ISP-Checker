@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: influxdb
   labels:
     app: influxdb
@@ -26,7 +26,7 @@ spec:
       containers:
         - name: influxdb
           image: influxdb:1.8.3
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
               exec:
@@ -67,7 +67,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: grafana
   labels:
     app: grafana
@@ -97,7 +97,7 @@ spec:
       containers:
         - name: grafana
           image: grafana/grafana:7.2.1
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
               exec:

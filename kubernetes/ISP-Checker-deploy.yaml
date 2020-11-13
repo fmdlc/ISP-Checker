@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: monitoring
+  name: isp-checker
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   labels:
     app: influxdb
     app.kubernetes.io/app: influxdb
@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   labels:
     app: grafana
     app.kubernetes.io/app: grafana
@@ -40,7 +40,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: grafana-dashboard-provisioner
   labels:
     app.kubernetes.io/app: grafana
@@ -63,7 +63,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: telegraf-config
   labels:
     app.kubernetes.io/app: grafana
@@ -86,7 +86,7 @@ data:
     quiet = true
 
     [[outputs.influxdb]]
-    urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
+    urls = ["http://influxdb-svc.isp-checker.svc.cluster.local:8086/"]
     database = "$INFLUXDB_DB"
     timeout = "60s"
     username = "$INFLUXDB_ADMIN_USER"
@@ -192,7 +192,7 @@ data:
     quiet = true
 
     [[outputs.influxdb]]
-    urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
+    urls = ["http://influxdb-svc.isp-checker.svc.cluster.local:8086/"]
     database = "$INFLUXDB_DB"
     timeout = "60s"
     username = "$INFLUXDB_ADMIN_USER"
@@ -227,7 +227,7 @@ data:
     quiet = true
 
     [[outputs.influxdb]]
-    urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
+    urls = ["http://influxdb-svc.isp-checker.svc.cluster.local:8086/"]
     database = "$INFLUXDB_DB"
     timeout = "60s"
     username = "$INFLUXDB_ADMIN_USER"
@@ -248,7 +248,7 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: isp-checker-secrets-rw
 type: Opaque
 stringData:
@@ -260,7 +260,7 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: isp-checker-secrets-ro
   labels:
     app.kubernetes.io/app: influxdb
@@ -275,7 +275,7 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: influxdb-datasource-provisioner
   labels:
     app.kubernetes.io/app: grafana
@@ -287,7 +287,7 @@ stringData:
         type: influxdb
         access: proxy
         orgId: 1
-        url: http://influxdb-svc.monitoring.svc.cluster.local:8086/
+        url: http://influxdb-svc.isp-checker.svc.cluster.local:8086/
         user: grafana
         database: telegraf
         isDefault: true
@@ -296,7 +296,7 @@ stringData:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: network-dashboard
   labels:
     app.kubernetes.io/app: grafana
@@ -4261,7 +4261,7 @@ data:
       "style": "dark",
       "tags": [
         "networking",
-        "monitoring",
+        "isp-checker",
         "telegraf",
         "influxdb",
         "isp",
@@ -4363,7 +4363,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: raspberry-dashboard
   labels:
     app.kubernetes.io/app: grafana
@@ -4384,7 +4384,7 @@ data:
           }
         ]
       },
-      "description": "Raspberry Pi Monitoring",
+      "description": "Raspberry Pi isp-checker",
       "editable": true,
       "gnetId": 10578,
       "graphTooltip": 1,
@@ -11231,7 +11231,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Raspberry Pi Monitoring",
+      "title": "Raspberry Pi isp-checker",
       "uid": "sF7d-FHZz",
       "version": 2
     }
@@ -11239,8 +11239,8 @@ data:
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: telegraf-pdb
-  namespace: monitoring
+  name: isp-telegraf-pdb
+  namespace: isp-checker
 spec:
   minAvailable: 2
   selector:
@@ -11251,8 +11251,8 @@ spec:
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: telegraf-pdb
-  namespace: monitoring
+  name: isp-telegraf-pdb
+  namespace: isp-checker
 spec:
   minAvailable: 1
   selector:
@@ -11263,8 +11263,8 @@ spec:
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: influxdb
-  namespace: monitoring
+  name: isp-influxdb-pdb
+  namespace: isp-checker
 spec:
   minAvailable: 1
   selector:
@@ -11274,7 +11274,7 @@ spec:
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: telegraf
 spec:
   updateStrategy:
@@ -11373,7 +11373,7 @@ metadata:
     app.kubernetes.io/app: influxdb
     app.kubernetes.io/project: isp-checker
   name: influxdb-svc
-  namespace: monitoring
+  namespace: isp-checker
 spec:
   clusterIP: 10.43.37.100
   ports:
@@ -11388,7 +11388,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: influxdb
   labels:
     app: influxdb
@@ -11453,12 +11453,12 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: grafana
   labels:
     app: grafana
 spec:
-  replicas: 1
+  replicas: 3
   progressDeadlineSeconds: 600
   selector:
     matchLabels:
@@ -11517,7 +11517,7 @@ spec:
             - name: GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH
               value: /var/lib/grafana/dashboards/network-dashboard.json
             - name: GF_INSTALL_PLUGINS
-              value: https://grafana.com/api/plugins/gowee-traceroutemap-panel/versions/0.2.3/download;gowee-traceroutemap-panel
+              value: "https://grafana.com/api/plugins/gowee-traceroutemap-panel/versions/0.2.3/download;gowee-traceroutemap-panel,grafana-piechart-panel 1.6.1"
           readinessProbe:
             initialDelaySeconds: 5
             periodSeconds: 30
@@ -11530,11 +11530,11 @@ spec:
               port: 3000
           resources:
             requests:
-              memory: "200Mi"
-              cpu: "0.25"
+              memory: "100Mi"
+              cpu: "0.10"
             limits:
-              memory: "500Mi"
-              cpu: "0.4"
+              memory: "400Mi"
+              cpu: "0.25"
       volumes:
         # Grafana configuration PVC
         - name: grafana-volume
@@ -11561,12 +11561,12 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: telefraf-mtr
-  namespace: monitoring
+  namespace: isp-checker
 spec:
   schedule: "*/10 * * * *"
   startingDeadlineSeconds: 100
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   concurrencyPolicy: "Forbid"
   jobTemplate:
     spec:
@@ -11618,12 +11618,12 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: telefraf-speedtest
-  namespace: monitoring
+  namespace: isp-checker
 spec:
   schedule: "*/10 * * * *"
   startingDeadlineSeconds: 100
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   concurrencyPolicy: "Forbid"
   jobTemplate:
     spec:

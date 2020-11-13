@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: raspberry-dashboard
   labels:
     app.kubernetes.io/app: grafana
@@ -23,7 +23,7 @@ data:
           }
         ]
       },
-      "description": "Raspberry Pi Monitoring",
+      "description": "Raspberry Pi isp-checker",
       "editable": true,
       "gnetId": 10578,
       "graphTooltip": 1,
@@ -6870,7 +6870,7 @@ data:
         ]
       },
       "timezone": "browser",
-      "title": "Raspberry Pi Monitoring",
+      "title": "Raspberry Pi isp-checker",
       "uid": "sF7d-FHZz",
       "version": 2
     }

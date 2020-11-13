@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: grafana-dashboard-provisioner
   labels:
     app.kubernetes.io/app: grafana
@@ -25,7 +25,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: telegraf-config
   labels:
     app.kubernetes.io/app: grafana
@@ -48,7 +48,7 @@ data:
     quiet = true
 
     [[outputs.influxdb]]
-    urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
+    urls = ["http://influxdb-svc.isp-checker.svc.cluster.local:8086/"]
     database = "$INFLUXDB_DB"
     timeout = "60s"
     username = "$INFLUXDB_ADMIN_USER"
@@ -154,7 +154,7 @@ data:
     quiet = true
 
     [[outputs.influxdb]]
-    urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
+    urls = ["http://influxdb-svc.isp-checker.svc.cluster.local:8086/"]
     database = "$INFLUXDB_DB"
     timeout = "60s"
     username = "$INFLUXDB_ADMIN_USER"
@@ -189,7 +189,7 @@ data:
     quiet = true
 
     [[outputs.influxdb]]
-    urls = ["http://influxdb-svc.monitoring.svc.cluster.local:8086/"]
+    urls = ["http://influxdb-svc.isp-checker.svc.cluster.local:8086/"]
     database = "$INFLUXDB_DB"
     timeout = "60s"
     username = "$INFLUXDB_ADMIN_USER"

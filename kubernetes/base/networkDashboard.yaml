@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: network-dashboard
   labels:
     app.kubernetes.io/app: grafana
@@ -3967,7 +3967,7 @@ data:
       "style": "dark",
       "tags": [
         "networking",
-        "monitoring",
+        "isp-checker",
         "telegraf",
         "influxdb",
         "isp",

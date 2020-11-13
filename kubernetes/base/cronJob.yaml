@@ -3,7 +3,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: telefraf-mtr
-  namespace: monitoring
+  namespace: isp-checker
 spec:
   schedule: "*/10 * * * *"
   startingDeadlineSeconds: 100
@@ -25,7 +25,7 @@ spec:
           containers:
             - name: telegraf-mtr
               image: tty0/isp_telegraf:1.15.3
-              imagePullPolicy: Always
+              imagePullPolicy: IfNotPresent
               command: ['sh', '-c', "/usr/bin/telegraf --config /etc/telegraf/telegraf-mtr.conf --once"]
               envFrom:
                 - secretRef:
@@ -46,7 +46,7 @@ spec:
                 - name: telegraf-config-volume
                   mountPath: /etc/telegraf/
                   readOnly: true
-          restartPolicy: Never
+          restartPolicy: OnFailure
           volumes:
             - name: telegraf-config-volume
               configMap:
@@ -60,7 +60,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: telefraf-speedtest
-  namespace: monitoring
+  namespace: isp-checker
 spec:
   schedule: "*/10 * * * *"
   startingDeadlineSeconds: 100
@@ -82,7 +82,7 @@ spec:
           containers:
             - name: telegraf-speedtest
               image: tty0/isp_telegraf:1.15.3
-              imagePullPolicy: Always
+              imagePullPolicy: IfNotPresent
               command: ['sh', '-c', "/usr/bin/telegraf --config /etc/telegraf/telegraf-speedtest.conf --once"]
               envFrom:
                 - secretRef:
@@ -103,7 +103,7 @@ spec:
                 - name: telegraf-config-volume
                   mountPath: /etc/telegraf/
                   readOnly: true
-          restartPolicy: Never
+          restartPolicy: OnFailure
           volumes:
             - name: telegraf-config-volume
               configMap:
