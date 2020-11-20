@@ -3,12 +3,12 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: telefraf-mtr
-  namespace: monitoring
+  namespace: isp-checker
 spec:
   schedule: "*/10 * * * *"
   startingDeadlineSeconds: 100
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   concurrencyPolicy: "Forbid"
   jobTemplate:
     spec:
@@ -21,8 +21,7 @@ spec:
         spec:
           securityContext:
             runAsNonRoot: true
-            runAsUser: 472
-            fsGroup: 472
+            runAsUser: 65534
           containers:
             - name: telegraf-mtr
               image: tty0/isp_telegraf:1.15.3
@@ -47,7 +46,7 @@ spec:
                 - name: telegraf-config-volume
                   mountPath: /etc/telegraf/
                   readOnly: true
-          restartPolicy: Never
+          restartPolicy: OnFailure
           volumes:
             - name: telegraf-config-volume
               configMap:
@@ -61,12 +60,12 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: telefraf-speedtest
-  namespace: monitoring
+  namespace: isp-checker
 spec:
   schedule: "*/10 * * * *"
   startingDeadlineSeconds: 100
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   concurrencyPolicy: "Forbid"
   jobTemplate:
     spec:
@@ -79,8 +78,7 @@ spec:
         spec:
           securityContext:
             runAsNonRoot: true
-            runAsUser: 10000
-            fsGroup: 10000
+            runAsUser: 65534
           containers:
             - name: telegraf-speedtest
               image: tty0/isp_telegraf:1.15.3
@@ -105,7 +103,7 @@ spec:
                 - name: telegraf-config-volume
                   mountPath: /etc/telegraf/
                   readOnly: true
-          restartPolicy: Never
+          restartPolicy: OnFailure
           volumes:
             - name: telegraf-config-volume
               configMap:

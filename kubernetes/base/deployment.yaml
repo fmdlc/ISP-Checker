@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: influxdb
   labels:
     app: influxdb
@@ -27,23 +27,23 @@ spec:
         - name: influxdb
           image: influxdb:1.8.3
           imagePullPolicy: IfNotPresent
+          lifecycle:
+            preStop:
+              exec:
+                # Introduce a delay to the shutdown sequence to wait for the
+                # pod eviction event to propagate.
+                command: ["sh", "-c", "sleep 5"]
           envFrom:
             - secretRef:
                 name: isp-checker-secrets-rw
           ports:
             - containerPort: 8086
           readinessProbe:
+            initialDelaySeconds: 30
+            periodSeconds: 30
             httpGet:
               path: /ping
               port: 8086
-            initialDelaySeconds: 30
-            periodSeconds: 30
-          livenessProbe:
-            httpGet:
-              path: /ping
-              port: 8086
-            initialDelaySeconds: 30
-            periodSeconds: 30
           volumeMounts:
             - mountPath: /var/lib/influxdb
               name: var-lib-influxdb
@@ -67,12 +67,12 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: monitoring
+  namespace: isp-checker
   name: grafana
   labels:
     app: grafana
 spec:
-  replicas: 1
+  replicas: 3
   progressDeadlineSeconds: 600
   selector:
     matchLabels:
@@ -98,6 +98,12 @@ spec:
         - name: grafana
           image: grafana/grafana:7.2.1
           imagePullPolicy: IfNotPresent
+          lifecycle:
+            preStop:
+              exec:
+                # Introduce a delay to the shutdown sequence to wait for the
+                # pod eviction event to propagate.
+                command: ["sh", "-c", "sleep 5"]
           envFrom:
             - secretRef:
                 name: isp-checker-secrets-ro
@@ -125,26 +131,24 @@ spec:
             - name: GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH
               value: /var/lib/grafana/dashboards/network-dashboard.json
             - name: GF_INSTALL_PLUGINS
-              value: https://grafana.com/api/plugins/gowee-traceroutemap-panel/versions/0.2.3/download;gowee-traceroutemap-panel
+              value: "https://grafana.com/api/plugins/gowee-traceroutemap-panel/versions/0.2.3/download;gowee-traceroutemap-panel,grafana-piechart-panel 1.6.1"
           readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 30
             httpGet:
               path: /api/health
               port: 3000
-            initialDelaySeconds: 5
-            periodSeconds: 30
           livenessProbe:
             httpGet:
               path: /
               port: 3000
-            initialDelaySeconds: 5
-            periodSeconds: 30
           resources:
             requests:
-              memory: "200Mi"
-              cpu: "0.25"
+              memory: "100Mi"
+              cpu: "0.10"
             limits:
-              memory: "500Mi"
-              cpu: "0.4"
+              memory: "400Mi"
+              cpu: "0.25"
       volumes:
         # Grafana configuration PVC
         - name: grafana-volume

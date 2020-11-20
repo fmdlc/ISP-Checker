@@ -1,0 +1,35 @@
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: isp-telegraf-pdb
+  namespace: isp-checker
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: telegraf
+
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: isp-telegraf-pdb
+  namespace: isp-checker
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: grafana
+
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: isp-influxdb-pdb
+  namespace: isp-checker
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: grafana
