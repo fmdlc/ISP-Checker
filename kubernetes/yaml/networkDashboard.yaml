@@ -220,7 +220,7 @@ data:
           "yaxes": [
             {
               "$$hashKey": "object:401",
-              "format": "Mbits",
+              "format": "MBs",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -399,7 +399,7 @@ data:
                 }
               ]
             },
-          "unit": "Mbits"
+          "unit": "MBs"
           },
         "overrides": []
         },
@@ -685,7 +685,7 @@ data:
                 }
               ]
             },
-          "unit": "Mbits"
+          "unit": "MBs"
           },
         "overrides": []
         },

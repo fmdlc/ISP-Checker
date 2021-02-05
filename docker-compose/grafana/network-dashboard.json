@@ -210,7 +210,7 @@
         "yaxes": [
           {
             "$$hashKey": "object:401",
-            "format": "Mbits",
+            "format": "MBs",
             "label": null,
             "logBase": 1,
             "max": null,
@@ -249,11 +249,7 @@
                   "value": null
                 },
                 {
-                  "color": "super-light-green",
-                  "value": 0
-                },
-                {
-                  "color": "light-green",
+                  "color": "dark-green",
                   "value": 50
                 },
                 {
@@ -261,19 +257,15 @@
                   "value": 100
                 },
                 {
-                  "color": "semi-dark-green",
+                  "color": "#EAB839",
                   "value": 150
-                },
-                {
-                  "color": "light-orange",
-                  "value": 150
-                },
-                {
-                  "color": "super-light-orange",
-                  "value": 200
                 },
                 {
                   "color": "semi-dark-orange",
+                  "value": 200
+                },
+                {
+                  "color": "light-red",
                   "value": 250
                 },
                 {
@@ -389,7 +381,7 @@
                 }
               ]
             },
-            "unit": "Mbits"
+            "unit": "MBs"
           },
           "overrides": []
         },
@@ -647,35 +639,35 @@
                 },
                 {
                   "color": "red",
-                  "value": 0.5
+                  "value": 0.75
                 },
                 {
                   "color": "dark-orange",
-                  "value": 1
+                  "value": 0.875
                 },
                 {
                   "color": "light-yellow",
-                  "value": 2
+                  "value": 1
                 },
                 {
                   "color": "super-light-green",
-                  "value": 3
+                  "value": 1.125
                 },
                 {
                   "color": "light-green",
-                  "value": 4
+                  "value": 1.25
                 },
                 {
                   "color": "semi-dark-green",
-                  "value": 5
+                  "value": 1.375
                 },
                 {
                   "color": "dark-green",
-                  "value": 6
+                  "value": 1.5
                 }
               ]
             },
-            "unit": "Mbits"
+            "unit": "MBs"
           },
           "overrides": []
         },
@@ -905,48 +897,38 @@
             "mappings": [],
             "max": 1000,
             "min": 0,
-            "thresholds": {
-              "mode": "percentage",
-              "steps": [
+            "steps": [
                 {
-                  "color": "super-light-green",
+                  "color": "dark-red",
                   "value": null
                 },
                 {
-                  "color": "light-green",
-                  "value": 10
-                },
-                {
-                  "color": "semi-dark-green",
-                  "value": 20
-                },
-                {
-                  "color": "dark-green",
-                  "value": 30
-                },
-                {
-                  "color": "super-light-orange",
-                  "value": 40
-                },
-                {
-                  "color": "light-orange",
-                  "value": 50
-                },
-                {
-                  "color": "semi-dark-orange",
-                  "value": 70
+                  "color": "light-red",
+                  "value": 9
                 },
                 {
                   "color": "dark-orange",
-                  "value": 80
+                  "value": 10
                 },
                 {
-                  "color": "light-red",
-                  "value": 90
+                  "color": "super-light-orange",
+                  "value": 11
                 },
                 {
-                  "color": "dark-red",
-                  "value": 100
+                  "color": "super-light-green",
+                  "value": 12
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 13
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 14
+                },
+                {
+                  "color": "dark-green",
+                  "value": 15
                 }
               ]
             },
@@ -1801,28 +1783,32 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "super-light-green",
+                  "color": "dark-red",
                   "value": null
                 },
                 {
-                  "color": "semi-dark-green",
-                  "value": 150
+                  "color": "dark-green",
+                  "value": 50
                 },
                 {
-                  "color": "dark-green",
-                  "value": 200
+                  "color": "semi-dark-green",
+                  "value": 100
                 },
                 {
                   "color": "#EAB839",
-                  "value": 250
+                  "value": 150
                 },
                 {
                   "color": "semi-dark-orange",
-                  "value": 300
+                  "value": 200
+                },
+                {
+                  "color": "light-red",
+                  "value": 250
                 },
                 {
                   "color": "dark-red",
-                  "value": 350
+                  "value": 300
                 }
               ]
             },
@@ -1917,28 +1903,32 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "super-light-green",
+                  "color": "dark-red",
                   "value": null
                 },
                 {
-                  "color": "semi-dark-green",
-                  "value": 150
+                  "color": "dark-green",
+                  "value": 50
                 },
                 {
-                  "color": "dark-green",
-                  "value": 200
+                  "color": "semi-dark-green",
+                  "value": 100
                 },
                 {
                   "color": "#EAB839",
-                  "value": 250
+                  "value": 150
                 },
                 {
                   "color": "semi-dark-orange",
-                  "value": 300
+                  "value": 200
+                },
+                {
+                  "color": "light-red",
+                  "value": 250
                 },
                 {
                   "color": "dark-red",
-                  "value": 350
+                  "value": 300
                 }
               ]
             },
@@ -2033,28 +2023,32 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "super-light-green",
+                  "color": "dark-red",
                   "value": null
                 },
                 {
-                  "color": "semi-dark-green",
-                  "value": 150
+                  "color": "dark-green",
+                  "value": 50
                 },
                 {
-                  "color": "dark-green",
-                  "value": 200
+                  "color": "semi-dark-green",
+                  "value": 100
                 },
                 {
                   "color": "#EAB839",
-                  "value": 250
+                  "value": 150
                 },
                 {
                   "color": "semi-dark-orange",
-                  "value": 300
+                  "value": 200
+                },
+                {
+                  "color": "light-red",
+                  "value": 250
                 },
                 {
                   "color": "dark-red",
-                  "value": 350
+                  "value": 300
                 }
               ]
             },
