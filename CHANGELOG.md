@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Octobre 23 2020 - v1.4 (Beta)
+## October 23 2020 - v1.4 (Beta)
 * Improved Kubernetes documentation.
 * Improved main documentation.
 * Updated Grafana deployment to use a `PersistentVolume`.
