@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.7"
 services:
   influxdb:
     labels:
@@ -29,6 +29,7 @@ services:
       - "influxdb"
     depends_on:
       - "influxdb"
+    init: true
   grafana:
     labels:
       - "docker.group=ISP-Checker"
