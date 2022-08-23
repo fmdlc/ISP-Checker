@@ -191,3 +191,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## License
 ISP-Checker is licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
+
+
+### Infrastructure model
+
+![Infrastructure model](.infragenie/infrastructure_model.png)
