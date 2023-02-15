@@ -11016,7 +11016,6 @@ metadata:
   name: influxdb-svc
   namespace: monitoring
 spec:
-  clusterIP: 10.43.37.100
   ports:
   - port: 8086
     protocol: TCP
